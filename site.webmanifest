@@ -1,0 +1,9 @@
+{
+  "name": "Mathew Yel",
+  "short_name": "Mathew",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0d13",
+  "theme_color": "#0b0d13",
+  "icons": [{ "src": "/assets/favicon.svg", "sizes": "64x64", "type": "image/svg+xml" }]
+}

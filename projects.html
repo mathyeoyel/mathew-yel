@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Mathew Yel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles.css?v=4">
+  <script defer src="/scripts.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="logo" aria-label="Mathew Yel">
+        <img src="/assets/logo-light.png" alt="Mathew Yel Logo" class="logo-img light-mode">
+        <img src="/assets/logo-dark.png"  alt="Mathew Yel Logo (Dark)" class="logo-img dark-mode">
+        <span class="logo-text">Mathew Yel</span>
+      </a>
+      <nav>
+        <a class="active" href="/projects.html">Projects</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact.html">Contact</a>
+        <button id="themeToggle" class="btn tiny" aria-label="Toggle dark/light theme" title="Switch theme">
+          <span class="sr-only">Toggle theme</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <h1>Selected Projects</h1>
+    <p class="sub">A sample of branding, content, and web work. This page renders from <code>/data/projects.json</code>.</p>
+    <div id="projectGrid" class="grid two"></div>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <p>© 2025 Mathew Yel — All rights reserved.</p>
+      <p><a href="#">Back to top ↑</a></p>
+    </div>
+  </footer>
+</body>
+</html>

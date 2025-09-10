@@ -1,0 +1,52 @@
+[
+  {
+    "title": "VikraHub",
+    "summary": "A growing platform connecting and empowering South Sudanese creatives — designers, freelancers, and storytellers.",
+    "tags": [
+      "Platform",
+      "Community",
+      "Creative Network"
+    ],
+    "link": "#"
+  },
+  {
+    "title": "Yelose Graphics",
+    "summary": "Design agency specializing in branding and visual identity for businesses and creative communities.",
+    "tags": [
+      "Branding",
+      "Visual Identity",
+      "Agency"
+    ],
+    "link": "https://www.yelosegraphics.com"
+  },
+  {
+    "title": "South Gleam Forex & Money Transfer",
+    "summary": "Financial services platform bringing secure money transfer and forex solutions to South Sudan.",
+    "tags": [
+      "Fintech",
+      "UI/UX",
+      "Development"
+    ],
+    "link": "#"
+  },
+  {
+    "title": "Dineasy Food Delivery",
+    "summary": "Local food delivery platform connecting restaurants with customers across Juba.",
+    "tags": [
+      "Mobile App",
+      "Food Tech",
+      "Local Business"
+    ],
+    "link": "#"
+  },
+  {
+    "title": "Etix South Sudan",
+    "summary": "E-ticket website and mobile app concept for local events and transport booking.",
+    "tags": [
+      "Product",
+      "UI/UX",
+      "Prototype"
+    ],
+    "link": "#"
+  }
+]

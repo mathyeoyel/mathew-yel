@@ -1,0 +1,677 @@
+
+:root{
+  --bg: #101010;
+  --card: #121521;
+  --muted: #a7b0c0;
+  --text: #f2f4f8;
+  --accent: #f89a00;         /* Changed from blue to orange */
+  --border: #22283a;
+  --title-primary: #f89a00;    /* Main titles */
+  --title-secondary: #ee9200;  /* Secondary headings */
+  --title-tertiary: #e88d00;   /* Smaller headings */
+  --title-highlight: #dd8400;  /* Special emphasis */
+}
+:root.light {
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --muted: #52607a;
+  --text: #0b1020;
+  --accent: #d17a00;         /* Changed from blue to darker orange */
+  --border: #e6eaf2;
+  --title-primary: #d17a00;    /* Darker for light mode */
+  --title-secondary: #d77f00;  /* Darker for light mode */
+  --title-tertiary: #dd8400;   /* Darker for light mode */
+  --title-highlight: #e88d00;  /* Darker for light mode */
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif;line-height:1.6}
+a{color:var(--accent);text-decoration:none}
+
+/* ==== Title Styling with Orange Themes ==== */
+h1, .hero-text h1{
+  color:var(--title-primary);
+  font-weight:800;
+}
+h2{
+  color:var(--title-secondary);
+  font-weight:700;
+}
+h3, .card h3{
+  color:var(--title-tertiary);
+  font-weight:600;
+}
+h4, h5, h6{
+  color:var(--title-highlight);
+  font-weight:600;
+}
+
+/* Special title highlights */
+.accent{
+  color:var(--title-primary) !important;
+}
+.lead{
+  color:var(--title-secondary);
+}
+
+/* Hero accent text uses orange */
+.hero .accent{
+  color:var(--accent) !important;
+}
+
+/* Logo text gets the primary orange */
+.logo-text{
+  color:var(--title-primary) !important;
+}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.site-header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(16,16,16,0.7);border-bottom:1px solid var(--border);z-index:10}
+:root.light .site-header{background:rgba(255,255,255,0.7)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+
+/* ==== CORE LAYOUT STYLES ==== */
+nav a{margin-left:18px;color:var(--muted)}
+nav a.active{color:var(--text);font-weight:600}
+.nav a:hover{color:var(--text)}
+.btn{padding:12px 16px;border-radius:12px;border:1px solid var(--border);display:inline-block;cursor:pointer}
+.btn.tiny{padding:6px 10px;border-radius:10px;font-size:13px}
+.btn.primary{background:var(--accent);color:#ffffff;border-color:transparent;font-weight:700}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--border)}
+.btn.ghost:hover{background:var(--accent);color:#ffffff;border-color:var(--accent)}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:72px 0}
+.hero-text h1{font-size:48px;line-height:1.1;margin:0 0 8px}
+.lead{font-size:20px;font-weight:600;margin:0 0 8px}
+.sub{color:var(--muted);max-width:60ch;margin:0 0 16px}
+.accent{color:var(--accent)}
+.cta-row{display:flex;gap:12px;margin:18px 0 12px}
+.quick.meta{margin:10px 0 0;padding-left:18px;color:var(--muted)}
+.quick.meta li{margin:4px 0;display:flex;align-items:center;gap:8px}
+.quick.meta li i{color:var(--accent);width:16px;text-align:center;font-size:14px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  color:var(--text);
+}
+.card h3{margin-top:0}
+
+/* Light mode card adjustments */
+:root.light .card{
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+}
+.checklist{list-style:none;padding-left:0;margin:0}
+.checklist li{padding-left:28px;position:relative;margin:10px 0;color:var(--text)}
+.checklist li::before{
+  content:'\f00c'; /* fa-check */
+  font-family:'Font Awesome 6 Free';
+  font-weight:900;
+  position:absolute;
+  left:8px;
+  top:0;
+  color:var(--accent);
+  font-size:14px;
+}
+
+/* Light mode adjustments for checklist */
+:root.light .checklist li{color:var(--text)}
+:root.light .checklist li::before{color:var(--accent)}
+.two-col{display:grid;grid-template-columns:1fr .8fr;gap:28px;padding:40px 0}
+.bullets{margin:0;padding-left:18px}
+.grid.two{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.list{display:grid;gap:16px}
+.list .item{border-top:1px solid var(--border);padding-top:12px}
+.timeline{list-style:none;padding-left:0;margin:0;border-left:2px dashed var(--border);display:grid;gap:18px}
+.timeline li{display:grid;grid-template-columns:80px 16px 1fr;gap:12px;align-items:start}
+.timeline .time{color:var(--muted)}
+.timeline .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);margin-top:6px}
+.form label{display:block;font-weight:600;margin:8px 0}
+.form input,.form textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text)}
+.site-footer{border-top:1px solid var(--border);margin-top:48px}
+.footer-grid{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0;color:var(--muted)}
+.links{margin-top:12px}
+.link{color:var(--accent);margin-right:16px;font-size:14px;text-decoration:none}
+.link:hover{text-decoration:underline}
+
+/* Card styles consolidated - removed duplicate */
+/* ==== ENHANCED THEME TOGGLE BUTTON ==== */
+#themeToggle{
+  position:relative;
+  width:60px;
+  height:32px;
+  border-radius:16px;
+  border:2px solid var(--border);
+  background:var(--card);
+  cursor:pointer;
+  transition:all 0.3s ease;
+  display:flex;
+  align-items:center;
+  padding:2px;
+  font-size:0; /* hide text */
+  overflow:hidden;
+}
+
+#themeToggle::before{
+  content:'\f186'; /* fa-moon */
+  font-family:'Font Awesome 6 Free';
+  font-weight:900;
+  position:absolute;
+  left:6px;
+  font-size:14px;
+  transition:all 0.3s ease;
+  z-index:2;
+  color:var(--text);
+}
+
+#themeToggle::after{
+  content:'';
+  position:absolute;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:var(--accent);
+  left:4px;
+  transition:all 0.3s ease;
+  box-shadow:0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Light mode state */
+:root.light #themeToggle::before{
+  content:'\f185'; /* fa-sun */
+  left:34px;
+}
+
+:root.light #themeToggle::after{
+  left:32px;
+}
+
+#themeToggle:hover{
+  border-color:var(--accent);
+  transform:scale(1.05);
+}
+
+#themeToggle:active{
+  transform:scale(0.95);
+}
+
+/* ==== RESPONSIVE DESIGN - ORGANIZED BY BREAKPOINT ==== */
+
+/* Global responsive styles */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .grid.two{grid-template-columns:1fr}
+}
+
+/* Tablet adjustments */
+@media (max-width:768px){
+  .container{padding:0 20px}
+  
+  .hero{
+    padding:56px 0;
+    gap:32px;
+  }
+  
+  .hero-text h1{
+    font-size:40px;
+    line-height:1.1;
+    margin-bottom:12px;
+  }
+  
+  .lead{
+    font-size:20px;
+    margin-bottom:12px;
+  }
+  
+  .sub{
+    font-size:16px;
+    line-height:1.5;
+  }
+  
+  .two-col{
+    gap:32px;
+    padding:40px 0;
+  }
+  
+  .card{
+    padding:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  :root.light .card{
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  }
+  
+  .card h3{
+    font-size:20px;
+  }
+  
+  .cta-row{
+    flex-direction:column;
+    gap:12px;
+    margin:20px 0 16px;
+  }
+  
+  .btn{
+    text-align:center;
+    width:100%;
+    padding:12px 16px;
+    font-size:16px;
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  
+  /* Improve button touch targets */
+  .cta-row .btn{
+    min-height:48px;
+    border-radius:8px;
+    font-weight:600;
+  }
+  
+  /* Timeline tablet */
+  .timeline{
+    gap:20px;
+  }
+  
+  .timeline li{
+    grid-template-columns:80px 14px 1fr;
+    gap:12px;
+  }
+  
+  /* Navigation tablet */
+  .nav{
+    height:64px;
+  }
+  
+  .nav a{
+    padding:6px 12px;
+    font-size:15px;
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  
+  .nav nav a{
+    padding:6px 12px;
+    font-size:15px;
+  }
+  
+  /* Better touch targets for links */
+  .links .link{
+    display:inline-block;
+    min-height:44px;
+    line-height:44px;
+    padding:0 12px;
+    border-radius:6px;
+    transition:background 0.2s ease;
+  }
+  
+  .links .link:hover{
+    background:rgba(248, 154, 0, 0.1);
+  }
+  
+  /* Better spacing for touch */
+  .checklist li{
+    min-height:36px;
+    display:flex;
+    align-items:flex-start;
+    padding-top:8px;
+  }
+  
+  /* Better section spacing */
+  section + section{
+    margin-top:48px;
+  }
+  
+  /* Improve theme toggle for touch */
+  #themeToggle{
+    min-height:44px;
+    min-width:60px;
+  }
+  
+  /* Mobile-friendly text selection */
+  body{
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+}
+
+/* Theme toggle adjustments for small screens */
+@media (max-width:640px){
+  #themeToggle{
+    width:50px;
+    height:28px;
+  }
+  #themeToggle::after{
+    width:20px;
+    height:20px;
+  }
+  #themeToggle::before{
+    font-size:12px;
+    left:5px;
+  }
+  :root.light #themeToggle::after{
+    left:26px;
+  }
+  :root.light #themeToggle::before{
+    left:29px;
+  }
+}
+
+/* Mobile phone adjustments */
+@media (max-width:480px){
+  .container{padding:0 16px}
+  
+  /* Header adjustments */
+  .nav{
+    height:60px;
+    gap:12px;
+    padding:0 16px;
+  }
+  
+  .nav nav{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  
+  .nav nav a{
+    margin-left:0;
+    font-size:14px;
+    padding:6px 12px;
+    border-radius:6px;
+    transition:background 0.2s ease;
+  }
+  
+  .nav nav a:hover{
+    background:var(--card);
+  }
+  
+  /* Hero section mobile */
+  .hero{
+    padding:40px 0;
+    gap:24px;
+  }
+  
+  .hero-text h1{
+    font-size:32px;
+    margin-bottom:16px;
+    line-height:1.1;
+  }
+  
+  .lead{
+    font-size:18px;
+    margin-bottom:16px;
+    line-height:1.4;
+  }
+  
+  .sub{
+    font-size:16px;
+    margin-bottom:20px;
+    line-height:1.5;
+  }
+  
+  /* CTA buttons mobile */
+  .cta-row{
+    margin:24px 0 20px;
+  }
+  
+  .btn{
+    padding:14px 20px;
+    font-size:16px;
+    font-weight:600;
+    border-radius:8px;
+  }
+  
+  /* Meta list mobile */
+  .quick.meta{
+    margin:20px 0 0;
+    padding-left:0;
+  }
+  
+  .quick.meta li{
+    font-size:15px;
+    margin:8px 0;
+    padding:4px 0;
+  }
+  
+  .quick.meta li i{
+    font-size:14px;
+    width:18px;
+  }
+  
+  /* Cards mobile */
+  .card{
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:16px;
+  }
+  
+  .card h3{
+    font-size:18px;
+    margin-bottom:16px;
+  }
+  
+  .checklist li{
+    font-size:15px;
+    margin:10px 0;
+    padding-left:28px;
+    line-height:1.4;
+  }
+  
+  .checklist li::before{
+    font-size:14px;
+    left:8px;
+  }
+  
+  .bullets li{
+    font-size:15px;
+    margin:8px 0;
+  }
+  
+  /* Links in cards */
+  .links{
+    margin-top:16px;
+  }
+  
+  .links .link{
+    font-size:15px;
+    margin-right:20px;
+    padding:8px 0;
+  }
+  
+  /* Two column to single column */
+  .two-col{
+    gap:32px;
+    padding:32px 0;
+  }
+  
+  /* Timeline mobile */
+  .timeline{
+    gap:20px;
+    margin-top:24px;
+  }
+  
+  .timeline li{
+    grid-template-columns:70px 14px 1fr;
+    gap:12px;
+    font-size:15px;
+  }
+  
+  .timeline .time{
+    font-size:13px;
+    font-weight:600;
+  }
+  
+  .timeline .dot{
+    width:12px;
+    height:12px;
+    margin-top:5px;
+  }
+  
+  .timeline .desc{
+    line-height:1.4;
+  }
+  
+  /* Footer mobile */
+  .footer-grid{
+    flex-direction:column;
+    gap:12px;
+    text-align:center;
+    font-size:14px;
+    padding:24px 0;
+  }
+  
+  /* Section spacing */
+  section{
+    margin-bottom:24px;
+  }
+  
+  h2{
+    font-size:24px;
+    margin-bottom:20px;
+  }
+}
+
+/* Extra small mobile adjustments */
+@media (max-width:360px){
+  .container{padding:0 12px}
+  
+  .hero{
+    padding:32px 0;
+  }
+  
+  .hero-text h1{
+    font-size:28px;
+    margin-bottom:14px;
+  }
+  
+  .lead{
+    font-size:16px;
+    margin-bottom:14px;
+  }
+  
+  .sub{
+    font-size:15px;
+    margin-bottom:18px;
+  }
+  
+  .nav{
+    height:56px;
+    padding:0 12px;
+  }
+  
+  .nav nav{
+    gap:8px;
+  }
+  
+  .nav nav a{
+    font-size:13px;
+    padding:4px 8px;
+  }
+  
+  .card{
+    padding:16px;
+  }
+  
+  .card h3{
+    font-size:16px;
+  }
+  
+  .checklist li{
+    font-size:14px;
+    margin:8px 0;
+  }
+  
+  .quick.meta li{
+    font-size:14px;
+  }
+  
+  .btn{
+    padding:12px 16px;
+    font-size:15px;
+  }
+  
+  .timeline li{
+    grid-template-columns:60px 12px 1fr;
+    gap:8px;
+    font-size:14px;
+  }
+  
+  .timeline .time{
+    font-size:12px;
+  }
+  
+  .timeline .dot{
+    width:10px;
+    height:10px;
+  }
+  
+  h2{
+    font-size:22px;
+  }
+}
+
+/* ==== UNIVERSAL STYLES FOR MOBILE OPTIMIZATION ==== */
+
+/* Prevent horizontal scroll */
+*{
+  max-width:100%;
+  word-wrap:break-word;
+}
+
+/* ==== HEADER LOGO STYLES ==== */
+.site-header .logo{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-start;
+  height:48px;
+  padding:0;
+  margin:0;
+  background:none;      /* kill old gradient box */
+  border:0;
+  gap:12px;            /* space between logo and text */
+  text-decoration:none;
+}
+
+.site-header .logo img{
+  height:32px !important;   /* FORCE a small logo */
+  width:auto !important;
+  max-width:none !important; /* beat any img{max-width:100%} */
+  display:block;
+  flex-shrink:0;           /* prevent logo from shrinking */
+}
+
+.logo-text{
+  font-size:18px;
+  font-weight:700;
+  color:var(--title-primary);
+  white-space:nowrap;      /* prevent text wrapping */
+}
+
+/* Dark theme (default) = show DARK logo (but your dark logo file might be named "light") */
+.logo-img.light-mode{ display:none !important; }
+.logo-img.dark-mode{  display:block !important; }
+
+/* Light theme = show LIGHT logo (but your light logo file might be named "dark") */
+:root.light .logo-img.light-mode{ display:block !important; }
+:root.light .logo-img.dark-mode{  display:none !important; }
+
+/* Logo responsive styles */
+@media (min-width:960px){
+  .site-header .logo img{ height:36px !important; }
+  .logo-text{ font-size:20px; }
+}
+
+/* Hide text on smaller screens to save space */
+@media (max-width:640px){
+  .logo-text{ display:none; }
+  
+  /* Adjust logo spacing when text is hidden */
+  .site-header .logo{
+    gap:0;
+    width:auto;
+  }
+}
