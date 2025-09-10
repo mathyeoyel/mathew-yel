@@ -1,2 +1,9 @@
-# mathew-yel
-Personal portfolio website of Mathew Yel — IT Student, Creative Director and Brand Specialist. Features a modern multi-page design with light/dark theme toggle, projects &amp; blog powered by JSON, SEO meta tags, and a simple contact form. Built for fast, static deployment on Vercel.
+Mathew Yel — Personal Portfolio Website
+
+Personal portfolio website of Mathew Yel - IT Student, Creative Director and Brand Specialist.
+It features:
+🌗 Light/Dark theme toggle
+📂 Projects & Blog powered by JSON
+🔍 SEO-ready meta tags & sitemap
+✉️ Simple contact form (Formspree-ready)
+⚡ Fast static deployment on Vercel
