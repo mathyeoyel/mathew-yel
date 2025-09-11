@@ -1,4 +1,4 @@
-// Theme toggle + simple data rendering + mobile navigation
+// Theme toggle + simple data rendering
 (() => {
   const root = document.documentElement;
   const key = 'theme';
@@ -6,37 +6,11 @@
   if (saved) root.classList.toggle('light', saved === 'light');
 
   document.addEventListener('click', (e) => {
-    if (e.target && e.target.id === 'themeToggle') {
+    if (e.target && (e.target.id === 'themeToggle' || e.target.id === 'themeToggleMobile')) {
       const isLight = root.classList.toggle('light');
       localStorage.setItem(key, isLight ? 'light' : 'dark');
     }
   });
-
-  // Mobile navigation toggle
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.getElementById('navMenu');
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', isOpen);
-    });
-
-    // Close menu when clicking on nav links
-    navMenu.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') {
-        navMenu.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navMenu.classList.contains('open')) {
-        navMenu.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
 
   // Render projects from JSON if #projectGrid exists
   const grid = document.getElementById('projectGrid');
@@ -49,7 +23,7 @@
             <h3>${p.title}</h3>
             <p>${p.summary}</p>
             <ul class="tags">${p.tags.map(t => `<li>${t}</li>`).join('')}</ul>
-            ${p.link ? `<a class="link" href="${p.link}" target="_blank" rel="noopener">Open ↗</a>` : ''}
+            ${p.link ? `<a class="link" href="${p.link}" target="_blank" rel="noopener">Open <i class="fas fa-external-link-alt"></i></a>` : ''}
           </article>
         `).join('');
       }).catch(() => grid.innerHTML = '<p>Could not load projects.</p>');

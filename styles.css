@@ -1,27 +1,27 @@
 
 :root{
   --bg: #101010;
-  --card: #121521;
-  --muted: #a7b0c0;
-  --text: #f2f4f8;
-  --accent: #f89a00;         /* Changed from blue to orange */
-  --border: #22283a;
-  --title-primary: #f89a00;    /* Main titles */
-  --title-secondary: #ee9200;  /* Secondary headings */
-  --title-tertiary: #e88d00;   /* Smaller headings */
-  --title-highlight: #dd8400;  /* Special emphasis */
+  --card: #1a1a1a;           /* Darker gray variant */
+  --muted: #999999;          /* Medium gray for muted text */
+  --text: #f5f5f5;           /* Light gray for text */
+  --accent: #f89a00;         /* Primary orange */
+  --border: #333333;         /* Dark gray border */
+  --title-primary: #f89a00;    /* Main titles - primary orange */
+  --title-secondary: #ee9200;  /* Secondary headings - darker orange */
+  --title-tertiary: #e88d00;   /* Smaller headings - even darker orange */
+  --title-highlight: #dd8400;  /* Special emphasis - darkest orange */
 }
 :root.light {
-  --bg: #f7f9fc;
-  --card: #ffffff;
-  --muted: #52607a;
-  --text: #0b1020;
-  --accent: #d17a00;         /* Changed from blue to darker orange */
-  --border: #e6eaf2;
-  --title-primary: #d17a00;    /* Darker for light mode */
-  --title-secondary: #d77f00;  /* Darker for light mode */
-  --title-tertiary: #dd8400;   /* Darker for light mode */
-  --title-highlight: #e88d00;  /* Darker for light mode */
+  --bg: #f5f5f5;            /* Light gray background */
+  --card: #ffffff;          /* White cards */
+  --muted: #666666;         /* Medium gray for muted text */
+  --text: #101010;          /* Dark gray text */
+  --accent: #d17a00;        /* Darker orange for light mode */
+  --border: #dddddd;        /* Light gray border */
+  --title-primary: #d17a00;    /* Darker orange for light mode */
+  --title-secondary: #d77f00;  /* Secondary orange for light mode */
+  --title-tertiary: #dd8400;   /* Tertiary orange for light mode */
+  --title-highlight: #e88d00;  /* Highlight orange for light mode */
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif;line-height:1.6}
@@ -63,8 +63,8 @@ h4, h5, h6{
   color:var(--title-primary) !important;
 }
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
-.site-header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(16,16,16,0.7);border-bottom:1px solid var(--border);z-index:10}
-:root.light .site-header{background:rgba(255,255,255,0.7)}
+.site-header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(16,16,16,0.9);border-bottom:1px solid var(--border);z-index:10}
+:root.light .site-header{background:rgba(245,245,245,0.9)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
 
 /* ==== CORE LAYOUT STYLES ==== */
@@ -73,9 +73,9 @@ nav a.active{color:var(--text);font-weight:600}
 .nav a:hover{color:var(--text)}
 .btn{padding:12px 16px;border-radius:12px;border:1px solid var(--border);display:inline-block;cursor:pointer}
 .btn.tiny{padding:6px 10px;border-radius:10px;font-size:13px}
-.btn.primary{background:var(--accent);color:#ffffff;border-color:transparent;font-weight:700}
+.btn.primary{background:var(--accent);color:var(--bg);border-color:transparent;font-weight:700}
 .btn.ghost{background:transparent;color:var(--text);border-color:var(--border)}
-.btn.ghost:hover{background:var(--accent);color:#ffffff;border-color:var(--accent)}
+.btn.ghost:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;padding:72px 0}
 .hero-text h1{font-size:48px;line-height:1.1;margin:0 0 8px}
 .lead{font-size:20px;font-weight:600;margin:0 0 8px}
@@ -96,7 +96,7 @@ nav a.active{color:var(--text);font-weight:600}
 
 /* Light mode card adjustments */
 :root.light .card{
-  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  box-shadow:0 1px 3px rgba(16,16,16,0.1);
 }
 .checklist{list-style:none;padding-left:0;margin:0}
 .checklist li{padding-left:28px;position:relative;margin:10px 0;color:var(--text)}
@@ -132,66 +132,6 @@ nav a.active{color:var(--text);font-weight:600}
 .link:hover{text-decoration:underline}
 
 /* Card styles consolidated - removed duplicate */
-/* ==== ENHANCED THEME TOGGLE BUTTON ==== */
-#themeToggle{
-  position:relative;
-  width:60px;
-  height:32px;
-  border-radius:16px;
-  border:2px solid var(--border);
-  background:var(--card);
-  cursor:pointer;
-  transition:all 0.3s ease;
-  display:flex;
-  align-items:center;
-  padding:2px;
-  font-size:0; /* hide text */
-  overflow:hidden;
-}
-
-#themeToggle::before{
-  content:'\f186'; /* fa-moon */
-  font-family:'Font Awesome 6 Free';
-  font-weight:900;
-  position:absolute;
-  left:6px;
-  font-size:14px;
-  transition:all 0.3s ease;
-  z-index:2;
-  color:var(--text);
-}
-
-#themeToggle::after{
-  content:'';
-  position:absolute;
-  width:24px;
-  height:24px;
-  border-radius:50%;
-  background:var(--accent);
-  left:4px;
-  transition:all 0.3s ease;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Light mode state */
-:root.light #themeToggle::before{
-  content:'\f185'; /* fa-sun */
-  left:34px;
-}
-
-:root.light #themeToggle::after{
-  left:32px;
-}
-
-#themeToggle:hover{
-  border-color:var(--accent);
-  transform:scale(1.05);
-}
-
-#themeToggle:active{
-  transform:scale(0.95);
-}
-
 /* ==== RESPONSIVE DESIGN - ORGANIZED BY BREAKPOINT ==== */
 
 /* Global responsive styles */
@@ -233,11 +173,11 @@ nav a.active{color:var(--text);font-weight:600}
   
   .card{
     padding:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    box-shadow:0 2px 8px rgba(16,16,16,0.2);
   }
   
   :root.light .card{
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    box-shadow:0 2px 8px rgba(16,16,16,0.1);
   }
   
   .card h3{
@@ -324,38 +264,10 @@ nav a.active{color:var(--text);font-weight:600}
     margin-top:48px;
   }
   
-  /* Improve theme toggle for touch */
-  #themeToggle{
-    min-height:44px;
-    min-width:60px;
-  }
-  
   /* Mobile-friendly text selection */
   body{
     -webkit-text-size-adjust:100%;
     text-size-adjust:100%;
-  }
-}
-
-/* Theme toggle adjustments for small screens */
-@media (max-width:640px){
-  #themeToggle{
-    width:50px;
-    height:28px;
-  }
-  #themeToggle::after{
-    width:20px;
-    height:20px;
-  }
-  #themeToggle::before{
-    font-size:12px;
-    left:5px;
-  }
-  :root.light #themeToggle::after{
-    left:26px;
-  }
-  :root.light #themeToggle::before{
-    left:29px;
   }
 }
 
@@ -685,58 +597,171 @@ img {
 }
 
 /* Mobile-friendly navigation */
-.site-nav {
+.nav {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
 
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+/* Mobile: Keep theme toggle visible next to hamburger */
+.theme-toggle-mobile {
+  display: inline-flex;
+  order: 2; /* Ensure it appears after the nav */
+}
+
+/* Enhanced Hamburger Menu */
 .nav-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 8px 12px;
-  border: 1px solid var(--border);
+  padding: 12px;
+  border: 2px solid var(--border);
   background: var(--card);
   color: var(--text);
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 48px;
+  min-height: 48px;
 }
 
 .nav-toggle:hover {
   background: var(--accent);
-  color: white;
+  color: #101010;
   border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(248, 154, 0, 0.3);
 }
 
-.nav-toggle i {
+.nav-toggle:active {
+  transform: translateY(0);
+}
+
+/* Custom Hamburger Icon */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 18px;
+  height: 14px;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Hamburger Animation - Open State */
+.nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* Menu Text */
+.nav-toggle-text {
   font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+/* Mobile Navigation Links */
 .nav-links {
   display: none;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-top: none;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  box-shadow: 0 8px 32px rgba(16, 16, 16, 0.3);
   z-index: 100;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
 }
 
 :root.light .nav-links {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(16, 16, 16, 0.2);
+}
+
+.nav-links.show {
+  display: flex;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-links a {
+  display: block;
+  padding: 16px 20px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  border-bottom: 1px solid var(--border);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-links a:last-child {
+  border-bottom: none;
+}
+
+.nav-links a:hover {
+  background: var(--accent);
+  color: #101010;
+  padding-left: 28px;
+}
+
+.nav-links a.active {
+  background: rgba(248, 154, 0, 0.1);
+  color: var(--accent);
+  border-left: 4px solid var(--accent);
 }
 
 .nav-links.open {
@@ -758,51 +783,134 @@ img {
 
 .nav-links a.active {
   background: var(--accent);
-  color: white;
+  color: var(--bg);
 }
 
-/* Enhanced theme toggle pill switch */
+/* Enhanced theme toggle pill switch with fixed icons */
 .theme-toggle {
   background: var(--card);
   border: 2px solid var(--border);
   border-radius: 50px;
-  width: 44px;
-  height: 24px;
+  width: 48px;
+  height: 28px;
   padding: 0;
   position: relative;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
-  transition: all 0.25s ease;
+  justify-content: center;
+  transition: all 0.3s ease;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
+/* Toggle circle/pill */
 .theme-toggle::before {
   content: "";
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--accent);
-  top: 1px;
-  left: 2px;
-  transition: all 0.25s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(248, 154, 0, 0.4);
+  z-index: 2;
+}
+
+/* Moon icon - fixed on left, visible only in dark mode */
+.theme-toggle::after {
+  content: "\f186"; /* fa-moon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  font-size: 10px;
+  top: 50%;
+  left: 8px; /* Fixed position on left */
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  z-index: 3;
+  line-height: 1;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Sun icon - fixed on right, visible only in light mode */
+.sun-icon {
+  position: absolute;
+  font-size: 10px;
+  top: 50%;
+  right: 8px; /* Fixed position on right */
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+  z-index: 3;
+  line-height: 1;
+  opacity: 0; /* Hidden in dark mode */
+  visibility: hidden;
 }
 
 :root.light .theme-toggle {
-  background: #fff;
+  background: var(--card);
   border-color: var(--border);
 }
 
+/* Toggle circle position in light mode */
 :root.light .theme-toggle::before {
-  left: 22px;
+  left: 25px;
+}
+
+/* In light mode, hide moon and show sun */
+:root.light .theme-toggle::after {
+  opacity: 0;
+  visibility: hidden;
+}
+
+:root.light .sun-icon {
+  opacity: 1;
+  visibility: visible;
 }
 
 .theme-toggle:hover {
   border-color: var(--accent);
   transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(248, 154, 0, 0.3);
+}
+
+/* Icon styling for inline Font Awesome icons */
+.fa-external-link-alt {
+  margin-left: 4px;
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+.fa-arrow-up {
+  margin-left: 4px;
+  font-size: 0.9em;
+}
+
+.fa-circle {
+  color: var(--accent);
+  margin: 0 8px;
+}
+
+/* Meta list icons */
+.quick.meta li i {
+  margin-right: 8px;
+  color: var(--accent);
+  width: 16px;
+  text-align: center;
+}
+
+/* Theme toggle visibility controls */
+/* By default (mobile), show mobile toggle and hide desktop toggle */
+.nav-links .theme-toggle {
+  display: none;
+}
+
+.theme-toggle-mobile {
+  display: inline-flex;
 }
 
 /* Desktop navigation - show links, hide toggle */
@@ -811,29 +919,139 @@ img {
     display: none;
   }
   
+  /* Hide mobile theme toggle, show desktop theme toggle */
+  .theme-toggle-mobile {
+    display: none;
+  }
+  
+  .nav-links .theme-toggle {
+    display: inline-flex;
+  }
+  
+  .nav-controls {
+    gap: 24px;
+  }
+  
   .nav-links {
     display: flex;
+    flex-direction: row;
     position: static;
     background: transparent;
     border: none;
     padding: 0;
     box-shadow: none;
-    gap: 18px;
+    gap: 24px;
+    border-radius: 0;
+    align-items: center;
+  }
+  
+  /* Theme toggle positioning in desktop nav */
+  .nav-links .theme-toggle {
+    margin-left: 12px;
+    order: 999; /* Ensure it appears at the end */
   }
   
   .nav-links a {
-    padding: 6px 0;
-    border-radius: 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border-bottom: none;
+    border-left: none;
+    font-size: 15px;
   }
   
   .nav-links a:hover {
-    background: transparent;
+    background: var(--accent);
+    color: #101010;
+    padding-left: 12px;
+  }
+  
+  .nav-links a.active {
+    background: rgba(248, 154, 0, 0.1);
     color: var(--accent);
+    border-left: none;
   }
 }
 
 /* Enhanced hero section for small screens */
 @media (max-width: 480px) {
+  /* Mobile Navigation Adjustments */
+  .nav {
+    padding: 0 4px; /* Minimal padding for tight fit */
+  }
+  
+  /* Override container padding for navigation */
+  .site-header .container {
+    padding: 0 12px; /* Reduced padding for header container */
+  }
+  
+  .nav-controls {
+    gap: 6px; /* Reduce gap for tighter fit */
+    flex-shrink: 0;
+  }
+  
+  /* Mobile: Ensure correct order - nav first, then theme toggle */
+  .site-nav {
+    order: 1;
+  }
+  
+  .theme-toggle-mobile {
+    order: 2;
+    flex-shrink: 0;
+  }
+  
+  .nav-toggle {
+    min-width: 42px;
+    min-height: 42px;
+    padding: 8px;
+  }
+  
+  .nav-toggle-text {
+    display: none;
+  }
+  
+  /* Compact theme toggle for mobile */
+  .theme-toggle {
+    width: 40px;
+    height: 22px;
+    border-width: 1px; /* Thinner border */
+    flex-shrink: 0;
+  }
+  
+  .theme-toggle::before {
+    width: 16px;
+    height: 16px;
+    left: 2px;
+  }
+  
+  .theme-toggle::after {
+    font-size: 8px;
+    left: 6px; /* Fixed moon position on left */
+  }
+  
+  .sun-icon {
+    font-size: 8px;
+    right: 6px; /* Fixed sun position on right */
+  }
+  
+  :root.light .theme-toggle::before {
+    left: 21px;
+  }
+  
+  /* Logo adjustments for mobile */
+  .logo {
+    flex: 1;
+    min-width: 0; /* Allow logo to shrink if needed */
+  }
+  
+  .logo-text {
+    font-size: 18px; /* Slightly smaller on mobile */
+  }
+  
+  .nav-links a {
+    padding: 18px 20px;
+    font-size: 17px;
+  }
+  
   .hero {
     padding: 44px 0;
     gap: 18px;
@@ -895,6 +1113,76 @@ img {
   
   .timeline .desc {
     margin-top: 8px;
+  }
+}
+
+/* Extra small mobile devices (320px and below) */
+@media (max-width: 360px) {
+  .nav {
+    padding: 0 2px;
+  }
+  
+  .site-header .container {
+    padding: 0 8px; /* Even more reduced padding */
+  }
+  
+  .nav-controls {
+    gap: 4px;
+  }
+  
+  .nav-toggle {
+    min-width: 38px;
+    min-height: 38px;
+    padding: 6px;
+  }
+  
+  .theme-toggle {
+    width: 36px;
+    height: 20px;
+  }
+  
+  .theme-toggle::before {
+    width: 14px;
+    height: 14px;
+    left: 2px;
+  }
+  
+  .theme-toggle::after {
+    font-size: 7px;
+    left: 5px; /* Fixed moon position on left */
+  }
+  
+  .sun-icon {
+    font-size: 7px;
+    right: 5px; /* Fixed sun position on right */
+  }
+  
+  :root.light .theme-toggle::before {
+    left: 19px;
+  }
+  
+  .logo-text {
+    font-size: 16px;
+  }
+}
+
+/* Tablet Navigation Adjustments */
+@media (min-width: 481px) and (max-width: 899px) {
+  .nav-controls {
+    gap: 16px;
+  }
+  
+  .nav-toggle {
+    padding: 12px 16px;
+  }
+  
+  .nav-toggle-text {
+    display: inline;
+  }
+  
+  .nav-links a {
+    padding: 16px 24px;
+    font-size: 16px;
   }
 }
 

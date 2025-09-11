@@ -4,6 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blog — Mathew Yel</title>
+  <meta name="description" content="Blog and insights by Mathew Yel — Creative Entrepreneur, Technologist & Community Builder passionate about design and digital innovation in South Sudan.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" content="Blog — Mathew Yel">
+  <meta property="og:description" content="Creative Entrepreneur • Technologist • Community Builder">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mathewyel.com/blog/">
+  <meta property="og:image" content="https://mathewyel.com/assets/og-image.png">
+  <meta name="theme-color" content="#101010">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/styles.css?v=4">
   <script defer src="/scripts.js"></script>
@@ -16,22 +28,34 @@
         <img src="/assets/logo-dark.png"  alt="Mathew Yel Logo (Dark)" class="logo-img dark-mode">
         <span class="logo-text">Mathew Yel</span>
       </a>
-      <nav class="site-nav">
-        <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
-          <i class="fas fa-bars"></i>
-          <span>Menu</span>
-        </button>
-        <div id="navMenu" class="nav-links">
-          <a href="/#about">About</a>
-          <a href="/projects.html">Projects</a>
-          <a class="active" href="/blog/">Blog</a>
-          <a href="/#awards">Awards</a>
-          <a href="/contact.html">Contact</a>
-          <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Switch theme">
-            <span class="sr-only">Toggle theme</span>
+      
+      <div class="nav-controls">
+        <nav class="site-nav">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
+            <span class="hamburger">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </span>
+            <span class="nav-toggle-text">Menu</span>
           </button>
-        </div>
-      </nav>
+          <div id="navMenu" class="nav-links">
+            <a href="/#about">About</a>
+            <a href="/projects.html">Projects</a>
+            <a class="active" href="/blog/">Blog</a>
+            <a href="/#awards">Awards</a>
+            <a href="/contact.html">Contact</a>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Switch theme">
+              <i class="fas fa-sun sun-icon"></i>
+              <span class="sr-only">Toggle theme</span>
+            </button>
+          </div>
+        </nav>
+        <button id="themeToggleMobile" class="theme-toggle theme-toggle-mobile" aria-label="Toggle dark/light theme" title="Switch theme">
+          <i class="fas fa-sun sun-icon"></i>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+      </div>
     </div>
   </header>
   <main class="container">
@@ -42,7 +66,7 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <p>© 2025 Mathew Yel — All rights reserved.</p>
-      <p><a href="#">Back to top ↑</a></p>
+      <p><a href="#">Back to top <i class="fas fa-arrow-up"></i></a></p>
     </div>
   </footer>
 </body>
