@@ -16,13 +16,21 @@
         <img src="/assets/logo-dark.png"  alt="Mathew Yel Logo (Dark)" class="logo-img dark-mode">
         <span class="logo-text">Mathew Yel</span>
       </a>
-      <nav>
-        <a class="active" href="/projects.html">Projects</a>
-        <a href="/blog/">Blog</a>
-        <a href="/contact.html">Contact</a>
-        <button id="themeToggle" class="btn tiny" aria-label="Toggle dark/light theme" title="Switch theme">
-          <span class="sr-only">Toggle theme</span>
+      <nav class="site-nav">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
+          <i class="fas fa-bars"></i>
+          <span>Menu</span>
         </button>
+        <div id="navMenu" class="nav-links">
+          <a href="/#about">About</a>
+          <a class="active" href="/projects.html">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#awards">Awards</a>
+          <a href="/contact.html">Contact</a>
+          <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Switch theme">
+            <span class="sr-only">Toggle theme</span>
+          </button>
+        </div>
       </nav>
     </div>
   </header>

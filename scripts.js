@@ -1,4 +1,4 @@
-// Theme toggle + simple data rendering
+// Theme toggle + simple data rendering + mobile navigation
 (() => {
   const root = document.documentElement;
   const key = 'theme';
@@ -11,6 +11,32 @@
       localStorage.setItem(key, isLight ? 'light' : 'dark');
     }
   });
+
+  // Mobile navigation toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.getElementById('navMenu');
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close menu when clicking on nav links
+    navMenu.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('open')) {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 
   // Render projects from JSON if #projectGrid exists
   const grid = document.getElementById('projectGrid');
