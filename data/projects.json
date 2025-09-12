@@ -1,52 +1,93 @@
-[
-  {
-    "title": "VikraHub",
-    "summary": "A growing platform connecting and empowering South Sudanese creatives — designers, freelancers, and storytellers.",
-    "tags": [
-      "Platform",
-      "Community",
-      "Creative Network"
-    ],
-    "link": "#"
-  },
-  {
-    "title": "Yelose Graphics",
-    "summary": "Design agency specializing in branding and visual identity for businesses and creative communities.",
-    "tags": [
-      "Branding",
-      "Visual Identity",
-      "Agency"
-    ],
-    "link": "https://www.yelosegraphics.com"
-  },
-  {
-    "title": "South Gleam Forex & Money Transfer",
-    "summary": "Financial services platform bringing secure money transfer and forex solutions to South Sudan.",
-    "tags": [
-      "Fintech",
-      "UI/UX",
-      "Development"
-    ],
-    "link": "#"
-  },
-  {
-    "title": "Dineasy Food Delivery",
-    "summary": "Local food delivery platform connecting restaurants with customers across Juba.",
-    "tags": [
-      "Mobile App",
-      "Food Tech",
-      "Local Business"
-    ],
-    "link": "#"
-  },
-  {
-    "title": "Etix South Sudan",
-    "summary": "E-ticket website and mobile app concept for local events and transport booking.",
-    "tags": [
-      "Product",
-      "UI/UX",
-      "Prototype"
-    ],
-    "link": "#"
-  }
-]
+{
+  "title": "Projects",
+  "subtitle": "A selection of creative and technical projects that showcase my journey as an entrepreneur and technologist.",
+  "items": [
+    {
+      "id": "yelose-graphics",
+      "title": "Yelose Graphics",
+      "summary": "Creative studio delivering brand identities, social content, and simple web builds for SMEs.",
+      "description": "Founded in 2022, Yelose Graphics has become a leading design agency in South Sudan, specializing in comprehensive branding solutions for small and medium enterprises. From logo design to complete brand identity systems, we help businesses establish their visual presence and connect with their audiences.",
+      "tags": ["Branding", "Content", "Web", "Design Agency"],
+      "link": "https://www.yelosegraphics.com",
+      "status": "active",
+      "featured": true,
+      "startDate": "2022-01-01",
+      "image": "/assets/projects/yelose-graphics.jpg",
+      "tech": ["Adobe Creative Suite", "Figma", "WordPress", "Web Design"],
+      "role": "Founder & Creative Director"
+    },
+    {
+      "id": "vikrahub",
+      "title": "VikraHub",
+      "summary": "Creative platform connecting and empowering South Sudanese creatives and entrepreneurs.",
+      "description": "VikraHub is an innovative platform designed to bridge the gap between talented South Sudanese creatives and opportunities. It serves as a community hub, marketplace, and resource center for designers, developers, writers, and other creative professionals.",
+      "tags": ["Platform", "Community", "Tech", "Startup"],
+      "link": "https://vikrahub.com",
+      "status": "active",
+      "featured": true,
+      "startDate": "2024-01-01",
+      "image": "/assets/projects/vikrahub.jpg",
+      "tech": ["React", "Node.js", "MongoDB", "Community Building"],
+      "role": "Founder & Technical Lead"
+    },
+    {
+      "id": "etix-south-sudan",
+      "title": "Etix South Sudan",
+      "summary": "E-ticket website and mobile app concept for local events and transport.",
+      "description": "A comprehensive digital ticketing solution designed specifically for the South Sudanese market. The platform aims to modernize event management and transportation booking while providing secure, accessible ticketing services.",
+      "tags": ["Product", "UI/UX", "Prototype", "Mobile App"],
+      "link": "#",
+      "status": "concept",
+      "featured": false,
+      "startDate": "2023-06-01",
+      "image": "/assets/projects/etix-ss.jpg",
+      "tech": ["React Native", "UI/UX Design", "Payment Integration"],
+      "role": "Product Designer & Developer"
+    },
+    {
+      "id": "south-gleam-forex",
+      "title": "South Gleam Forex & Money Transfer",
+      "summary": "Professional website for forex and money transfer services.",
+      "description": "Designed and developed a modern, trustworthy website for South Gleam's financial services. The project focused on building user confidence through clean design and clear communication of services.",
+      "tags": ["Web Development", "Financial Services", "UI/UX"],
+      "link": "#",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2023-03-01",
+      "endDate": "2023-05-01",
+      "image": "/assets/projects/south-gleam.jpg",
+      "tech": ["HTML/CSS", "JavaScript", "Responsive Design"],
+      "role": "Web Developer & Designer"
+    },
+    {
+      "id": "aweil-news-agency",
+      "title": "Aweil News Agency Website",
+      "summary": "News platform for local journalism and community updates.",
+      "description": "Built a modern news website platform to help Aweil News Agency reach wider audiences with local and national news coverage. The site features content management capabilities and mobile-responsive design.",
+      "tags": ["News Platform", "CMS", "Responsive Design"],
+      "link": "#",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2023-08-01",
+      "endDate": "2023-10-01",
+      "image": "/assets/projects/aweil-news.jpg",
+      "tech": ["WordPress", "Custom Theme", "SEO Optimization"],
+      "role": "Web Developer"
+    },
+    {
+      "id": "ss-digital-summit",
+      "title": "South Sudan Digital Summit Website",
+      "summary": "Conference website for the first annual South Sudan Digital Summit 2025.",
+      "description": "Designed and developed a comprehensive conference website for South Sudan's premier digital innovation summit. The platform features speaker profiles, session scheduling, registration system, and real-time updates. This project aimed to showcase South Sudan's growing tech ecosystem to regional and international audiences.",
+      "tags": ["Conference", "Web Development", "UI/UX", "Event Management"],
+      "link": "#",
+      "status": "completed",
+      "featured": false,
+      "startDate": "2024-12-01",
+      "endDate": "2025-02-15",
+      "image": "/assets/projects/ss-digital-summit.jpg",
+      "tech": ["HTML/CSS", "JavaScript", "Registration System", "Responsive Design"],
+      "role": "Lead Developer & Designer"
+    }
+  ]
+}

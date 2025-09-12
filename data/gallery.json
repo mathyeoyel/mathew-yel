@@ -1,0 +1,75 @@
+{
+  "title": "Moments & Milestones",
+  "subtitle": "A visual journey through my entrepreneurial path, from workshops and awards to community building.",
+  "items": [
+    {
+      "id": "digitally-fit-2025",
+      "title": "Digitally Fit Awards 2025",
+      "description": "Bronze Winner recognition in Nairobi, Kenya",
+      "image": "/assets/photos/digitally-fit-nairobi.jpg",
+      "alt": "Digitally Fit Awards ceremony in Nairobi",
+      "featured": true,
+      "date": "2025-03-15",
+      "category": "award"
+    },
+    {
+      "id": "eaco-workshop",
+      "title": "1st Advisory council & 30th annual general assembly of EACO",
+      "description": "Leading tech workshops in Juba",
+      "image": "/assets/photos/eaco-workshop-juba-01.jpg",
+      "alt": "EACO workshop in Juba, South Sudan",
+      "featured": false,
+      "date": "2024-11-20",
+      "category": "workshop"
+    },
+    {
+      "id": "creative-process",
+      "title": "Creative Process",
+      "description": "Behind the scenes at Yelose Graphics",
+      "image": "/assets/photos/gallery-01-1200.jpg",
+      "alt": "Creative workspace and design process",
+      "featured": false,
+      "date": "2024-10-01",
+      "category": "work"
+    },
+    {
+      "id": "tech-innovation",
+      "title": "Tech Innovation",
+      "description": "Building digital solutions for South Sudan",
+      "image": "/assets/photos/gallery-02-1200.jpg",
+      "alt": "Technology and innovation workspace",
+      "featured": false,
+      "date": "2024-09-15",
+      "category": "work"
+    },
+    {
+      "id": "community-impact",
+      "title": "Community Impact",
+      "description": "Empowering local creatives through VikraHub",
+      "image": "/assets/photos/gallery-03-1200.jpg",
+      "alt": "Community engagement and mentorship",
+      "featured": false,
+      "date": "2024-08-20",
+      "category": "community"
+    },
+    {
+      "id": "professional-growth",
+      "title": "Professional Growth",
+      "description": "Continuous learning and development",
+      "image": "/assets/photos/gallery-04-1200.jpg",
+      "alt": "Professional development and growth",
+      "featured": false,
+      "date": "2024-07-10",
+      "category": "personal"
+    },
+    {
+      "id": "profile-4",
+      "title": "Speaking at Tech Conference",
+      "src": "/assets/gallery/speaking-conference.jpg",
+      "alt": "Mathew speaking at a technology conference",
+      "caption": "Presenting on digital innovation at the South Sudan Tech Summit",
+      "category": "professional",
+      "order": 4
+    }
+  ]
+}

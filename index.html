@@ -62,20 +62,50 @@
 
   <main id="home">
     <section class="hero container">
-      <div class="hero-text">
-        <h1>Hi, I'm <span class="accent">Mathew Yel</span>.</h1>
-        <p class="lead">Creative Entrepreneur <i class="fas fa-circle" style="font-size: 6px; vertical-align: middle;"></i> Technologist <i class="fas fa-circle" style="font-size: 6px; vertical-align: middle;"></i> Community Builder</p>
-        <p class="sub">I'm passionate about shaping the future of design and digital innovation in South Sudan, connecting creativity with technology to empower local communities and drive global impact.</p>
-        <div class="cta-row">
-          <a class="btn primary" href="/projects.html">See Projects</a>
-          <a class="btn ghost" href="/contact.html">Contact</a>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Hi, I'm <span class="accent">Mathew Yel</span>.</h1>
+          <p class="lead">Creative Entrepreneur <i class="fas fa-circle" style="font-size: 6px; vertical-align: middle;"></i> Technologist <i class="fas fa-circle" style="font-size: 6px; vertical-align: middle;"></i> Community Builder</p>
+          <p class="sub">I'm passionate about shaping the future of design and digital innovation in South Sudan, connecting creativity with technology to empower local communities and drive global impact.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="/projects.html">See Projects</a>
+            <a class="btn ghost" href="/contact.html">Contact</a>
+          </div>
+          <ul class="quick meta">
+            <li><i class="fas fa-map-marker-alt"></i> Kator West, Juba — South Sudan</li>
+            <li><i class="fas fa-university"></i> University of Juba — BSc IT (ongoing)</li>
+            <li><i class="fas fa-language"></i> English & Arabic</li>
+          </ul>
         </div>
-        <ul class="quick meta">
-          <li><i class="fas fa-map-marker-alt"></i> Kator West, Juba — South Sudan</li>
-          <li><i class="fas fa-university"></i> University of Juba — BSc IT (ongoing)</li>
-          <li><i class="fas fa-language"></i> English & Arabic</li>
-        </ul>
+        
+        <div class="hero-image">
+          <picture>
+            <source 
+              media="(max-width: 480px)" 
+              srcset="/assets/photos/mathew-portrait-01-400.webp 400w" 
+              type="image/webp">
+            <source 
+              media="(max-width: 480px)" 
+              srcset="/assets/photos/mathew-portrait-01-400.jpg 400w">
+            <source 
+              media="(max-width: 900px)" 
+              srcset="/assets/photos/mathew-portrait-01-800.webp 800w" 
+              type="image/webp">
+            <source 
+              media="(max-width: 900px)" 
+              srcset="/assets/photos/mathew-portrait-01-800.jpg 800w">
+            <source 
+              srcset="/assets/photos/mathew-portrait-01-1600.webp 1600w" 
+              type="image/webp">
+            <img 
+              src="/assets/photos/mathew-portrait-01-1600.jpg" 
+              alt="Mathew Yel - Creative Entrepreneur and Technologist"
+              loading="eager"
+              decoding="async">
+          </picture>
+        </div>
       </div>
+      
       <div class="hero-card">
         <div class="card">
           <h3>Highlights</h3>
@@ -97,8 +127,8 @@
       <div>
         <h2>About</h2>
         <p>I'm Mathew Yel (also known as Yelose) — a creative entrepreneur, technologist, and community builder passionate about shaping the future of design and digital innovation in South Sudan.</p>
-        <p>My journey into tech began in 2020, when I started exploring how creativity and technology intersect. From experimenting with basic computing and Adobe Illustrator to diving into cybersecurity, programming, and web development, I've carved a path that blends artistry with practical digital solutions.</p>
-        <p>I'm the founder of Yelose Graphics, a design agency specializing in branding and visual identity, and VikraHub, a growing platform connecting and empowering South Sudanese creatives. I've also contributed to projects like South Gleam Forex & Money Transfer, Dineasy Food Delivery, and Etix South Sudan.</p>
+        <p>My journey into tech began in 2020, when I started exploring how creativity and technology intersect. From experimenting with basic computing and Adobe Illustrator to diving into SEO, programming, and web development, I've carved a path that blends artistry with practical digital solutions.</p>
+        <p>I'm the founder of Yelose Graphics, a design agency specializing in branding and visual identity, and VikraHub, a growing platform connecting and empowering South Sudanese creatives. I've also contributed to projects like South Gleam Forex & Money Transfer Website, Aweil News Agency Website, and Etix South Sudan.</p>
         <p>At heart, I'm both a builder and a dreamer: deeply rooted in my South Sudanese identity, yet reaching for impact on a global scale.</p>
       </div>
       <aside class="card">
@@ -106,33 +136,18 @@
         <ul class="bullets">
           <li>Brand Identity & Visual Design</li>
           <li>Web Development & UI/UX</li>
-          <li>Cybersecurity & Programming</li>
+          <li>SEO & Programming</li>
           <li>Community Building & Workshops</li>
           <li>Creative Direction & Strategy</li>
         </ul>
       </aside>
     </section>
 
-    <section id="awards" class="container">
-      <h2>Recognition & Impact</h2>
-      <ul class="timeline">
-        <li>
-          <div class="time">2025</div>
-          <div class="dot"></div>
-          <div class="desc"><strong>Digitally Fit Awards — Top Graphic Designer, Bronze Winner</strong>, East Africa Edition.</div>
-        </li>
-        <li>
-          <div class="time">2024</div>
-          <div class="dot"></div>
-          <div class="desc"><strong>Digitally Fit Awards — Top Graphic Designer, Gold Winner</strong>, East Africa Edition.</div>
-        </li>
-        <li>
-          <div class="time">2020</div>
-          <div class="dot"></div>
-          <div class="desc"><strong>Tech Journey Begins</strong>, Started exploring the intersection of creativity and technology.</div>
-        </li>
-      </ul>
-    </section>
+    <!-- Dynamic Gallery Section -->
+    <div id="dynamicGallery"></div>
+
+    <!-- Dynamic Awards Section -->
+    <div id="dynamicAwards"></div>
   </main>
 
   <footer class="site-footer">

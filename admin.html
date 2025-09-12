@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Mathew Yel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .admin-header h1 {
+            color: #007acc;
+            margin-bottom: 10px;
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #005999;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: #28a745;
+        }
+
+        .admin-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .section-header h2 {
+            color: #007acc;
+            font-size: 1.5rem;
+        }
+
+        .action-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Form Styles */
+        .form-container {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .form-input {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #007acc;
+            box-shadow: 0 0 0 3px rgba(0,122,204,0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .form-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #007acc;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            min-height: 45px;
+            align-items: center;
+        }
+
+        .tag {
+            background: #007acc;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag-remove {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 0;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tag-add-input {
+            border: none;
+            outline: none;
+            padding: 4px;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .items-list {
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .item-card {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-card:last-child {
+            border-bottom: none;
+        }
+
+        .item-info h4 {
+            color: #007acc;
+            margin-bottom: 5px;
+        }
+
+        .item-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-save {
+            background: #28a745;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+        }
+
+        .btn-preview {
+            background: #6f42c1;
+        }
+
+        .status-message {
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .form-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 10px;
+            }
+
+            .admin-nav {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .admin-section {
+                padding: 20px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>🚀 Admin Panel - Mathew Yel Website</h1>
+            <p>Manage your website content with easy-to-use forms</p>
+        </div>
+
+        <div class="admin-nav">
+            <button class="nav-btn active" onclick="showSection('projects')">Projects</button>
+            <button class="nav-btn" onclick="showSection('gallery')">Gallery</button>
+            <button class="nav-btn" onclick="showSection('awards')">Awards</button>
+            <button class="nav-btn" onclick="showSection('personal')">Personal Info</button>
+        </div>
+
+        <!-- Projects Section -->
+        <div id="projects-section" class="admin-section active">
+            <div class="section-header">
+                <h2>💼 Projects Management</h2>
+                <button class="action-btn" onclick="openProjectForm()">Add New Project</button>
+            </div>
+            <div id="projects-list" class="items-list">
+                <!-- Projects will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div id="gallery-section" class="admin-section">
+            <div class="section-header">
+                <h2>📸 Gallery Management</h2>
+                <button class="action-btn" onclick="openGalleryForm()">Add New Photo</button>
+            </div>
+            <div id="gallery-list" class="items-list">
+                <!-- Gallery items will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Awards Section -->
+        <div id="awards-section" class="admin-section">
+            <div class="section-header">
+                <h2>🏆 Awards & Recognition</h2>
+                <button class="action-btn" onclick="openAwardForm()">Add New Award</button>
+            </div>
+            <div id="awards-list" class="items-list">
+                <!-- Awards will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Personal Info Section -->
+        <div id="personal-section" class="admin-section">
+            <div class="section-header">
+                <h2>👤 Personal Information</h2>
+            </div>
+            <div class="form-container">
+                <h3 style="color: #007acc; margin-bottom: 15px;">Hero Section</h3>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="personal-name" class="form-input" placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Professional Title</label>
+                    <input type="text" id="personal-title" class="form-input" placeholder="Your professional title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Hero Description</label>
+                    <textarea id="personal-description" class="form-input form-textarea" placeholder="Main description for your hero section..."></textarea>
+                </div>
+                
+                <h3 style="color: #007acc; margin: 25px 0 15px 0;">About Section</h3>
+                <div class="form-group">
+                    <label class="form-label">About Content (Paragraph 1)</label>
+                    <textarea id="personal-about-1" class="form-input form-textarea" placeholder="First paragraph of your about section..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About Content (Paragraph 2)</label>
+                    <textarea id="personal-about-2" class="form-input form-textarea" placeholder="Second paragraph of your about section..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About Content (Paragraph 3)</label>
+                    <textarea id="personal-about-3" class="form-input form-textarea" placeholder="Third paragraph of your about section..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About Content (Paragraph 4)</label>
+                    <textarea id="personal-about-4" class="form-input form-textarea" placeholder="Fourth paragraph of your about section..."></textarea>
+                </div>
+                
+                <h3 style="color: #007acc; margin: 25px 0 15px 0;">Contact Information</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="personal-email" class="form-input" placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" id="personal-location" class="form-input" placeholder="Your location">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">University</label>
+                        <input type="text" id="personal-university" class="form-input" placeholder="Your university">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Languages</label>
+                        <input type="text" id="personal-languages" class="form-input" placeholder="Languages you speak">
+                    </div>
+                </div>
+                
+                <h3 style="color: #007acc; margin: 25px 0 15px 0;">Social Links</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn URL</label>
+                        <input type="url" id="personal-linkedin" class="form-input" placeholder="https://linkedin.com/in/your-profile">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Portfolio Website</label>
+                        <input type="url" id="personal-portfolio" class="form-input" placeholder="https://yourportfolio.com">
+                    </div>
+                </div>
+                
+                <h3 style="color: #007acc; margin: 25px 0 15px 0;">Skills At A Glance</h3>
+                <div class="form-group">
+                    <label class="form-label">Skills (one per line)</label>
+                    <textarea id="personal-skills" class="form-input form-textarea" placeholder="Enter each skill on a new line...&#10;Brand Identity & Visual Design&#10;Web Development & UI/UX&#10;SEO & Programming"></textarea>
+                </div>
+                
+                <h3 style="color: #007acc; margin: 25px 0 15px 0;">Highlights</h3>
+                <div class="form-group">
+                    <label class="form-label">Career Highlights (one per line)</label>
+                    <textarea id="personal-highlights" class="form-input form-textarea" placeholder="Enter each highlight on a new line...&#10;Founder & Creative Director — Yelose Graphics&#10;Founder — VikraHub (Creative Platform)"></textarea>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="action-btn btn-save" onclick="savePersonalInfo()">Save Changes</button>
+                    <button class="action-btn btn-preview" onclick="previewPersonalInfo()">Preview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Form Modal -->
+    <div id="project-modal" class="form-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add/Edit Project</h3>
+                <button class="modal-close" onclick="closeModal('project-modal')">&times;</button>
+            </div>
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="form-label">Project Title</label>
+                    <input type="text" id="project-title" class="form-input" placeholder="Enter project title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Summary</label>
+                    <input type="text" id="project-summary" class="form-input" placeholder="Brief project description">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="project-description" class="form-input form-textarea" placeholder="Detailed project description"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select id="project-status" class="form-select">
+                            <option value="completed">Completed</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="planned">Planned</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Role</label>
+                        <input type="text" id="project-role" class="form-input" placeholder="Your role in the project">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" id="project-start-date" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="date" id="project-end-date" class="form-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Project Link</label>
+                        <input type="url" id="project-link" class="form-input" placeholder="https://project-link.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Image URL</label>
+                        <input type="url" id="project-image" class="form-input" placeholder="/assets/projects/image.jpg">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Technologies</label>
+                    <div id="project-tech-tags" class="tag-input">
+                        <input type="text" class="tag-add-input" placeholder="Add technology and press Enter">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags</label>
+                    <div id="project-tags" class="tag-input">
+                        <input type="text" class="tag-add-input" placeholder="Add tag and press Enter">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="project-featured" class="form-checkbox">
+                        <label for="project-featured" class="form-label">Featured Project</label>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="action-btn btn-save" onclick="saveProject()">Save Project</button>
+                    <button class="action-btn btn-cancel" onclick="closeModal('project-modal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Form Modal -->
+    <div id="gallery-modal" class="form-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add/Edit Photo</h3>
+                <button class="modal-close" onclick="closeModal('gallery-modal')">&times;</button>
+            </div>
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="form-label">Photo Title</label>
+                    <input type="text" id="gallery-title" class="form-input" placeholder="Enter photo title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Image URL</label>
+                    <input type="url" id="gallery-src" class="form-input" placeholder="/assets/gallery/photo.jpg">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Alt Text</label>
+                    <input type="text" id="gallery-alt" class="form-input" placeholder="Description for accessibility">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Caption</label>
+                    <textarea id="gallery-caption" class="form-input form-textarea" placeholder="Photo caption"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="gallery-category" class="form-select">
+                            <option value="professional">Professional</option>
+                            <option value="personal">Personal</option>
+                            <option value="events">Events</option>
+                            <option value="projects">Projects</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Display Order</label>
+                        <input type="number" id="gallery-order" class="form-input" placeholder="1" min="1">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="action-btn btn-save" onclick="saveGalleryItem()">Save Photo</button>
+                    <button class="action-btn btn-cancel" onclick="closeModal('gallery-modal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Award Form Modal -->
+    <div id="award-modal" class="form-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add/Edit Award</h3>
+                <button class="modal-close" onclick="closeModal('award-modal')">&times;</button>
+            </div>
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="form-label">Award Title</label>
+                    <input type="text" id="award-title" class="form-input" placeholder="Enter award title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Organization</label>
+                    <input type="text" id="award-organization" class="form-input" placeholder="Awarding organization">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="award-description" class="form-input form-textarea" placeholder="Award description"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <input type="date" id="award-date" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="award-category" class="form-select">
+                            <option value="academic">Academic</option>
+                            <option value="professional">Professional</option>
+                            <option value="innovation">Innovation</option>
+                            <option value="leadership">Leadership</option>
+                            <option value="community">Community</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="award-featured" class="form-checkbox">
+                        <label for="award-featured" class="form-label">Featured Award</label>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="action-btn btn-save" onclick="saveAward()">Save Award</button>
+                    <button class="action-btn btn-cancel" onclick="closeModal('award-modal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="status-messages" style="position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
+
+    <script>
+        // Global variables
+        let currentData = {
+            projects: [],
+            gallery: [],
+            awards: [],
+            personal: {}
+        };
+        let editingIndex = -1;
+        let editingSection = '';
+
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllData();
+        });
+
+        // Navigation functions
+        function showSection(section) {
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Show section
+            document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(section + '-section').classList.add('active');
+
+            // Load section data
+            loadSectionData(section);
+        }
+
+        // Load all data from JSON files
+        async function loadAllData() {
+            const dataFiles = {
+                projects: '/data/projects.json',
+                gallery: '/data/gallery.json',
+                awards: '/data/awards.json',
+                personal: '/data/personal.json'
+            };
+
+            for (const [key, url] of Object.entries(dataFiles)) {
+                try {
+                    // Try API endpoint first (for production), fallback to direct file access (for development)
+                    let response;
+                    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                        // Production: use API
+                        response = await fetch(`/api/data/${key}`);
+                    } else {
+                        // Development: direct file access
+                        response = await fetch(url);
+                    }
+                    
+                    if (response.ok) {
+                        currentData[key] = await response.json();
+                    }
+                } catch (error) {
+                    console.error(`Error loading ${key}:`, error);
+                    showStatus(`Failed to load ${key} data`, 'error');
+                }
+            }
+
+            // Load initial section
+            loadSectionData('projects');
+            loadPersonalInfo();
+        }
+
+        // Load section data into lists
+        function loadSectionData(section) {
+            switch (section) {
+                case 'projects':
+                    loadProjectsList();
+                    break;
+                case 'gallery':
+                    loadGalleryList();
+                    break;
+                case 'awards':
+                    loadAwardsList();
+                    break;
+            }
+        }
+
+        // Projects functions
+        function loadProjectsList() {
+            const container = document.getElementById('projects-list');
+            
+            // Handle the actual structure where projects are in currentData.projects.items
+            const projectsArray = currentData.projects?.items || currentData.projects || [];
+            
+            if (!projectsArray || projectsArray.length === 0) {
+                container.innerHTML = '<div class="item-card"><p>No projects found. Add your first project!</p></div>';
+                return;
+            }
+
+            container.innerHTML = projectsArray.map((project, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${project.title}</h4>
+                        <p>${project.summary}</p>
+                        <p><strong>Status:</strong> ${project.status || 'completed'} | <strong>Role:</strong> ${project.role || 'N/A'}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="editProject(${index})">Edit</button>
+                        <button class="btn-delete" onclick="deleteProject(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openProjectForm() {
+            editingIndex = -1;
+            editingSection = 'projects';
+            clearProjectForm();
+            document.getElementById('project-modal').style.display = 'flex';
+        }
+
+        function editProject(index) {
+            editingIndex = index;
+            editingSection = 'projects';
+            
+            // Handle the actual structure where projects are in currentData.projects.items
+            const projectsArray = currentData.projects?.items || currentData.projects || [];
+            const project = projectsArray[index];
+            
+            document.getElementById('project-title').value = project.title || '';
+            document.getElementById('project-summary').value = project.summary || '';
+            document.getElementById('project-description').value = project.description || '';
+            document.getElementById('project-status').value = project.status || 'completed';
+            document.getElementById('project-role').value = project.role || '';
+            document.getElementById('project-start-date').value = project.startDate || '';
+            document.getElementById('project-end-date').value = project.endDate || '';
+            document.getElementById('project-link').value = project.link || '';
+            document.getElementById('project-image').value = project.image || '';
+            document.getElementById('project-featured').checked = project.featured || false;
+
+            // Load tech tags
+            const techContainer = document.getElementById('project-tech-tags');
+            techContainer.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add technology and press Enter">';
+            if (project.tech) {
+                project.tech.forEach(tech => addTag('project-tech-tags', tech));
+            }
+
+            // Load tags
+            const tagsContainer = document.getElementById('project-tags');
+            tagsContainer.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
+            if (project.tags) {
+                project.tags.forEach(tag => addTag('project-tags', tag));
+            }
+
+            document.getElementById('project-modal').style.display = 'flex';
+        }
+
+        function clearProjectForm() {
+            document.getElementById('project-title').value = '';
+            document.getElementById('project-summary').value = '';
+            document.getElementById('project-description').value = '';
+            document.getElementById('project-status').value = 'completed';
+            document.getElementById('project-role').value = '';
+            document.getElementById('project-start-date').value = '';
+            document.getElementById('project-end-date').value = '';
+            document.getElementById('project-link').value = '';
+            document.getElementById('project-image').value = '';
+            document.getElementById('project-featured').checked = false;
+
+            // Clear tags
+            document.getElementById('project-tech-tags').innerHTML = '<input type="text" class="tag-add-input" placeholder="Add technology and press Enter">';
+            document.getElementById('project-tags').innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
+        }
+
+        async function saveProject() {
+            const project = {
+                id: editingIndex === -1 ? generateId() : (currentData.projects?.items || currentData.projects || [])[editingIndex].id,
+                title: document.getElementById('project-title').value,
+                summary: document.getElementById('project-summary').value,
+                description: document.getElementById('project-description').value,
+                status: document.getElementById('project-status').value,
+                role: document.getElementById('project-role').value,
+                startDate: document.getElementById('project-start-date').value,
+                endDate: document.getElementById('project-end-date').value,
+                link: document.getElementById('project-link').value,
+                image: document.getElementById('project-image').value,
+                featured: document.getElementById('project-featured').checked,
+                tech: getTags('project-tech-tags'),
+                tags: getTags('project-tags')
+            };
+
+            // Handle the actual structure
+            if (!currentData.projects.items) {
+                // If it's a simple array
+                if (editingIndex === -1) {
+                    currentData.projects.push(project);
+                } else {
+                    currentData.projects[editingIndex] = project;
+                }
+            } else {
+                // If it has the items structure
+                if (editingIndex === -1) {
+                    currentData.projects.items.push(project);
+                } else {
+                    currentData.projects.items[editingIndex] = project;
+                }
+            }
+
+            closeModal('project-modal');
+            loadProjectsList();
+            showStatus('Project saved successfully!', 'success');
+            await saveDataToAPI('projects');
+        }
+
+        async function deleteProject(index) {
+            if (confirm('Are you sure you want to delete this project?')) {
+                // Handle the actual structure
+                if (!currentData.projects.items) {
+                    currentData.projects.splice(index, 1);
+                } else {
+                    currentData.projects.items.splice(index, 1);
+                }
+                loadProjectsList();
+                showStatus('Project deleted successfully!', 'success');
+                await saveDataToAPI('projects');
+            }
+        }
+
+        // Gallery functions
+        function loadGalleryList() {
+            const container = document.getElementById('gallery-list');
+            
+            // Handle the actual structure where gallery items are in currentData.gallery.items
+            const galleryArray = currentData.gallery?.items || currentData.gallery || [];
+            
+            if (!galleryArray || galleryArray.length === 0) {
+                container.innerHTML = '<div class="item-card"><p>No photos found. Add your first photo!</p></div>';
+                return;
+            }
+
+            container.innerHTML = galleryArray.map((item, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${item.title}</h4>
+                        <p>${item.description || item.caption}</p>
+                        <p><strong>Category:</strong> ${item.category || 'N/A'} | <strong>Order:</strong> ${item.order || 'N/A'}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="editGalleryItem(${index})">Edit</button>
+                        <button class="btn-delete" onclick="deleteGalleryItem(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openGalleryForm() {
+            editingIndex = -1;
+            editingSection = 'gallery';
+            clearGalleryForm();
+            document.getElementById('gallery-modal').style.display = 'flex';
+        }
+
+        function editGalleryItem(index) {
+            editingIndex = index;
+            editingSection = 'gallery';
+            
+            // Handle the actual structure where gallery items are in currentData.gallery.items
+            const galleryArray = currentData.gallery?.items || currentData.gallery || [];
+            const item = galleryArray[index];
+            
+            document.getElementById('gallery-title').value = item.title || '';
+            document.getElementById('gallery-src').value = item.image || item.src || '';
+            document.getElementById('gallery-alt').value = item.alt || '';
+            document.getElementById('gallery-caption').value = item.description || item.caption || '';
+            document.getElementById('gallery-category').value = item.category || 'professional';
+            document.getElementById('gallery-order').value = item.order || 1;
+
+            document.getElementById('gallery-modal').style.display = 'flex';
+        }
+
+        function clearGalleryForm() {
+            document.getElementById('gallery-title').value = '';
+            document.getElementById('gallery-src').value = '';
+            document.getElementById('gallery-alt').value = '';
+            document.getElementById('gallery-caption').value = '';
+            document.getElementById('gallery-category').value = 'professional';
+            document.getElementById('gallery-order').value = '';
+        }
+
+        async function saveGalleryItem() {
+            const item = {
+                id: editingIndex === -1 ? generateId() : (currentData.gallery?.items || currentData.gallery || [])[editingIndex].id,
+                title: document.getElementById('gallery-title').value,
+                image: document.getElementById('gallery-src').value,
+                src: document.getElementById('gallery-src').value, // For backward compatibility
+                alt: document.getElementById('gallery-alt').value,
+                description: document.getElementById('gallery-caption').value,
+                caption: document.getElementById('gallery-caption').value, // For backward compatibility
+                category: document.getElementById('gallery-category').value,
+                order: parseInt(document.getElementById('gallery-order').value) || 1
+            };
+
+            // Handle the actual structure
+            if (!currentData.gallery.items) {
+                // If it's a simple array
+                if (editingIndex === -1) {
+                    currentData.gallery.push(item);
+                } else {
+                    currentData.gallery[editingIndex] = item;
+                }
+            } else {
+                // If it has the items structure
+                if (editingIndex === -1) {
+                    currentData.gallery.items.push(item);
+                } else {
+                    currentData.gallery.items[editingIndex] = item;
+                }
+            }
+
+            closeModal('gallery-modal');
+            loadGalleryList();
+            showStatus('Photo saved successfully!', 'success');
+            await saveDataToAPI('gallery');
+        }
+
+        async function deleteGalleryItem(index) {
+            if (confirm('Are you sure you want to delete this photo?')) {
+                // Handle the actual structure
+                if (!currentData.gallery.items) {
+                    currentData.gallery.splice(index, 1);
+                } else {
+                    currentData.gallery.items.splice(index, 1);
+                }
+                loadGalleryList();
+                showStatus('Photo deleted successfully!', 'success');
+                await saveDataToAPI('gallery');
+            }
+        }
+
+        // Awards functions
+        function loadAwardsList() {
+            const container = document.getElementById('awards-list');
+            
+            // Handle the actual structure where awards are in currentData.awards.items
+            const awardsArray = currentData.awards?.items || currentData.awards || [];
+            
+            if (!awardsArray || awardsArray.length === 0) {
+                container.innerHTML = '<div class="item-card"><p>No awards found. Add your first award!</p></div>';
+                return;
+            }
+
+            container.innerHTML = awardsArray.map((award, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${award.title}</h4>
+                        <p>${award.description}</p>
+                        <p><strong>Year:</strong> ${award.year || award.date || 'N/A'} | <strong>Category:</strong> ${award.category || 'N/A'}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="editAward(${index})">Edit</button>
+                        <button class="btn-delete" onclick="deleteAward(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openAwardForm() {
+            editingIndex = -1;
+            editingSection = 'awards';
+            clearAwardForm();
+            document.getElementById('award-modal').style.display = 'flex';
+        }
+
+        function editAward(index) {
+            editingIndex = index;
+            editingSection = 'awards';
+            
+            // Handle the actual structure where awards are in currentData.awards.items
+            const awardsArray = currentData.awards?.items || currentData.awards || [];
+            const award = awardsArray[index];
+            
+            document.getElementById('award-title').value = award.title || '';
+            document.getElementById('award-organization').value = award.organization || '';
+            document.getElementById('award-description').value = award.description || '';
+            document.getElementById('award-date').value = award.date || award.year || '';
+            document.getElementById('award-category').value = award.category || 'professional';
+            document.getElementById('award-featured').checked = award.featured || false;
+
+            document.getElementById('award-modal').style.display = 'flex';
+        }
+
+        function clearAwardForm() {
+            document.getElementById('award-title').value = '';
+            document.getElementById('award-organization').value = '';
+            document.getElementById('award-description').value = '';
+            document.getElementById('award-date').value = '';
+            document.getElementById('award-category').value = 'professional';
+            document.getElementById('award-featured').checked = false;
+        }
+
+        async function saveAward() {
+            const award = {
+                id: editingIndex === -1 ? generateId() : (currentData.awards?.items || currentData.awards || [])[editingIndex].id,
+                title: document.getElementById('award-title').value,
+                organization: document.getElementById('award-organization').value,
+                description: document.getElementById('award-description').value,
+                date: document.getElementById('award-date').value,
+                year: document.getElementById('award-date').value, // For backward compatibility
+                category: document.getElementById('award-category').value,
+                featured: document.getElementById('award-featured').checked
+            };
+
+            // Handle the actual structure
+            if (!currentData.awards.items) {
+                // If it's a simple array
+                if (editingIndex === -1) {
+                    currentData.awards.push(award);
+                } else {
+                    currentData.awards[editingIndex] = award;
+                }
+            } else {
+                // If it has the items structure
+                if (editingIndex === -1) {
+                    currentData.awards.items.push(award);
+                } else {
+                    currentData.awards.items[editingIndex] = award;
+                }
+            }
+
+            closeModal('award-modal');
+            loadAwardsList();
+            showStatus('Award saved successfully!', 'success');
+            await saveDataToAPI('awards');
+        }
+
+        async function deleteAward(index) {
+            if (confirm('Are you sure you want to delete this award?')) {
+                // Handle the actual structure
+                if (!currentData.awards.items) {
+                    currentData.awards.splice(index, 1);
+                } else {
+                    currentData.awards.items.splice(index, 1);
+                }
+                loadAwardsList();
+                showStatus('Award deleted successfully!', 'success');
+                await saveDataToAPI('awards');
+            }
+        }
+
+        // Personal Info functions
+        function loadPersonalInfo() {
+            if (currentData.personal && currentData.personal.hero) {
+                // Load hero section data
+                document.getElementById('personal-name').value = currentData.personal.hero.name || '';
+                document.getElementById('personal-title').value = currentData.personal.hero.title || '';
+                document.getElementById('personal-description').value = currentData.personal.hero.description || '';
+                
+                // Load location from quickInfo
+                if (currentData.personal.hero.quickInfo && currentData.personal.hero.quickInfo[0]) {
+                    document.getElementById('personal-location').value = currentData.personal.hero.quickInfo[0].text || '';
+                }
+                
+                // Load university from quickInfo
+                if (currentData.personal.hero.quickInfo && currentData.personal.hero.quickInfo[1]) {
+                    document.getElementById('personal-university').value = currentData.personal.hero.quickInfo[1].text || '';
+                }
+                
+                // Load languages from quickInfo
+                if (currentData.personal.hero.quickInfo && currentData.personal.hero.quickInfo[2]) {
+                    document.getElementById('personal-languages').value = currentData.personal.hero.quickInfo[2].text || '';
+                }
+                
+                // Load highlights
+                if (currentData.personal.hero.highlights) {
+                    document.getElementById('personal-highlights').value = currentData.personal.hero.highlights.join('\n');
+                }
+                
+                // Load portfolio link
+                if (currentData.personal.hero.links && currentData.personal.hero.links[0]) {
+                    document.getElementById('personal-portfolio').value = currentData.personal.hero.links[0].url || '';
+                }
+                
+                // Load LinkedIn link
+                if (currentData.personal.hero.links && currentData.personal.hero.links[1]) {
+                    document.getElementById('personal-linkedin').value = currentData.personal.hero.links[1].url || '';
+                }
+            }
+            
+            // Load about section
+            if (currentData.personal && currentData.personal.about && currentData.personal.about.content) {
+                document.getElementById('personal-about-1').value = currentData.personal.about.content[0] || '';
+                document.getElementById('personal-about-2').value = currentData.personal.about.content[1] || '';
+                document.getElementById('personal-about-3').value = currentData.personal.about.content[2] || '';
+                document.getElementById('personal-about-4').value = currentData.personal.about.content[3] || '';
+                
+                // Load skills at a glance
+                if (currentData.personal.about.atAGlance) {
+                    document.getElementById('personal-skills').value = currentData.personal.about.atAGlance.join('\n');
+                }
+            }
+            
+            // Load contact info
+            if (currentData.personal && currentData.personal.contact) {
+                document.getElementById('personal-email').value = currentData.personal.contact.email || '';
+                
+                // Load LinkedIn from contact social
+                if (currentData.personal.contact.social && currentData.personal.contact.social.linkedin) {
+                    document.getElementById('personal-linkedin').value = currentData.personal.contact.social.linkedin;
+                }
+            }
+        }
+
+        async function savePersonalInfo() {
+            // Prepare the updated personal data structure
+            const updatedPersonal = {
+                hero: {
+                    name: document.getElementById('personal-name').value,
+                    title: document.getElementById('personal-title').value,
+                    description: document.getElementById('personal-description').value,
+                    cta: currentData.personal.hero?.cta || {
+                        primary: { text: "See Projects", link: "/projects.html" },
+                        secondary: { text: "Contact", link: "/contact.html" }
+                    },
+                    quickInfo: [
+                        {
+                            icon: "fas fa-map-marker-alt",
+                            text: document.getElementById('personal-location').value
+                        },
+                        {
+                            icon: "fas fa-university",
+                            text: document.getElementById('personal-university').value
+                        },
+                        {
+                            icon: "fas fa-language",
+                            text: document.getElementById('personal-languages').value
+                        }
+                    ],
+                    highlights: document.getElementById('personal-highlights').value.split('\n').filter(h => h.trim()),
+                    links: [
+                        {
+                            text: "Portfolio",
+                            url: document.getElementById('personal-portfolio').value,
+                            external: true
+                        },
+                        {
+                            text: "LinkedIn",
+                            url: document.getElementById('personal-linkedin').value,
+                            external: true
+                        }
+                    ]
+                },
+                about: {
+                    title: "About",
+                    content: [
+                        document.getElementById('personal-about-1').value,
+                        document.getElementById('personal-about-2').value,
+                        document.getElementById('personal-about-3').value,
+                        document.getElementById('personal-about-4').value
+                    ].filter(content => content.trim()),
+                    atAGlance: document.getElementById('personal-skills').value.split('\n').filter(skill => skill.trim())
+                },
+                contact: {
+                    email: document.getElementById('personal-email').value,
+                    social: {
+                        linkedin: document.getElementById('personal-linkedin').value,
+                        twitter: currentData.personal.contact?.social?.twitter || null,
+                        instagram: currentData.personal.contact?.social?.instagram || null,
+                        github: currentData.personal.contact?.social?.github || null
+                    },
+                    availability: currentData.personal.contact?.availability || "Open to new projects and collaborations"
+                }
+            };
+
+            currentData.personal = updatedPersonal;
+            showStatus('Personal information saved successfully!', 'success');
+            await saveDataToAPI('personal');
+        }
+
+        function previewPersonalInfo() {
+            const info = {
+                hero: {
+                    name: document.getElementById('personal-name').value,
+                    title: document.getElementById('personal-title').value,
+                    description: document.getElementById('personal-description').value,
+                    location: document.getElementById('personal-location').value,
+                    university: document.getElementById('personal-university').value,
+                    languages: document.getElementById('personal-languages').value,
+                    highlights: document.getElementById('personal-highlights').value.split('\n').filter(h => h.trim()),
+                    portfolioUrl: document.getElementById('personal-portfolio').value,
+                    linkedinUrl: document.getElementById('personal-linkedin').value
+                },
+                about: {
+                    content: [
+                        document.getElementById('personal-about-1').value,
+                        document.getElementById('personal-about-2').value,
+                        document.getElementById('personal-about-3').value,
+                        document.getElementById('personal-about-4').value
+                    ].filter(content => content.trim()),
+                    skills: document.getElementById('personal-skills').value.split('\n').filter(skill => skill.trim())
+                },
+                contact: {
+                    email: document.getElementById('personal-email').value
+                }
+            };
+
+            console.log('Personal Info Preview:', info);
+            showStatus('Personal information preview logged to console', 'info');
+        }
+
+        // Utility functions
+        function generateId() {
+            return 'item-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function showStatus(message, type) {
+            const container = document.getElementById('status-messages');
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.textContent = message;
+            
+            container.appendChild(statusDiv);
+            
+            setTimeout(() => {
+                if (container.contains(statusDiv)) {
+                    container.removeChild(statusDiv);
+                }
+            }, 5000);
+        }
+
+        // Tag management functions
+        function addTag(containerId, tagText) {
+            const container = document.getElementById(containerId);
+            const input = container.querySelector('.tag-add-input');
+            
+            if (tagText.trim()) {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.innerHTML = `
+                    ${tagText}
+                    <button type="button" class="tag-remove" onclick="this.parentElement.remove()">&times;</button>
+                `;
+                container.insertBefore(tag, input);
+            }
+        }
+
+        function getTags(containerId) {
+            const container = document.getElementById(containerId);
+            const tags = container.querySelectorAll('.tag');
+            return Array.from(tags).map(tag => tag.textContent.replace('×', '').trim());
+        }
+
+        // Add event listeners for tag inputs
+        document.addEventListener('keypress', function(e) {
+            if (e.target.classList.contains('tag-add-input') && e.key === 'Enter') {
+                e.preventDefault();
+                const tagText = e.target.value.trim();
+                if (tagText) {
+                    addTag(e.target.parentElement.id, tagText);
+                    e.target.value = '';
+                }
+            }
+        });
+
+        // Save data to file (works in both development and production)
+        async function saveDataToAPI(section) {
+            try {
+                if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                    // Production: use API to save data
+                    const response = await fetch(`/api/data/${section}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ data: currentData[section] })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        showStatus(`${section} data updated successfully in production!`, 'success');
+                        return true;
+                    } else {
+                        throw new Error('Failed to save data');
+                    }
+                } else {
+                    // Development: download JSON file for manual replacement
+                    downloadUpdatedJSON(section);
+                    return true;
+                }
+            } catch (error) {
+                console.error(`Error saving ${section}:`, error);
+                showStatus(`Failed to save ${section} data: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        // Download updated JSON file (for development)
+        function downloadUpdatedJSON(section) {
+            const data = JSON.stringify(currentData[section], null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${section}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showStatus(`${section}.json file downloaded! Replace the file in your /data/ folder and refresh your website to see changes.`, 'info');
+        }
+    </script>
+</body>
+</html>

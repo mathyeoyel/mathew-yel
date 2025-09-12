@@ -1,0 +1,62 @@
+{
+  "title": "Recognition & Impact",
+  "items": [
+    {
+      "id": "digitally-fit-2025",
+      "year": "2025",
+      "title": "Digitally Fit Awards — Top Graphic Designer, Bronze Winner",
+      "description": "East Africa Edition.",
+      "category": "award",
+      "link": null
+    },
+    {
+      "id": "digitally-fit-2024",
+      "year": "2024",
+      "title": "Digitally Fit Awards — Top Graphic Designer, Gold Winner",
+      "description": "East Africa Edition.",
+      "category": "award",
+      "link": null
+    },
+    {
+      "id": "vikrahub-launch",
+      "year": "2024",
+      "title": "VikraHub Platform Launch",
+      "description": "Launched creative platform connecting South Sudanese creatives.",
+      "category": "milestone",
+      "link": "https://vikrahub.com"
+    },
+    {
+      "id": "yelose-graphics-expansion",
+      "year": "2023",
+      "title": "Yelose Graphics Expansion",
+      "description": "Expanded design agency services to include web development and branding strategy.",
+      "category": "business",
+      "link": "https://yelosegraphics.com"
+    },
+    {
+      "id": "eaco-participation",
+      "year": "2023",
+      "title": "EACO Advisory Council",
+      "description": "Participated in 1st Advisory Council & 30th Annual General Assembly.",
+      "category": "community",
+      "link": null
+    },
+    {
+      "id": "tech-journey-start",
+      "year": "2020",
+      "title": "Tech Journey Begins",
+      "description": "Started exploring the intersection of creativity and technology.",
+      "category": "milestone",
+      "link": null
+    },
+    {
+      "id": "innovation-award-2024",
+      "title": "Digital Innovation Award",
+      "organization": "South Sudan Chamber of Commerce",
+      "date": "2024-11-15",
+      "description": "Recognized for outstanding contribution to digital transformation in South Sudan's business sector.",
+      "category": "innovation",
+      "featured": true
+    }
+  ]
+}

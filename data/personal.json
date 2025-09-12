@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "name": "Mathew Yel",
+    "title": "Creative Entrepreneur • Technologist • Community Builder",
+    "description": "I'm passionate about shaping the future of design and digital innovation in South Sudan, connecting creativity with technology to empower local communities and drive global impact.",
+    "cta": {
+      "primary": {
+        "text": "See Projects",
+        "link": "/projects.html"
+      },
+      "secondary": {
+        "text": "Contact",
+        "link": "/contact.html"
+      }
+    },
+    "quickInfo": [
+      {
+        "icon": "fas fa-map-marker-alt",
+        "text": "Kator West, Juba — South Sudan"
+      },
+      {
+        "icon": "fas fa-university",
+        "text": "University of Juba — BSc IT (ongoing)"
+      },
+      {
+        "icon": "fas fa-language",
+        "text": "English & Arabic"
+      }
+    ],
+    "highlights": [
+      "Founder & Creative Director — Yelose Graphics",
+      "Founder — VikraHub (Creative Platform)",
+      "Gold & Bronze Winner — Digitally Fit Awards",
+      "Tech Journey Since 2020"
+    ],
+    "links": [
+      {
+        "text": "Portfolio",
+        "url": "https://www.yelosegraphics.com",
+        "external": true
+      },
+      {
+        "text": "LinkedIn",
+        "url": "https://www.linkedin.com/in/mathew-yel-0806my",
+        "external": true
+      }
+    ]
+  },
+  "about": {
+    "title": "About",
+    "content": [
+      "I'm Mathew Yel (also known as Yelose) — a creative entrepreneur, technologist, and community builder passionate about shaping the future of design and digital innovation in South Sudan.",
+      "My journey into tech began in 2020, when I started exploring how creativity and technology intersect. From experimenting with basic computing and Adobe Illustrator to diving into SEO, programming, and web development, I've carved a path that blends artistry with practical digital solutions.",
+      "I'm the founder of Yelose Graphics, a design agency specializing in branding and visual identity, and VikraHub, a growing platform connecting and empowering South Sudanese creatives. I've also contributed to projects like South Gleam Forex & Money Transfer Website, Aweil News Agency Website, and Etix South Sudan.",
+      "At heart, I'm both a builder and a dreamer: deeply rooted in my South Sudanese identity, yet reaching for impact on a global scale."
+    ],
+    "atAGlance": [
+      "Brand Identity & Visual Design",
+      "Web Development & UI/UX",
+      "SEO & Programming",
+      "Community Building & Workshops",
+      "Creative Direction & Strategy"
+    ]
+  },
+  "contact": {
+    "email": "hello@mathewyel.com",
+    "social": {
+      "linkedin": "https://www.linkedin.com/in/mathew-yel-0806my",
+      "twitter": null,
+      "instagram": null,
+      "github": null
+    },
+    "availability": "Open to new projects and collaborations"
+  }
+}

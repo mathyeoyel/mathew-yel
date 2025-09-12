@@ -1,0 +1,25 @@
+{
+  "name": "mathew-yel-website",
+  "version": "1.0.0",
+  "description": "Personal portfolio website for Mathew Yel with dynamic content management",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static site - no build needed'",
+    "start": "echo 'Static site ready for deployment'"
+  },
+  "keywords": [
+    "portfolio",
+    "personal-website",
+    "entrepreneur",
+    "technologist",
+    "south-sudan"
+  ],
+  "author": "Mathew Yel",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
