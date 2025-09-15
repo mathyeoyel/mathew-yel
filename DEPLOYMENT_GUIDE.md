@@ -176,6 +176,46 @@ Add this to your admin.html before the `<body>` tag:
 
 ## 🛠️ Troubleshooting
 
+## 🔐 Optional: Persistent Admin Saves via GitHub Commits
+
+By default, the admin panel in production attempts to save changes by committing updated JSON files (`data/*.json`) back to the GitHub repository. This works ONLY if you configure three environment variables in Vercel. Without them, saves will return an informational message and no data is persisted (reads still work).
+
+### Required Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `GITHUB_TOKEN` | Personal Access Token (classic or fine‑grained) with contents: write permission for this repo | `ghp_xxxxxx` |
+| `GITHUB_OWNER` | Your GitHub username or organization | `mathyeoyel` |
+| `GITHUB_REPO` | Repository name | `mathew-yel` |
+
+### How to Configure
+1. Go to Vercel Dashboard → Your Project → Settings → Environment Variables
+2. Add each variable (Use Production environment; optionally copy to Preview)
+3. Redeploy (trigger by saving or making a new commit)
+4. Open `admin.html`, edit something, click Save → verify a new commit appears in GitHub
+
+Commit message pattern: `chore: update data/<file>.json via admin panel`
+
+### Creating a Token (Fine-Grained Recommended)
+1. Visit https://github.com/settings/personal-access-tokens
+2. Choose Fine‑grained → Select only this repository → Permissions: Contents: Read & Write
+3. Generate and copy token (you cannot view it again)
+4. Add to Vercel as `GITHUB_TOKEN`
+
+### Security Tips
+* NEVER hard-code the token in the repo
+* Revoke the token if compromised
+* Restrict scope to just this repository
+* Consider adding a simple password gate to `admin.html`
+
+### Future Enhancements (Optional)
+You can later add:
+* `ADMIN_TOKEN` for header-based auth
+* Role-based auth via an external identity provider
+* Migration to a database (Supabase, Planetscale, etc.) for richer queries
+
+---
+
 ### Common Issues:
 
 #### 1. **Admin Panel Not Loading**
