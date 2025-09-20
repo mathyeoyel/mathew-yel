@@ -5,7 +5,6 @@
   "main": "index.html",
   "scripts": {
     "dev": "python -m http.server 8000",
-    "build": "echo 'Static site - no build needed'",
     "start": "echo 'Static site ready for deployment'"
   },
   "keywords": [
@@ -20,6 +19,6 @@
   "dependencies": {},
   "devDependencies": {},
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   }
 }
