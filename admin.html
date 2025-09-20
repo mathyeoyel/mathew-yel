@@ -695,14 +695,14 @@
                     <div class="image-upload-container">
                         <div class="image-input-options">
                             <div class="image-option">
-                                <label class="form-label">Option 1: Upload Image File</label>
+                                <label class="form-label">Option 1: Upload Small Image</label>
                                 <input type="file" id="project-image-file" class="form-input" accept="image/*" onchange="handleImageUpload('project')">
-                                <small class="form-hint">Upload JPG, PNG, or WebP image</small>
+                                <small class="form-hint">Upload JPG/PNG under 1MB (will be compressed)</small>
                             </div>
                             <div class="image-option">
-                                <label class="form-label">Option 2: Image URL</label>
+                                <label class="form-label">Option 2: Image URL (Recommended)</label>
                                 <input type="url" id="project-image" class="form-input" placeholder="/assets/projects/image.jpg or https://..." onchange="previewImageURL('project')">
-                                <small class="form-hint">Link to existing image or external URL</small>
+                                <small class="form-hint">External URL or server path - better performance</small>
                             </div>
                         </div>
                         <div class="image-preview" id="project-image-preview">
@@ -1529,6 +1529,15 @@
             try {
                 const isLocal = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
                 if (!isLocal) {
+                    // Check data size before sending
+                    const dataString = JSON.stringify(currentData[section]);
+                    const dataSizeKB = (dataString.length / 1024).toFixed(1);
+                    
+                    if (dataString.length > 1024 * 1024) { // 1MB limit
+                        showStatus(`Data too large (${dataSizeKB}KB). Consider using external image URLs instead of uploaded files.`, 'error');
+                        return false;
+                    }
+                    
                     // Production: use API to save data
                     const response = await fetch(`/api/data/${section}`, {
                         method: 'POST',
@@ -1538,14 +1547,16 @@
 
                     if (response.ok) {
                         const result = await response.json();
-                        showStatus(`${section} data committed to repository!`, 'success');
+                        showStatus(`${section} data committed to repository! (${dataSizeKB}KB)`, 'success');
                         return true;
                     } else {
                         // Attempt to extract JSON error details
                         let details = '';
                         try { details = await response.text(); } catch {}
 
-                        if (response.status === 501) {
+                        if (response.status === 413) {
+                            showStatus(`Data payload too large (${dataSizeKB}KB). Use external image URLs for better performance.`, 'error');
+                        } else if (response.status === 501) {
                             showStatus(`Persistence not configured. Set GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO in Vercel env settings. (${section})`, 'info');
                         } else {
                             showStatus(`Failed to save ${section} (status ${response.status}). ${details.substring(0,180)}`, 'error');
@@ -1594,25 +1605,54 @@
                 return;
             }
             
-            // Validate file size (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                showStatus('Image file too large. Please select an image under 5MB.', 'error');
+            // Validate file size (max 1MB for better performance)
+            if (file.size > 1 * 1024 * 1024) {
+                showStatus('Image file too large. Please select an image under 1MB or use an external URL instead.', 'error');
                 fileInput.value = '';
                 return;
             }
             
-            // Create preview and base64 URL
+            // Create preview and compressed base64 URL
             const reader = new FileReader();
             reader.onload = function(e) {
-                const base64Data = e.target.result;
-                
-                // Update URL input with base64 data
-                urlInput.value = base64Data;
-                
-                // Show preview
-                showImagePreview(section, base64Data, `${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
-                
-                showStatus(`Image uploaded: ${file.name}`, 'success');
+                const img = new Image();
+                img.onload = function() {
+                    // Compress image to reasonable size
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Calculate new dimensions (max 800px width)
+                    const maxWidth = 800;
+                    const maxHeight = 600;
+                    let { width, height } = img;
+                    
+                    if (width > maxWidth) {
+                        height = (height * maxWidth) / width;
+                        width = maxWidth;
+                    }
+                    if (height > maxHeight) {
+                        width = (width * maxHeight) / height;
+                        height = maxHeight;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    // Draw and compress
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8); // 80% quality
+                    
+                    // Update URL input with compressed base64 data
+                    urlInput.value = compressedBase64;
+                    
+                    // Show preview
+                    const originalSize = (file.size / 1024).toFixed(1);
+                    const compressedSize = (compressedBase64.length * 0.75 / 1024).toFixed(1); // Approximate
+                    showImagePreview(section, compressedBase64, `${file.name} (${originalSize}KB → ${compressedSize}KB)`);
+                    
+                    showStatus(`Image compressed and uploaded: ${file.name}`, 'success');
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }

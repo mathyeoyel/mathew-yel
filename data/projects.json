@@ -12,7 +12,7 @@
       "status": "active",
       "featured": true,
       "startDate": "2022-01-01",
-      "image": "https://via.placeholder.com/800x600/007acc/ffffff?text=Yelose+Graphics",
+      "image": "https://picsum.photos/800/600?random=1",
       "tech": ["Adobe Creative Suite", "Figma", "WordPress", "Web Design"],
       "role": "Founder & Creative Director"
     },
@@ -26,7 +26,7 @@
       "status": "active",
       "featured": true,
       "startDate": "2024-01-01",
-      "image": "https://via.placeholder.com/800x600/28a745/ffffff?text=VikraHub",
+      "image": "https://picsum.photos/800/600?random=2",
       "tech": ["React", "Node.js", "MongoDB", "Community Building"],
       "role": "Founder & Technical Lead"
     },
@@ -40,7 +40,7 @@
       "status": "concept",
       "featured": false,
       "startDate": "2023-06-01",
-      "image": "https://via.placeholder.com/800x600/6f42c1/ffffff?text=Etix+South+Sudan",
+      "image": "https://picsum.photos/800/600?random=3",
       "tech": ["React Native", "UI/UX Design", "Payment Integration"],
       "role": "Product Designer & Developer"
     },
@@ -55,7 +55,7 @@
       "featured": false,
       "startDate": "2023-03-01",
       "endDate": "2023-05-01",
-      "image": "https://via.placeholder.com/800x600/fd7e14/ffffff?text=South+Gleam+Forex",
+      "image": "https://picsum.photos/800/600?random=4",
       "tech": ["HTML/CSS", "JavaScript", "Responsive Design"],
       "role": "Web Developer & Designer"
     },
@@ -70,7 +70,7 @@
       "featured": false,
       "startDate": "2023-08-01",
       "endDate": "2023-10-01",
-      "image": "https://via.placeholder.com/800x600/17a2b8/ffffff?text=Aweil+News+Agency",
+      "image": "https://picsum.photos/800/600?random=5",
       "tech": ["WordPress", "Custom Theme", "SEO Optimization"],
       "role": "Web Developer"
     },
@@ -85,7 +85,7 @@
       "featured": false,
       "startDate": "2024-12-01",
       "endDate": "2025-02-15",
-      "image": "https://via.placeholder.com/800x600/dc3545/ffffff?text=SS+Digital+Summit",
+      "image": "https://picsum.photos/800/600?random=6",
       "tech": ["HTML/CSS", "JavaScript", "Registration System", "Responsive Design"],
       "role": "Lead Developer & Designer"
     }
