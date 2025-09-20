@@ -61,15 +61,6 @@
       "featured": false,
       "date": "2024-07-10",
       "category": "personal"
-    },
-    {
-      "id": "profile-4",
-      "title": "Speaking at Tech Conference",
-      "src": "/assets/gallery/speaking-conference.jpg",
-      "alt": "Mathew speaking at a technology conference",
-      "caption": "Presenting on digital innovation at the South Sudan Tech Summit",
-      "category": "professional",
-      "order": 4
     }
   ]
 }

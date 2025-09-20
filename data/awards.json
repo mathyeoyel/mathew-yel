@@ -34,29 +34,12 @@
       "link": "https://yelosegraphics.com"
     },
     {
-      "id": "eaco-participation",
-      "year": "2023",
-      "title": "EACO Advisory Council",
-      "description": "Participated in 1st Advisory Council & 30th Annual General Assembly.",
-      "category": "community",
-      "link": null
-    },
-    {
       "id": "tech-journey-start",
       "year": "2020",
       "title": "Tech Journey Begins",
       "description": "Started exploring the intersection of creativity and technology.",
       "category": "milestone",
       "link": null
-    },
-    {
-      "id": "innovation-award-2024",
-      "title": "Digital Innovation Award",
-      "organization": "South Sudan Chamber of Commerce",
-      "date": "2024-11-15",
-      "description": "Recognized for outstanding contribution to digital transformation in South Sudan's business sector.",
-      "category": "innovation",
-      "featured": true
     }
   ]
 }
