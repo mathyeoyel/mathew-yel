@@ -255,3 +255,5 @@ Multi-page static site, SEO-ready, with light/dark theme, JSON-driven projects &
 - robots.txt, sitemap.xml, site.webmanifest — SEO
 
 © 2025 — MIT License
+#   F o r c e   d e p l o y m e n t  
+ 
