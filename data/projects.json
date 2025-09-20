@@ -104,23 +104,22 @@
       "title": "Aweil News Agency Website",
       "summary": "News platform for local journalism and community updates.",
       "description": "Built a modern news website platform to help Aweil News Agency reach wider audiences with local and national news coverage. The site features content management capabilities and mobile-responsive design.",
+      "status": "completed",
+      "role": "Web Developer",
+      "startDate": "2025-05-24",
+      "endDate": "2025-06-04",
+      "link": "https://www.aweilnewsagency.com",
+      "image": "https://scontent.fnbo19-2.fna.fbcdn.net/v/t39.30808-6/503842505_1586912232287565_5754280400811815503_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=lG4k901nIRYQ7kNvwExRTFb&_nc_oc=AdlAsY2gmdt0WbjwklINgW-hP7-mFOIyrDH5bDC3XK2D3wZ9FUHXMhR34aj0Hs-Ioo9HPSX6LMnec5TNU_pW-YJR&_nc_zt=23&_nc_ht=scontent.fnbo19-2.fna&_nc_gid=g3PIBGZ1EHZrBXDMYbdARw&oh=00_AfYM3bV8s7wXa8cOzOz992qN46jypWz94oZRUE4t2pzzJg&oe=68D4B1BF",
+      "featured": false,
+      "tech": [
+        "Custom Theme",
+        "SEO Optimization"
+      ],
       "tags": [
         "News Platform",
         "CMS",
         "Responsive Design"
-      ],
-      "link": "#",
-      "status": "completed",
-      "featured": false,
-      "startDate": "2023-08-01",
-      "endDate": "2023-10-01",
-      "image": "https://via.placeholder.com/800x600/17a2b8/ffffff?text=Aweil+News+Agency",
-      "tech": [
-        "WordPress",
-        "Custom Theme",
-        "SEO Optimization"
-      ],
-      "role": "Web Developer"
+      ]
     }
   ]
 }
