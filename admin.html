@@ -717,6 +717,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-label">Technologies</label>
+                    <div id="project-tech-tags" class="tag-input">
+                        <input type="text" class="tag-add-input" placeholder="Add technology and press Enter">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags</label>
+                    <div id="project-tags" class="tag-input">
+                        <input type="text" class="tag-add-input" placeholder="Add tag and press Enter">
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="checkbox-group">
                         <input type="checkbox" id="project-featured" class="form-checkbox">
                         <label for="project-featured" class="form-label">Featured Project</label>
@@ -973,16 +985,20 @@
 
             // Load tech tags
             const techContainer = document.getElementById('project-tech-tags');
-            techContainer.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add technology and press Enter">';
-            if (project.tech) {
-                project.tech.forEach(tech => addTag('project-tech-tags', tech));
+            if (techContainer) {
+                techContainer.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add technology and press Enter">';
+                if (project.tech) {
+                    project.tech.forEach(tech => addTag('project-tech-tags', tech));
+                }
             }
 
             // Load tags
             const tagsContainer = document.getElementById('project-tags');
-            tagsContainer.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
-            if (project.tags) {
-                project.tags.forEach(tag => addTag('project-tags', tag));
+            if (tagsContainer) {
+                tagsContainer.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
+                if (project.tags) {
+                    project.tags.forEach(tag => addTag('project-tags', tag));
+                }
             }
 
             document.getElementById('project-modal').style.display = 'flex';
@@ -1005,8 +1021,14 @@
             clearImagePreview('project');
 
             // Clear tags
-            document.getElementById('project-tech-tags').innerHTML = '<input type="text" class="tag-add-input" placeholder="Add technology and press Enter">';
-            document.getElementById('project-tags').innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
+            const techTagsEl = document.getElementById('project-tech-tags');
+            const regularTagsEl = document.getElementById('project-tags');
+            if (techTagsEl) {
+                techTagsEl.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add technology and press Enter">';
+            }
+            if (regularTagsEl) {
+                regularTagsEl.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
+            }
         }
 
         async function saveProject() {

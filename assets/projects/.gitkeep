@@ -1,0 +1,26 @@
+# Project Images Directory
+
+This directory contains project images referenced in the portfolio.
+
+Current project images needed:
+- yelose-graphics.jpg
+- vikrahub.jpg  
+- etix-ss.jpg
+- ss-digital-summit.jpg
+- aweil-news.jpg
+- south-gleam.jpg
+
+## Image Guidelines
+
+- **Format**: JPG, PNG, or WebP
+- **Size**: Recommended 800x600px or similar aspect ratio
+- **File size**: Under 2MB for web performance
+- **Naming**: Use lowercase with hyphens (project-name.jpg)
+
+## Adding Images
+
+1. **Via Admin Panel**: Upload images directly when editing projects
+2. **Manual Upload**: Place images in this folder and reference them as `/assets/projects/image-name.jpg`
+3. **External URLs**: Use full URLs to external hosting services
+
+The admin panel supports both file uploads (converted to base64) and URL references.
