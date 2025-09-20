@@ -121,31 +121,6 @@
         "SEO Optimization"
       ],
       "role": "Web Developer"
-    },
-    {
-      "id": "ss-digital-summit",
-      "title": "South Sudan Digital Summit Website",
-      "summary": "Conference website for the first annual South Sudan Digital Summit 2025.",
-      "description": "Designed and developed a comprehensive conference website for South Sudan's premier digital innovation summit. The platform features speaker profiles, session scheduling, registration system, and real-time updates. This project aimed to showcase South Sudan's growing tech ecosystem to regional and international audiences.",
-      "tags": [
-        "Conference",
-        "Web Development",
-        "UI/UX",
-        "Event Management"
-      ],
-      "link": "#",
-      "status": "completed",
-      "featured": false,
-      "startDate": "2024-12-01",
-      "endDate": "2025-02-15",
-      "image": "https://via.placeholder.com/800x600/dc3545/ffffff?text=SS+Digital+Summit",
-      "tech": [
-        "HTML/CSS",
-        "JavaScript",
-        "Registration System",
-        "Responsive Design"
-      ],
-      "role": "Lead Developer & Designer"
     }
   ]
 }
