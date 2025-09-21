@@ -148,15 +148,21 @@
   // Enhanced Posts Renderer
   const postList = document.getElementById('postList');
   if (postList) {
-    fetch('/data/posts.json')
+    fetch('/data/blogs.json')
       .then(r => r.json())
       .then(items => {
-        if (items.length === 0) {
+        // Filter only published blogs
+        const publishedBlogs = items.filter(item => item.status === 'published' || item.published === true);
+        
+        if (publishedBlogs.length === 0) {
           postList.innerHTML = '<div class="item"><p class="sub">No blog posts available yet. Check back soon!</p></div>';
           return;
         }
 
-        postList.innerHTML = items.map(p => `
+        // Sort blogs by date (newest first)
+        publishedBlogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        postList.innerHTML = publishedBlogs.map(p => `
           <article class="blog-post item">
             ${p.image ? `<div class="post-image">
               <img src="${p.image}" alt="${p.title}" loading="lazy">
@@ -168,6 +174,7 @@
               <div class="post-meta">
                 <time datetime="${p.date}">${new Date(p.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
                 ${p.category ? `<span class="category">${p.category}</span>` : ''}
+                ${p.readingTime ? `<span class="reading-time">${p.readingTime} min read</span>` : ''}
                 ${p.tags && p.tags.length > 0 ? `<div class="tags">${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
               </div>
               ${p.slug ? `<a class="read-more" href="/blog/${p.slug}/">Read more <i class="fas fa-arrow-right"></i></a>` : ''}
@@ -175,7 +182,37 @@
           </article>
         `).join('');
       })
-      .catch(() => postList.innerHTML = '<p>Could not load posts.</p>');
+      .catch(() => {
+        // Fallback to posts.json if blogs.json doesn't exist
+        fetch('/data/posts.json')
+          .then(r => r.json())
+          .then(items => {
+            if (items.length === 0) {
+              postList.innerHTML = '<div class="item"><p class="sub">No blog posts available yet. Check back soon!</p></div>';
+              return;
+            }
+
+            postList.innerHTML = items.map(p => `
+              <article class="blog-post item">
+                ${p.image ? `<div class="post-image">
+                  <img src="${p.image}" alt="${p.title}" loading="lazy">
+                </div>` : ''}
+                <div class="post-content">
+                  <h3><a href="${p.slug ? `/blog/${p.slug}/` : '#'}">${p.title}</a></h3>
+                  <p class="sub">${p.excerpt}</p>
+                  ${p.content ? `<div class="post-preview">${p.content.substring(0, 200)}${p.content.length > 200 ? '...' : ''}</div>` : ''}
+                  <div class="post-meta">
+                    <time datetime="${p.date}">${new Date(p.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                    ${p.category ? `<span class="category">${p.category}</span>` : ''}
+                    ${p.tags && p.tags.length > 0 ? `<div class="tags">${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+                  </div>
+                  ${p.slug ? `<a class="read-more" href="/blog/${p.slug}/">Read more <i class="fas fa-arrow-right"></i></a>` : ''}
+                </div>
+              </article>
+            `).join('');
+          })
+          .catch(() => postList.innerHTML = '<p>Could not load blog posts.</p>');
+      });
   }
 
   // Dynamic Skills Renderer (if skills section exists)

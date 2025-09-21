@@ -1729,6 +1729,14 @@ body {
   font-weight: 500;
 }
 
+.reading-time {
+  color: var(--muted);
+  font-size: 0.8rem;
+  background: rgba(153, 153, 153, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
 .category {
   background: rgba(248, 154, 0, 0.1);
   color: var(--accent);
