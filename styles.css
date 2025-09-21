@@ -559,53 +559,182 @@ nav a.active{color:var(--text);font-weight:600}
   }
 }
 
-/* Tablet and Mobile Navigation Improvements */
+/* ============================================================================
+   MOBILE RESPONSIVE NAVIGATION (≤768px) - ENHANCED LAYOUT
+   ============================================================================ */
 @media (max-width: 768px) {
   /* Show hamburger menu on mobile */
   .nav-toggle {
-    display: inline-flex;
+    display: inline-flex !important;
   }
   
-  /* Hide desktop navigation on mobile */
+  /* Improve header spacing on mobile */
+  .site-header .container.nav {
+    padding: 0 20px;
+    height: 68px;
+  }
+  
+  body {
+    padding-top: 68px;
+  }
+  
+  /* Enhanced nav controls layout - theme toggle in middle, menu at end */
+  .nav-controls {
+    gap: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Show mobile theme toggle in the middle */
+  .theme-toggle-mobile {
+    display: inline-flex !important;
+    flex-shrink: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  /* Ensure site-nav has relative positioning for dropdown and appears at end */
+  .site-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+  
+  /* FORCE HIDE desktop navigation links by default on mobile */
   .nav-links {
-    display: none;
+    display: none !important;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     position: absolute;
-    top: calc(100% + 2px);
-    left: -20px;
-    right: -20px;
+    top: calc(100% + 8px);
+    right: 0;
+    left: auto;
+    width: 280px;
     background: var(--card);
     border: 2px solid var(--border);
-    border-top: 1px solid var(--border);
-    padding: 0;
-    box-shadow: 0 8px 32px rgba(16, 16, 16, 0.3);
+    border-radius: 16px;
+    padding: 12px 0;
+    box-shadow: 0 12px 40px rgba(16, 16, 16, 0.4);
     z-index: 1000;
-    border-radius: 0 0 16px 16px;
     overflow: hidden;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   
+  /* Add a subtle arrow pointing to the hamburger button */
+  .nav-links::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--border);
+    z-index: 1001;
+  }
+  
+  .nav-links::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 21px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid var(--card);
+    z-index: 1002;
+  }
+  
+  /* Light mode shadow adjustment */
   :root.light .nav-links {
-    box-shadow: 0 8px 32px rgba(16, 16, 16, 0.2);
+    box-shadow: 0 12px 40px rgba(16, 16, 16, 0.15);
+    background: rgba(255, 255, 255, 0.95);
   }
   
-  /* Show mobile navigation when toggled */
+  /* ONLY show mobile navigation when toggled with .show class */
   .nav-links.show {
-    display: flex;
-    animation: slideDown 0.3s ease-out;
+    display: flex !important;
+    animation: slideDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
+  /* Enhanced slide down animation for mobile menu */
   @keyframes slideDown {
     from {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateY(-15px) scale(0.95);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
+  }
+  
+  /* Enhanced mobile navigation link styling */
+  .nav-links a {
+    padding: 18px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 4px solid transparent;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    position: relative;
+  }
+  
+  :root.light .nav-links a {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-links a:hover {
+    color: var(--accent);
+    background: rgba(248, 154, 0, 0.12);
+    border-left-color: var(--accent);
+    padding-left: 32px;
+    transform: translateX(4px);
+  }
+  
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-links a.active {
+    color: var(--accent);
+    font-weight: 600;
+    background: rgba(248, 154, 0, 0.15);
+    border-left-color: var(--accent);
+  }
+  
+  /* Enhanced theme toggle in mobile menu */
+  .nav-links .theme-toggle {
+    display: inline-flex;
+    margin: 16px 28px 20px;
+    align-self: flex-start;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links .theme-toggle:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Prevent body scroll when mobile menu is open */
+  body.nav-open {
+    overflow: hidden;
   }
   
   /* Mobile navigation link styles */
@@ -1031,76 +1160,90 @@ img {
 .nav-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  position: relative;
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   position: relative;
 }
 
-/* Mobile: Keep theme toggle visible next to hamburger */
+/* Mobile: Improve theme toggle positioning */
 .theme-toggle-mobile {
   display: inline-flex;
-  order: 2; /* Ensure it appears after the nav */
+  order: 2;
+  flex-shrink: 0;
 }
 
-/* Enhanced Hamburger Menu */
+/* ============================================================================
+   MOBILE NAVIGATION & HAMBURGER MENU - COMPREHENSIVE IMPLEMENTATION
+   ============================================================================ */
+
+/* Enhanced hamburger button for mobile */
 .nav-toggle {
-  display: none; /* Hidden by default on desktop */
+  display: none;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px;
+  gap: 10px;
+  padding: 14px 16px;
   border: 2px solid var(--border);
   background: var(--card);
   color: var(--text);
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
-  min-width: 48px;
-  min-height: 48px;
+  min-width: 54px;
+  min-height: 50px;
   z-index: 1001;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-toggle:hover {
   background: var(--accent);
   color: #101010;
   border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(248, 154, 0, 0.3);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(248, 154, 0, 0.4);
 }
 
 .nav-toggle:active {
-  transform: translateY(0);
+  transform: translateY(-1px) scale(0.98);
 }
 
-/* Custom Hamburger Icon */
+.nav-toggle:focus {
+  outline: 3px solid rgba(248, 154, 0, 0.3);
+  outline-offset: 2px;
+}
+
+/* Enhanced hamburger icon container */
 .hamburger {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  width: 18px;
-  height: 14px;
+  gap: 4px;
+  width: 20px;
+  height: 16px;
+  position: relative;
 }
 
+/* Enhanced hamburger lines */
 .hamburger-line {
   width: 100%;
-  height: 2px;
+  height: 2.5px;
   background: currentColor;
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  border-radius: 3px;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform-origin: center;
 }
 
-/* Hamburger Animation - Open State */
+/* Smoother hamburger animation when menu is open */
 .nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
-  transform: translateY(5px) rotate(45deg);
+  transform: translateY(6.5px) rotate(45deg);
 }
 
 .nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
@@ -1109,18 +1252,19 @@ img {
 }
 
 .nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
-  transform: translateY(-5px) rotate(-45deg);
+  transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* Menu Text */
+/* Enhanced menu text label */
 .nav-toggle-text {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  opacity: 0.9;
 }
 
-/* Mobile Navigation Links */
+/* Desktop Navigation Links - Default State */
 .nav-links {
   display: flex; /* Show by default on desktop */
   align-items: center;
@@ -1132,6 +1276,88 @@ img {
   box-shadow: none;
   border-radius: 0;
   overflow: visible;
+}
+
+/* Ensure nav-links are hidden on mobile by default */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none !important;
+  }
+  
+  .nav-links.show {
+    display: flex !important;
+  }
+}
+
+/* ============================================================================
+   EXTRA SMALL MOBILE DEVICES (≤480px) - COMPACT LAYOUT
+   ============================================================================ */
+@media (max-width: 480px) {
+  .site-header .container.nav {
+    padding: 0 16px;
+    height: 64px;
+  }
+  
+  body {
+    padding-top: 64px;
+  }
+  
+  /* Tighter spacing for small screens */
+  .nav-controls {
+    gap: 12px;
+  }
+  
+  /* Keep theme toggle perfectly centered on small screens */
+  .theme-toggle-mobile {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .nav-toggle {
+    min-width: 48px;
+    min-height: 46px;
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  
+  .nav-toggle-text {
+    font-size: 10px;
+    letter-spacing: 0.6px;
+  }
+  
+  .hamburger {
+    width: 18px;
+    height: 14px;
+    gap: 3px;
+  }
+  
+  .hamburger-line {
+    height: 2px;
+  }
+  
+  .nav-links {
+    left: auto !important;
+    right: 0 !important;
+    width: 260px !important;
+    border-radius: 14px !important;
+  }
+  
+  .nav-links::before {
+    right: 18px !important;
+  }
+  
+  .nav-links::after {
+    right: 19px !important;
+  }
+  
+  .nav-links a {
+    padding: 16px 24px;
+    font-size: 15px;
+  }
+  
+  .nav-controls {
+    gap: 12px;
+  }
 }
 
 .nav-links a {
@@ -1170,30 +1396,44 @@ img {
   position: relative;
 }
 
-/* Theme Toggle */
-.theme-toggle {
+/* Desktop Navigation - Default State */
+.nav-links {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 2px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  border-radius: 8px;
-  cursor: pointer;
+  gap: 18px;
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
   transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
-.theme-toggle:hover {
-  background: var(--accent);
-  color: #101010;
-  border-color: var(--accent);
+.nav-links a:hover {
+  color: var(--text);
+  background: rgba(248, 154, 0, 0.1);
 }
 
-.theme-toggle-mobile {
-  display: none;
+.nav-links a.active {
+  color: var(--accent);
+  font-weight: 600;
+  background: rgba(248, 154, 0, 0.1);
 }
+
+
 
 /* Enhanced theme toggle pill switch with fixed icons */
 .theme-toggle {
@@ -1328,17 +1568,22 @@ img {
     display: none;
   }
   
-  /* Hide mobile theme toggle, show desktop theme toggle */
+  /* Show mobile theme toggle on desktop, hide desktop theme toggle */
   .theme-toggle-mobile {
-    display: none;
+    display: inline-flex;
+    order: 1;
   }
   
   .nav-links .theme-toggle {
-    display: inline-flex;
+    display: none;
   }
   
   .nav-controls {
     gap: 24px;
+  }
+  
+  .site-nav {
+    order: 2;
   }
   
   .nav-links {
@@ -1352,12 +1597,13 @@ img {
     gap: 24px;
     border-radius: 0;
     align-items: center;
+    width: auto;
   }
   
-  /* Theme toggle positioning in desktop nav */
-  .nav-links .theme-toggle {
-    margin-left: 12px;
-    order: 999; /* Ensure it appears at the end */
+  /* Remove dropdown arrows on desktop */
+  .nav-links::before,
+  .nav-links::after {
+    display: none;
   }
   
   .nav-links a {

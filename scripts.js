@@ -18,6 +18,13 @@
   const navMenu = document.querySelector('.nav-links');
   
   if (hamburger && navMenu) {
+    // Ensure menu starts closed on mobile
+    if (window.innerWidth <= 768) {
+      hamburger.setAttribute('aria-expanded', 'false');
+      navMenu.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    
     hamburger.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
