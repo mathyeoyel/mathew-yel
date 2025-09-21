@@ -168,7 +168,7 @@
               <img src="${p.image}" alt="${p.title}" loading="lazy">
             </div>` : ''}
             <div class="post-content">
-              <h3><a href="${p.slug ? `/blog/${p.slug}/` : '#'}">${p.title}</a></h3>
+              <h3><a href="${p.slug ? `/blog/post.html?slug=${p.slug}` : '#'}">${p.title}</a></h3>
               <p class="sub">${p.excerpt}</p>
               ${p.content ? `<div class="post-preview">${p.content.substring(0, 200)}${p.content.length > 200 ? '...' : ''}</div>` : ''}
               <div class="post-meta">
@@ -177,7 +177,7 @@
                 ${p.readingTime ? `<span class="reading-time">${p.readingTime} min read</span>` : ''}
                 ${p.tags && p.tags.length > 0 ? `<div class="tags">${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
               </div>
-              ${p.slug ? `<a class="read-more" href="/blog/${p.slug}/">Read more <i class="fas fa-arrow-right"></i></a>` : ''}
+              ${p.slug ? `<a class="read-more" href="/blog/post.html?slug=${p.slug}">Read more <i class="fas fa-arrow-right"></i></a>` : ''}
             </div>
           </article>
         `).join('');
@@ -198,7 +198,7 @@
                   <img src="${p.image}" alt="${p.title}" loading="lazy">
                 </div>` : ''}
                 <div class="post-content">
-                  <h3><a href="${p.slug ? `/blog/${p.slug}/` : '#'}">${p.title}</a></h3>
+                  <h3><a href="${p.slug ? `/blog/post.html?slug=${p.slug}` : '#'}">${p.title}</a></h3>
                   <p class="sub">${p.excerpt}</p>
                   ${p.content ? `<div class="post-preview">${p.content.substring(0, 200)}${p.content.length > 200 ? '...' : ''}</div>` : ''}
                   <div class="post-meta">
@@ -206,7 +206,7 @@
                     ${p.category ? `<span class="category">${p.category}</span>` : ''}
                     ${p.tags && p.tags.length > 0 ? `<div class="tags">${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
                   </div>
-                  ${p.slug ? `<a class="read-more" href="/blog/${p.slug}/">Read more <i class="fas fa-arrow-right"></i></a>` : ''}
+                  ${p.slug ? `<a class="read-more" href="/blog/post.html?slug=${p.slug}">Read more <i class="fas fa-arrow-right"></i></a>` : ''}
                 </div>
               </article>
             `).join('');

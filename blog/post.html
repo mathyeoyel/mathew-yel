@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="postTitle">Blog Post — Mathew Yel</title>
+  <meta name="description" id="postDescription" content="Blog post by Mathew Yel — Creative Entrepreneur, Technologist & Community Builder">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:title" id="ogTitle" content="Blog Post — Mathew Yel">
+  <meta property="og:description" id="ogDescription" content="Creative Entrepreneur • Technologist • Community Builder">
+  <meta property="og:type" content="article">
+  <meta property="og:url" id="ogUrl" content="https://mathew-yel.vercel.app/blog/">
+  <meta property="og:image" id="ogImage" content="https://mathew-yel.vercel.app/assets/og-image.png">
+  <meta name="theme-color" content="#101010">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles.css?v=4">
+  <script defer src="/scripts.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="logo" aria-label="Mathew Yel">
+        <img src="/assets/logo-light.png" alt="Mathew Yel Logo" class="logo-img light-mode">
+        <img src="/assets/logo-dark.png"  alt="Mathew Yel Logo (Dark)" class="logo-img dark-mode">
+        <span class="logo-text">Mathew Yel</span>
+      </a>
+      
+      <div class="nav-controls">
+        <nav class="site-nav">
+          <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
+            <span class="hamburger">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </span>
+            <span class="nav-toggle-text">Menu</span>
+          </button>
+          <div id="navMenu" class="nav-links">
+            <a href="/#about">About</a>
+            <a href="/projects.html">Projects</a>
+            <a class="active" href="/blog/">Blog</a>
+            <a href="/#awards">Awards</a>
+            <a href="/contact.html">Contact</a>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Switch theme">
+              <i class="fas fa-sun sun-icon"></i>
+              <span class="sr-only">Toggle theme</span>
+            </button>
+          </div>
+        </nav>
+        <button id="themeToggleMobile" class="theme-toggle theme-toggle-mobile" aria-label="Toggle dark/light theme" title="Switch theme">
+          <i class="fas fa-sun sun-icon"></i>
+          <span class="sr-only">Toggle theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a>
+      <span class="separator"><i class="fas fa-chevron-right"></i></span>
+      <a href="/blog/">Blog</a>
+      <span class="separator"><i class="fas fa-chevron-right"></i></span>
+      <span id="breadcrumbTitle">Loading...</span>
+    </nav>
+
+    <article id="blogPost" class="blog-post-detail">
+      <div class="post-loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Loading blog post...</p>
+      </div>
+    </article>
+
+    <div id="relatedPosts" class="related-posts" style="display: none;">
+      <h3>Related Posts</h3>
+      <div class="related-grid" id="relatedGrid"></div>
+    </div>
+
+    <div class="blog-actions">
+      <a href="/blog/" class="btn ghost">
+        <i class="fas fa-arrow-left"></i> Back to Blog
+      </a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <p>© 2025 Mathew Yel — All rights reserved.</p>
+      <p><a href="#">Back to top <i class="fas fa-arrow-up"></i></a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Blog post detail loader
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('slug');
+      
+      if (!slug) {
+        window.location.href = '/blog/';
+        return;
+      }
+
+      loadBlogPost(slug);
+    });
+
+    function loadBlogPost(slug) {
+      fetch('/data/blogs.json')
+        .then(r => r.json())
+        .then(blogs => {
+          const post = blogs.find(p => p.slug === slug);
+          
+          if (!post) {
+            document.getElementById('blogPost').innerHTML = `
+              <div class="post-error">
+                <h2>Post Not Found</h2>
+                <p>The blog post you're looking for doesn't exist.</p>
+                <a href="/blog/" class="btn primary">Return to Blog</a>
+              </div>
+            `;
+            return;
+          }
+
+          renderBlogPost(post);
+          loadRelatedPosts(blogs, post);
+          updateMetaTags(post);
+        })
+        .catch(error => {
+          console.error('Error loading blog post:', error);
+          document.getElementById('blogPost').innerHTML = `
+            <div class="post-error">
+              <h2>Error Loading Post</h2>
+              <p>There was an error loading this blog post. Please try again later.</p>
+              <a href="/blog/" class="btn primary">Return to Blog</a>
+            </div>
+          `;
+        });
+    }
+
+    function renderBlogPost(post) {
+      const blogContainer = document.getElementById('blogPost');
+      const breadcrumbTitle = document.getElementById('breadcrumbTitle');
+      
+      breadcrumbTitle.textContent = post.title;
+      
+      blogContainer.innerHTML = `
+        <header class="post-header">
+          ${post.image ? `<div class="post-featured-image">
+            <img src="${post.image}" alt="${post.title}" loading="eager">
+          </div>` : ''}
+          
+          <div class="post-meta-header">
+            <div class="post-categories-tags">
+              ${post.category ? `<span class="category">${post.category}</span>` : ''}
+              ${post.tags && post.tags.length > 0 ? `
+                <div class="tags">
+                  ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+            
+            <h1 class="post-title">${post.title}</h1>
+            
+            <div class="post-meta">
+              <div class="post-author">
+                <i class="fas fa-user"></i>
+                <span>By ${post.author || 'Mathew Yel'}</span>
+              </div>
+              
+              <div class="post-date">
+                <i class="fas fa-calendar"></i>
+                <time datetime="${post.date}">${new Date(post.date).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}</time>
+              </div>
+              
+              ${post.readingTime ? `
+                <div class="reading-time">
+                  <i class="fas fa-clock"></i>
+                  <span>${post.readingTime} min read</span>
+                </div>
+              ` : ''}
+            </div>
+            
+            ${post.excerpt ? `<div class="post-excerpt">${post.excerpt}</div>` : ''}
+          </div>
+        </header>
+
+        <div class="post-content">
+          ${formatPostContent(post.content)}
+        </div>
+
+        <footer class="post-footer">
+          <div class="post-share">
+            <h4>Share this post</h4>
+            <div class="share-buttons">
+              <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn twitter">
+                <i class="fab fa-twitter"></i> Twitter
+              </a>
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn linkedin">
+                <i class="fab fa-linkedin"></i> LinkedIn
+              </a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" class="share-btn facebook">
+                <i class="fab fa-facebook"></i> Facebook
+              </a>
+            </div>
+          </div>
+        </footer>
+      `;
+    }
+
+    function formatPostContent(content) {
+      if (!content) return '<p>No content available.</p>';
+      
+      // Convert line breaks to paragraphs and format markdown-style headers
+      return content
+        .split('\n\n')
+        .map(paragraph => {
+          if (paragraph.startsWith('## ')) {
+            return `<h2>${paragraph.substring(3)}</h2>`;
+          } else if (paragraph.startsWith('### ')) {
+            return `<h3>${paragraph.substring(4)}</h3>`;
+          } else if (paragraph.startsWith('#### ')) {
+            return `<h4>${paragraph.substring(5)}</h4>`;
+          } else if (paragraph.startsWith('- ')) {
+            const items = paragraph.split('\n').filter(line => line.startsWith('- '));
+            return `<ul>${items.map(item => `<li>${item.substring(2)}</li>`).join('')}</ul>`;
+          } else if (paragraph.trim()) {
+            return `<p>${paragraph.replace(/\n/g, '<br>')}</p>`;
+          }
+          return '';
+        })
+        .join('');
+    }
+
+    function loadRelatedPosts(allBlogs, currentPost) {
+      const related = allBlogs
+        .filter(p => p.id !== currentPost.id && (p.status === 'published' || p.published === true))
+        .filter(p => {
+          // Find posts with similar tags or category
+          if (currentPost.category && p.category === currentPost.category) return true;
+          if (currentPost.tags && p.tags) {
+            return currentPost.tags.some(tag => p.tags.includes(tag));
+          }
+          return false;
+        })
+        .slice(0, 3);
+
+      if (related.length > 0) {
+        const relatedContainer = document.getElementById('relatedPosts');
+        const relatedGrid = document.getElementById('relatedGrid');
+        
+        relatedGrid.innerHTML = related.map(post => `
+          <article class="related-post">
+            ${post.image ? `<div class="related-post-image">
+              <img src="${post.image}" alt="${post.title}" loading="lazy">
+            </div>` : ''}
+            <div class="related-post-content">
+              <h4><a href="/blog/post.html?slug=${post.slug}">${post.title}</a></h4>
+              <p>${post.excerpt}</p>
+              <div class="related-post-meta">
+                <time>${new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</time>
+                ${post.readingTime ? `<span>${post.readingTime} min read</span>` : ''}
+              </div>
+            </div>
+          </article>
+        `).join('');
+        
+        relatedContainer.style.display = 'block';
+      }
+    }
+
+    function updateMetaTags(post) {
+      document.getElementById('postTitle').textContent = `${post.title} — Mathew Yel`;
+      document.getElementById('postDescription').setAttribute('content', post.excerpt || post.title);
+      document.getElementById('ogTitle').setAttribute('content', `${post.title} — Mathew Yel`);
+      document.getElementById('ogDescription').setAttribute('content', post.excerpt || post.title);
+      document.getElementById('ogUrl').setAttribute('content', window.location.href);
+      
+      if (post.image) {
+        document.getElementById('ogImage').setAttribute('content', post.image);
+      }
+    }
+  </script>
+</body>
+</html>
