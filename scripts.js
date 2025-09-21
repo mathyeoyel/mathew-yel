@@ -18,10 +18,20 @@
   const navMenu = document.querySelector('.nav-links');
   
   if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
       const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
       hamburger.setAttribute('aria-expanded', !isExpanded);
       navMenu.classList.toggle('show');
+      
+      // Prevent body scroll when menu is open
+      if (!isExpanded) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     });
 
     // Close menu when clicking outside
@@ -29,6 +39,7 @@
       if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
         hamburger.setAttribute('aria-expanded', 'false');
         navMenu.classList.remove('show');
+        document.body.style.overflow = '';
       }
     });
 
@@ -37,6 +48,26 @@
       if (e.key === 'Escape') {
         hamburger.setAttribute('aria-expanded', 'false');
         navMenu.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu when clicking on navigation links
+    const navLinks = navMenu.querySelectorAll('a:not(.theme-toggle)');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('show');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Handle window resize to close mobile menu on desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        hamburger.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('show');
+        document.body.style.overflow = '';
       }
     });
   }

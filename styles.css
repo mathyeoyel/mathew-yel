@@ -63,8 +63,23 @@ h4, h5, h6{
   color:var(--title-primary) !important;
 }
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
-.site-header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(16,16,16,0.9);border-bottom:1px solid var(--border);z-index:10}
-:root.light .site-header{background:rgba(245,245,245,0.9)}
+.site-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(16,16,16,0.95);
+  border-bottom:1px solid var(--border);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+:root.light .site-header{background:rgba(245,245,245,0.95)}
+
+/* Add padding to body to account for fixed header */
+body {
+  padding-top: 64px;
+}
 .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
 
 /* ==== CORE LAYOUT STYLES ==== */
@@ -544,6 +559,119 @@ nav a.active{color:var(--text);font-weight:600}
   }
 }
 
+/* Tablet and Mobile Navigation Improvements */
+@media (max-width: 768px) {
+  /* Show hamburger menu on mobile */
+  .nav-toggle {
+    display: inline-flex;
+  }
+  
+  /* Hide desktop navigation on mobile */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: -20px;
+    right: -20px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-top: 1px solid var(--border);
+    padding: 0;
+    box-shadow: 0 8px 32px rgba(16, 16, 16, 0.3);
+    z-index: 1000;
+    border-radius: 0 0 16px 16px;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+  }
+  
+  :root.light .nav-links {
+    box-shadow: 0 8px 32px rgba(16, 16, 16, 0.2);
+  }
+  
+  /* Show mobile navigation when toggled */
+  .nav-links.show {
+    display: flex;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mobile navigation link styles */
+  .nav-links a {
+    display: block;
+    padding: 16px 20px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.2s ease;
+    position: relative;
+    background: transparent;
+    border-radius: 0;
+  }
+  
+  .nav-links a:last-of-type:not(.theme-toggle) {
+    border-bottom: none;
+  }
+  
+  .nav-links a:hover {
+    background: var(--accent);
+    color: #101010;
+    padding-left: 28px;
+  }
+  
+  .nav-links a.active {
+    background: rgba(248, 154, 0, 0.1);
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+  }
+  
+  /* Theme toggle in mobile menu */
+  .nav-links .theme-toggle {
+    margin: 16px 20px;
+    width: auto;
+    height: auto;
+    padding: 12px;
+    border-radius: 8px;
+    justify-content: flex-start;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .nav-links .theme-toggle::before {
+    content: "Toggle Theme";
+  }
+  
+  /* Show mobile theme toggle */
+  .theme-toggle-mobile {
+    display: flex;
+  }
+  
+  /* Navigation controls mobile layout */
+  .nav-controls {
+    gap: 12px;
+  }
+  
+  /* Ensure proper header positioning */
+  .site-nav {
+    position: relative;
+  }
+}
+
 /* Mobile phone adjustments */
 @media (max-width:480px){
   .container{padding:0 16px}
@@ -921,7 +1049,7 @@ img {
 
 /* Enhanced Hamburger Menu */
 .nav-toggle {
-  display: inline-flex;
+  display: none; /* Hidden by default on desktop */
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -937,6 +1065,7 @@ img {
   position: relative;
   min-width: 48px;
   min-height: 48px;
+  z-index: 1001;
 }
 
 .nav-toggle:hover {
@@ -993,93 +1122,77 @@ img {
 
 /* Mobile Navigation Links */
 .nav-links {
-  display: none;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--card);
-  border: 2px solid var(--border);
-  border-top: none;
+  display: flex; /* Show by default on desktop */
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  background: transparent;
+  border: none;
   padding: 0;
-  box-shadow: 0 8px 32px rgba(16, 16, 16, 0.3);
-  z-index: 100;
-  border-radius: 0 0 16px 16px;
-  overflow: hidden;
-  backdrop-filter: blur(20px);
-}
-
-:root.light .nav-links {
-  box-shadow: 0 8px 32px rgba(16, 16, 16, 0.2);
-}
-
-.nav-links.show {
-  display: flex;
-  animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
 }
 
 .nav-links a {
-  display: block;
-  padding: 16px 20px;
-  color: var(--text);
+  color: var(--muted);
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
-  border-bottom: 1px solid var(--border);
   transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: rgba(248, 154, 0, 0.1);
+  padding-left: 12px;
+}
+
+.nav-links a.active {
+  color: var(--accent);
+  font-weight: 600;
+  background: rgba(248, 154, 0, 0.1);
+  border-left: none;
+}
+
+/* Navigation Controls Layout */
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-nav {
   position: relative;
 }
 
-.nav-links a:last-child {
-  border-bottom: none;
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.nav-links a:hover {
+.theme-toggle:hover {
   background: var(--accent);
   color: #101010;
-  padding-left: 28px;
+  border-color: var(--accent);
 }
 
-.nav-links a.active {
-  background: rgba(248, 154, 0, 0.1);
-  color: var(--accent);
-  border-left: 4px solid var(--accent);
-}
-
-.nav-links.open {
-  display: flex;
-}
-
-.nav-links a {
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background 0.2s ease;
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-links a:hover {
-  background: rgba(248, 154, 0, 0.1);
-}
-
-.nav-links a.active {
-  background: var(--accent);
-  color: var(--bg);
+.theme-toggle-mobile {
+  display: none;
 }
 
 /* Enhanced theme toggle pill switch with fixed icons */
