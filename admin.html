@@ -503,8 +503,10 @@
 
         <div class="admin-nav">
             <button class="nav-btn active" onclick="showSection('projects')">Projects</button>
+            <button class="nav-btn" onclick="showSection('blogs')">Blogs</button>
             <button class="nav-btn" onclick="showSection('gallery')">Gallery</button>
             <button class="nav-btn" onclick="showSection('awards')">Awards</button>
+            <button class="nav-btn" onclick="showSection('social')">Social Media</button>
             <button class="nav-btn" onclick="showSection('personal')">Personal Info</button>
         </div>
 
@@ -516,6 +518,17 @@
             </div>
             <div id="projects-list" class="items-list">
                 <!-- Projects will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Blogs Section -->
+        <div id="blogs-section" class="admin-section">
+            <div class="section-header">
+                <h2>📝 Blog Management</h2>
+                <button class="action-btn" onclick="openBlogForm()">Add New Post</button>
+            </div>
+            <div id="blogs-list" class="items-list">
+                <!-- Blog posts will be loaded here -->
             </div>
         </div>
 
@@ -538,6 +551,115 @@
             </div>
             <div id="awards-list" class="items-list">
                 <!-- Awards will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div id="social-section" class="admin-section">
+            <div class="section-header">
+                <h2>🔗 Social Media Links</h2>
+            </div>
+            <div class="form-container">
+                <h3 style="color: #007acc; margin-bottom: 15px;">Social Media Profiles</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn URL</label>
+                        <input type="url" id="social-linkedin" class="form-input" placeholder="https://linkedin.com/in/username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">GitHub URL</label>
+                        <input type="url" id="social-github" class="form-input" placeholder="https://github.com/username">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Twitter URL</label>
+                        <input type="url" id="social-twitter" class="form-input" placeholder="https://twitter.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Instagram URL</label>
+                        <input type="url" id="social-instagram" class="form-input" placeholder="https://instagram.com/username">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Facebook URL</label>
+                        <input type="url" id="social-facebook" class="form-input" placeholder="https://facebook.com/username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Dribbble URL</label>
+                        <input type="url" id="social-dribbble" class="form-input" placeholder="https://dribbble.com/username">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Behance URL</label>
+                        <input type="url" id="social-behance" class="form-input" placeholder="https://behance.net/username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">YouTube URL</label>
+                        <input type="url" id="social-youtube" class="form-input" placeholder="https://youtube.com/c/username">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">TikTok URL</label>
+                        <input type="url" id="social-tiktok" class="form-input" placeholder="https://tiktok.com/@username">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Discord URL</label>
+                        <input type="url" id="social-discord" class="form-input" placeholder="https://discord.gg/invite">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Personal Website URL</label>
+                        <input type="url" id="social-website" class="form-input" placeholder="https://yourwebsite.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Portfolio URL</label>
+                        <input type="url" id="social-portfolio" class="form-input" placeholder="https://yourportfolio.com">
+                    </div>
+                </div>
+                
+                <h3 style="color: #007acc; margin: 25px 0 15px 0;">Contact Information</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Primary Email</label>
+                        <input type="email" id="social-email" class="form-input" placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" id="social-phone" class="form-input" placeholder="+1 (555) 123-4567">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp Number</label>
+                        <input type="tel" id="social-whatsapp" class="form-input" placeholder="+1 (555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telegram Username</label>
+                        <input type="text" id="social-telegram" class="form-input" placeholder="@username">
+                    </div>
+                </div>
+                
+                <h3 style="color: #007acc; margin: 25px 0 15px 0;">Business Information</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Business Address</label>
+                        <textarea id="social-address" class="form-input form-textarea" placeholder="Your business address..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Business Hours</label>
+                        <textarea id="social-hours" class="form-input form-textarea" placeholder="Monday - Friday: 9AM - 6PM..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="action-btn btn-save" onclick="saveSocialMedia()">Save Social Links</button>
+                    <button class="action-btn btn-preview" onclick="previewSocialMedia()">Preview</button>
+                </div>
             </div>
         </div>
 
@@ -839,15 +961,126 @@
         </div>
     </div>
 
+    <!-- Blog Form Modal -->
+    <div id="blog-modal" class="form-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add/Edit Blog Post</h3>
+                <button class="modal-close" onclick="closeModal('blog-modal')">&times;</button>
+            </div>
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="form-label">Post Title</label>
+                    <input type="text" id="blog-title" class="form-input" placeholder="Enter blog post title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Slug (URL)</label>
+                    <input type="text" id="blog-slug" class="form-input" placeholder="url-friendly-slug">
+                    <small class="form-hint">Auto-generated from title if left empty</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Excerpt/Summary</label>
+                    <textarea id="blog-excerpt" class="form-input form-textarea" placeholder="Brief description of the blog post for listings..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Content</label>
+                    <textarea id="blog-content" class="form-input form-textarea" style="min-height: 200px;" placeholder="Full blog post content (supports Markdown)..."></textarea>
+                    <small class="form-hint">You can use Markdown formatting for better content structure</small>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="blog-category" class="form-select">
+                            <option value="design">Design</option>
+                            <option value="development">Development</option>
+                            <option value="business">Business</option>
+                            <option value="technology">Technology</option>
+                            <option value="personal">Personal</option>
+                            <option value="tutorial">Tutorial</option>
+                            <option value="insights">Insights</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <select id="blog-status" class="form-select">
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                            <option value="scheduled">Scheduled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Publish Date</label>
+                        <input type="date" id="blog-date" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Reading Time (minutes)</label>
+                        <input type="number" id="blog-reading-time" class="form-input" placeholder="5" min="1" max="60">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Featured Image</label>
+                    <div class="image-upload-container">
+                        <div class="image-input-options">
+                            <div class="image-option">
+                                <label class="form-label">Option 1: Upload Small Image</label>
+                                <input type="file" id="blog-image-file" class="form-input" accept="image/*" onchange="handleImageUpload('blog')">
+                                <small class="form-hint">Upload JPG/PNG under 1MB (will be compressed)</small>
+                            </div>
+                            <div class="image-option">
+                                <label class="form-label">Option 2: Image URL (Recommended)</label>
+                                <input type="url" id="blog-image" class="form-input" placeholder="/assets/blog/image.jpg or https://..." onchange="previewImageURL('blog')">
+                                <small class="form-hint">External URL or server path - better performance</small>
+                            </div>
+                        </div>
+                        <div class="image-preview" id="blog-image-preview">
+                            <div class="preview-placeholder">No image selected</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags</label>
+                    <div id="blog-tags" class="tag-input">
+                        <input type="text" class="tag-add-input" placeholder="Add tag and press Enter">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Author</label>
+                        <input type="text" id="blog-author" class="form-input" placeholder="Author name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">SEO Meta Description</label>
+                        <input type="text" id="blog-meta" class="form-input" placeholder="SEO description for search engines">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="blog-featured" class="form-checkbox">
+                        <label for="blog-featured" class="form-label">Featured Post</label>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="action-btn btn-save" onclick="saveBlog()">Save Post</button>
+                    <button class="action-btn btn-preview" onclick="previewBlog()">Preview</button>
+                    <button class="action-btn btn-cancel" onclick="closeModal('blog-modal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="status-messages" style="position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
 
     <script>
         // Global variables
         let currentData = {
             projects: [],
+            blogs: [],
             gallery: [],
             awards: [],
-            personal: {}
+            personal: {},
+            social: {}
         };
         let editingIndex = -1;
         let editingSection = '';
@@ -875,9 +1108,11 @@
         async function loadAllData() {
             const dataFiles = {
                 projects: '/data/projects.json',
+                blogs: '/data/posts.json',
                 gallery: '/data/gallery.json',
                 awards: '/data/awards.json',
-                personal: '/data/personal.json'
+                personal: '/data/personal.json',
+                social: '/data/social.json'
             };
 
             for (const [key, url] of Object.entries(dataFiles)) {
@@ -904,6 +1139,7 @@
             // Load initial section
             loadSectionData('projects');
             loadPersonalInfo();
+            loadSocialMedia();
         }
 
         // Load section data into lists
@@ -912,11 +1148,17 @@
                 case 'projects':
                     loadProjectsList();
                     break;
+                case 'blogs':
+                    loadBlogsList();
+                    break;
                 case 'gallery':
                     loadGalleryList();
                     break;
                 case 'awards':
                     loadAwardsList();
+                    break;
+                case 'social':
+                    loadSocialMedia();
                     break;
             }
         }
@@ -1306,6 +1548,206 @@
             }
         }
 
+        // Blog functions
+        function loadBlogsList() {
+            const container = document.getElementById('blogs-list');
+            
+            // Handle the actual structure where blogs are in currentData.blogs.items
+            const blogsArray = currentData.blogs?.items || currentData.blogs || [];
+            
+            if (!blogsArray || blogsArray.length === 0) {
+                container.innerHTML = '<div class="item-card"><p>No blog posts found. Add your first post!</p></div>';
+                return;
+            }
+
+            container.innerHTML = blogsArray.map((blog, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        ${blog.image ? `<div class="item-image"><img src="${blog.image}" alt="${blog.title}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; margin-right: 10px; float: left;"></div>` : ''}
+                        <h4>${blog.title}</h4>
+                        <p>${blog.excerpt}</p>
+                        <p><strong>Status:</strong> ${blog.status || 'draft'} | <strong>Category:</strong> ${blog.category || 'general'} | <strong>Date:</strong> ${blog.date || 'N/A'}</p>
+                        ${blog.image ? `<div style="clear: both;"></div>` : ''}
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="editBlog(${index})">Edit</button>
+                        <button class="btn-delete" onclick="deleteBlog(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openBlogForm() {
+            editingIndex = -1;
+            editingSection = 'blogs';
+            clearBlogForm();
+            // Set default date to today
+            document.getElementById('blog-date').value = new Date().toISOString().split('T')[0];
+            document.getElementById('blog-modal').style.display = 'flex';
+        }
+
+        function editBlog(index) {
+            editingIndex = index;
+            editingSection = 'blogs';
+            
+            // Handle the actual structure where blogs are in currentData.blogs.items
+            const blogsArray = currentData.blogs?.items || currentData.blogs || [];
+            const blog = blogsArray[index];
+            
+            document.getElementById('blog-title').value = blog.title || '';
+            document.getElementById('blog-slug').value = blog.slug || '';
+            document.getElementById('blog-excerpt').value = blog.excerpt || '';
+            document.getElementById('blog-content').value = blog.content || '';
+            document.getElementById('blog-category').value = blog.category || 'design';
+            document.getElementById('blog-status').value = blog.status || 'draft';
+            document.getElementById('blog-date').value = blog.date || '';
+            document.getElementById('blog-reading-time').value = blog.readingTime || '';
+            document.getElementById('blog-image').value = blog.image || '';
+            document.getElementById('blog-author').value = blog.author || '';
+            document.getElementById('blog-meta').value = blog.metaDescription || '';
+            document.getElementById('blog-featured').checked = blog.featured || false;
+
+            // Load image preview if exists
+            if (blog.image) {
+                previewImageURL('blog');
+            } else {
+                clearImagePreview('blog');
+            }
+
+            // Load tags
+            const tagsContainer = document.getElementById('blog-tags');
+            if (tagsContainer) {
+                tagsContainer.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
+                if (blog.tags) {
+                    blog.tags.forEach(tag => addTag('blog-tags', tag));
+                }
+            }
+
+            document.getElementById('blog-modal').style.display = 'flex';
+        }
+
+        function clearBlogForm() {
+            document.getElementById('blog-title').value = '';
+            document.getElementById('blog-slug').value = '';
+            document.getElementById('blog-excerpt').value = '';
+            document.getElementById('blog-content').value = '';
+            document.getElementById('blog-category').value = 'design';
+            document.getElementById('blog-status').value = 'draft';
+            document.getElementById('blog-date').value = '';
+            document.getElementById('blog-reading-time').value = '';
+            document.getElementById('blog-image').value = '';
+            document.getElementById('blog-author').value = '';
+            document.getElementById('blog-meta').value = '';
+            document.getElementById('blog-featured').checked = false;
+
+            // Clear image preview and file input
+            document.getElementById('blog-image-file').value = '';
+            clearImagePreview('blog');
+
+            // Clear tags
+            const tagsEl = document.getElementById('blog-tags');
+            if (tagsEl) {
+                tagsEl.innerHTML = '<input type="text" class="tag-add-input" placeholder="Add tag and press Enter">';
+            }
+        }
+
+        function generateSlug(title) {
+            return title.toLowerCase()
+                .replace(/[^a-z0-9 -]/g, '') // Remove special characters
+                .replace(/\s+/g, '-') // Replace spaces with hyphens
+                .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+                .trim('-'); // Remove leading/trailing hyphens
+        }
+
+        async function saveBlog() {
+            const title = document.getElementById('blog-title').value;
+            let slug = document.getElementById('blog-slug').value.trim();
+            
+            // Auto-generate slug if empty
+            if (!slug && title) {
+                slug = generateSlug(title);
+                document.getElementById('blog-slug').value = slug;
+            }
+
+            const blog = {
+                id: editingIndex === -1 ? generateId() : (currentData.blogs?.items || currentData.blogs || [])[editingIndex].id,
+                title: title,
+                slug: slug,
+                excerpt: document.getElementById('blog-excerpt').value,
+                content: document.getElementById('blog-content').value,
+                category: document.getElementById('blog-category').value,
+                status: document.getElementById('blog-status').value,
+                date: document.getElementById('blog-date').value,
+                readingTime: parseInt(document.getElementById('blog-reading-time').value) || 5,
+                image: document.getElementById('blog-image').value,
+                author: document.getElementById('blog-author').value || 'Mathew Yel',
+                metaDescription: document.getElementById('blog-meta').value,
+                featured: document.getElementById('blog-featured').checked,
+                tags: getTags('blog-tags'),
+                createdAt: editingIndex === -1 ? new Date().toISOString() : (currentData.blogs?.items || currentData.blogs || [])[editingIndex].createdAt,
+                updatedAt: new Date().toISOString()
+            };
+
+            // Handle the actual structure
+            if (!currentData.blogs) {
+                currentData.blogs = { items: [] };
+            }
+            
+            if (!currentData.blogs.items) {
+                // If it's a simple array
+                if (editingIndex === -1) {
+                    currentData.blogs.push(blog);
+                } else {
+                    currentData.blogs[editingIndex] = blog;
+                }
+            } else {
+                // If it has the items structure
+                if (editingIndex === -1) {
+                    currentData.blogs.items.push(blog);
+                } else {
+                    currentData.blogs.items[editingIndex] = blog;
+                }
+            }
+
+            closeModal('blog-modal');
+            loadBlogsList();
+            showStatus('Blog post saved successfully!', 'success');
+            await saveDataToAPI('blogs');
+        }
+
+        async function deleteBlog(index) {
+            if (confirm('Are you sure you want to delete this blog post?')) {
+                // Handle the actual structure
+                if (!currentData.blogs.items) {
+                    currentData.blogs.splice(index, 1);
+                } else {
+                    currentData.blogs.items.splice(index, 1);
+                }
+                loadBlogsList();
+                showStatus('Blog post deleted successfully!', 'success');
+                await saveDataToAPI('blogs');
+            }
+        }
+
+        function previewBlog() {
+            const blog = {
+                title: document.getElementById('blog-title').value,
+                slug: document.getElementById('blog-slug').value,
+                excerpt: document.getElementById('blog-excerpt').value,
+                content: document.getElementById('blog-content').value,
+                category: document.getElementById('blog-category').value,
+                status: document.getElementById('blog-status').value,
+                date: document.getElementById('blog-date').value,
+                readingTime: document.getElementById('blog-reading-time').value,
+                image: document.getElementById('blog-image').value,
+                author: document.getElementById('blog-author').value,
+                tags: getTags('blog-tags')
+            };
+
+            console.log('Blog Preview:', blog);
+            showStatus('Blog preview logged to console', 'info');
+        }
+
         // Personal Info functions
         function loadPersonalInfo() {
             if (currentData.personal && currentData.personal.hero) {
@@ -1466,6 +1908,96 @@
             showStatus('Personal information preview logged to console', 'info');
         }
 
+        // Social Media functions
+        function loadSocialMedia() {
+            if (currentData.social) {
+                // Load social media links
+                document.getElementById('social-linkedin').value = currentData.social.linkedin || '';
+                document.getElementById('social-github').value = currentData.social.github || '';
+                document.getElementById('social-twitter').value = currentData.social.twitter || '';
+                document.getElementById('social-instagram').value = currentData.social.instagram || '';
+                document.getElementById('social-facebook').value = currentData.social.facebook || '';
+                document.getElementById('social-dribbble').value = currentData.social.dribbble || '';
+                document.getElementById('social-behance').value = currentData.social.behance || '';
+                document.getElementById('social-youtube').value = currentData.social.youtube || '';
+                document.getElementById('social-tiktok').value = currentData.social.tiktok || '';
+                document.getElementById('social-discord').value = currentData.social.discord || '';
+                document.getElementById('social-website').value = currentData.social.website || '';
+                document.getElementById('social-portfolio').value = currentData.social.portfolio || '';
+                
+                // Load contact information
+                document.getElementById('social-email').value = currentData.social.email || '';
+                document.getElementById('social-phone').value = currentData.social.phone || '';
+                document.getElementById('social-whatsapp').value = currentData.social.whatsapp || '';
+                document.getElementById('social-telegram').value = currentData.social.telegram || '';
+                
+                // Load business information
+                document.getElementById('social-address').value = currentData.social.address || '';
+                document.getElementById('social-hours').value = currentData.social.businessHours || '';
+            }
+        }
+
+        async function saveSocialMedia() {
+            const socialData = {
+                // Social media platforms
+                linkedin: document.getElementById('social-linkedin').value,
+                github: document.getElementById('social-github').value,
+                twitter: document.getElementById('social-twitter').value,
+                instagram: document.getElementById('social-instagram').value,
+                facebook: document.getElementById('social-facebook').value,
+                dribbble: document.getElementById('social-dribbble').value,
+                behance: document.getElementById('social-behance').value,
+                youtube: document.getElementById('social-youtube').value,
+                tiktok: document.getElementById('social-tiktok').value,
+                discord: document.getElementById('social-discord').value,
+                website: document.getElementById('social-website').value,
+                portfolio: document.getElementById('social-portfolio').value,
+                
+                // Contact information
+                email: document.getElementById('social-email').value,
+                phone: document.getElementById('social-phone').value,
+                whatsapp: document.getElementById('social-whatsapp').value,
+                telegram: document.getElementById('social-telegram').value,
+                
+                // Business information
+                address: document.getElementById('social-address').value,
+                businessHours: document.getElementById('social-hours').value,
+                
+                // Metadata
+                updatedAt: new Date().toISOString()
+            };
+
+            currentData.social = socialData;
+            showStatus('Social media links saved successfully!', 'success');
+            await saveDataToAPI('social');
+        }
+
+        function previewSocialMedia() {
+            const socialData = {
+                linkedin: document.getElementById('social-linkedin').value,
+                github: document.getElementById('social-github').value,
+                twitter: document.getElementById('social-twitter').value,
+                instagram: document.getElementById('social-instagram').value,
+                facebook: document.getElementById('social-facebook').value,
+                dribbble: document.getElementById('social-dribbble').value,
+                behance: document.getElementById('social-behance').value,
+                youtube: document.getElementById('social-youtube').value,
+                tiktok: document.getElementById('social-tiktok').value,
+                discord: document.getElementById('social-discord').value,
+                website: document.getElementById('social-website').value,
+                portfolio: document.getElementById('social-portfolio').value,
+                email: document.getElementById('social-email').value,
+                phone: document.getElementById('social-phone').value,
+                whatsapp: document.getElementById('social-whatsapp').value,
+                telegram: document.getElementById('social-telegram').value,
+                address: document.getElementById('social-address').value,
+                businessHours: document.getElementById('social-hours').value
+            };
+
+            console.log('Social Media Preview:', socialData);
+            showStatus('Social media preview logged to console', 'info');
+        }
+
         // Utility functions
         function generateId() {
             return 'item-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
@@ -1520,6 +2052,16 @@
                 if (tagText) {
                     addTag(e.target.parentElement.id, tagText);
                     e.target.value = '';
+                }
+            }
+        });
+
+        // Auto-generate slug from blog title
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'blog-title') {
+                const slugField = document.getElementById('blog-slug');
+                if (slugField && !slugField.value) {
+                    slugField.value = generateSlug(e.target.value);
                 }
             }
         });
