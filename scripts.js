@@ -151,15 +151,28 @@
     fetch('/data/posts.json')
       .then(r => r.json())
       .then(items => {
+        if (items.length === 0) {
+          postList.innerHTML = '<div class="item"><p class="sub">No blog posts available yet. Check back soon!</p></div>';
+          return;
+        }
+
         postList.innerHTML = items.map(p => `
-          <div class="item">
-            <h3><a href="${p.url}">${p.title}</a></h3>
-            <p class="sub">${p.excerpt}</p>
-            <div class="post-meta">
-              <small>${p.date}</small>
-              ${p.category ? `<span class="category">${p.category}</span>` : ''}
+          <article class="blog-post item">
+            ${p.image ? `<div class="post-image">
+              <img src="${p.image}" alt="${p.title}" loading="lazy">
+            </div>` : ''}
+            <div class="post-content">
+              <h3><a href="${p.slug ? `/blog/${p.slug}/` : '#'}">${p.title}</a></h3>
+              <p class="sub">${p.excerpt}</p>
+              ${p.content ? `<div class="post-preview">${p.content.substring(0, 200)}${p.content.length > 200 ? '...' : ''}</div>` : ''}
+              <div class="post-meta">
+                <time datetime="${p.date}">${new Date(p.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                ${p.category ? `<span class="category">${p.category}</span>` : ''}
+                ${p.tags && p.tags.length > 0 ? `<div class="tags">${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+              </div>
+              ${p.slug ? `<a class="read-more" href="/blog/${p.slug}/">Read more <i class="fas fa-arrow-right"></i></a>` : ''}
             </div>
-          </div>
+          </article>
         `).join('');
       })
       .catch(() => postList.innerHTML = '<p>Could not load posts.</p>');
@@ -202,5 +215,55 @@
       .catch(() => {
         skillsContainer.innerHTML = '<p>Could not load skills.</p>';
       });
+  }
+
+  // Dynamic Hero Section Renderer
+  const heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    Promise.all([
+      fetch('/data/social.json').then(r => r.json()),
+      fetch('/data/projects.json').then(r => r.json())
+    ])
+    .then(([socialData, projectsData]) => {
+      // Update hero links with dynamic data
+      const portfolioLink = heroSection.querySelector('a[href*="yelosegraphics"]');
+      const linkedinLink = heroSection.querySelector('a[href*="linkedin"]');
+      
+      if (portfolioLink && socialData.portfolio) {
+        portfolioLink.href = socialData.portfolio;
+      }
+      
+      if (linkedinLink && socialData.linkedin) {
+        linkedinLink.href = socialData.linkedin;
+      }
+
+      // Update contact link if available
+      const contactBtn = heroSection.querySelector('a[href="/contact.html"]');
+      if (contactBtn && socialData.email) {
+        const emailBtn = document.createElement('a');
+        emailBtn.className = 'btn ghost';
+        emailBtn.href = `mailto:${socialData.email}`;
+        emailBtn.innerHTML = '<i class="fas fa-envelope"></i> Email';
+        contactBtn.parentNode.insertBefore(emailBtn, contactBtn.nextSibling);
+      }
+
+      // Update highlights with featured projects
+      const highlightsList = heroSection.querySelector('.checklist');
+      if (highlightsList && projectsData.items) {
+        const featuredProjects = projectsData.items.filter(p => p.featured).slice(0, 3);
+        const existingItems = highlightsList.querySelectorAll('li');
+        
+        // Add dynamic project highlights
+        featuredProjects.forEach((project, index) => {
+          if (index + 1 < existingItems.length) {
+            const listItem = existingItems[index + 1];
+            if (project.role) {
+              listItem.innerHTML = `${project.role} — ${project.title}`;
+            }
+          }
+        });
+      }
+    })
+    .catch(console.error);
   }
 })();

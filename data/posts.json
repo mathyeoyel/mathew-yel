@@ -1,14 +1,28 @@
 [
   {
+    "id": "personal-seo-for-creatives",
     "title": "Personal SEO for Creatives: Start Simple",
+    "slug": "personal-seo-for-creatives-start-simple",
     "excerpt": "A quick guide to getting your name to show up the right way on Google with basic steps you can do today.",
+    "content": "Getting found online as a creative professional doesn't have to be complicated. Here's how to start building your personal SEO foundation today.\n\n## Why Personal SEO Matters\n\nYour online presence is often the first impression potential clients, collaborators, or employers have of you. When someone searches for your name, what do they find?\n\n## Basic Steps You Can Take Today\n\n### 1. Claim Your Name\n- Register your domain name (yourname.com)\n- Set up consistent social media handles\n- Create a basic website or portfolio\n\n### 2. Optimize Your Online Profiles\n- Use your real name consistently\n- Write clear, professional bios\n- Include relevant keywords naturally\n\n### 3. Create Quality Content\n- Share your work regularly\n- Write about your process\n- Engage with your community\n\nRemember: SEO is a marathon, not a sprint. Start simple and build consistently.",
     "date": "2025-09-10",
-    "url": "#"
+    "category": "SEO",
+    "tags": ["SEO", "Personal Branding", "Digital Marketing", "Creatives"],
+    "image": "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=400&fit=crop",
+    "featured": true,
+    "published": true
   },
   {
-    "title": "Designing for Community \u2014 Lessons from Juba",
+    "id": "designing-for-community-juba",
+    "title": "Designing for Community — Lessons from Juba",
+    "slug": "designing-for-community-lessons-from-juba",
     "excerpt": "What local projects taught me about storytelling, constraints, and collaboration.",
+    "content": "Working in Juba has taught me that the best design solutions come from understanding community needs, not imposing external standards.\n\n## The Power of Local Context\n\nEvery design project in South Sudan has taught me something new about working within constraints and finding creative solutions that truly serve the community.\n\n## Key Lessons Learned\n\n### 1. Listen First, Design Second\nBefore sketching a single wireframe, I spend time understanding the real problems people face. This has led to more meaningful, impactful design solutions.\n\n### 2. Constraints Breed Creativity\nLimited resources have pushed me to find innovative solutions that are both cost-effective and culturally appropriate.\n\n### 3. Community Collaboration\nThe best projects happen when the community is involved from the beginning. Their input shapes better outcomes than any external expertise could achieve alone.\n\n## Building for Tomorrow\n\nDesign isn't just about making things look good—it's about creating solutions that help communities thrive. In Juba, I've learned that this starts with understanding, respecting, and building alongside the people you're designing for.",
     "date": "2025-09-10",
-    "url": "#"
+    "category": "Design",
+    "tags": ["Community Design", "South Sudan", "Local Innovation", "Cultural Design"],
+    "image": "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&h=400&fit=crop",
+    "featured": true,
+    "published": true
   }
 ]
