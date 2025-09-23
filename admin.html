@@ -4,7 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Mathew Yel</title>
+    <script src="/auth.js"></script>
+    <script src="/csrf.js"></script>
+    <script src="/validation.js"></script>
     <style>
+        :root {
+            --bg: #0b0d13;
+            --card: #121521;
+            --muted: #a7b0c0;
+            --text: #f2f4f8;
+            --accent: #5dd0ff;
+            --border: #22283a;
+            --success: #8ff0a7;
+            --warning: #ffb366;
+            --error: #ff6b6b;
+            --gradient: linear-gradient(135deg, #5dd0ff, #a1ffce);
+        }
+        
+        :root.light {
+            --bg: #f7f9fc;
+            --card: #ffffff;
+            --muted: #52607a;
+            --text: #0b1020;
+            --accent: #0066ff;
+            --border: #e6eaf2;
+            --success: #28a745;
+            --warning: #ffc107;
+            --error: #dc3545;
+            --gradient: linear-gradient(135deg, #0066ff, #28a745);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,10 +41,11 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            transition: all 0.3s ease;
         }
 
         .admin-container {
@@ -25,52 +55,94 @@
         }
 
         .admin-header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
             margin-bottom: 30px;
             text-align: center;
+            position: relative;
         }
 
         .admin-header h1 {
-            color: #007acc;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .admin-header p {
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: translateY(-2px);
         }
 
         .admin-nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 30px;
             justify-content: center;
         }
 
         .nav-btn {
-            background: #007acc;
-            color: white;
-            border: none;
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
             padding: 12px 24px;
-            border-radius: 6px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            font-family: inherit;
         }
 
         .nav-btn:hover {
-            background: #005999;
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
             transform: translateY(-2px);
         }
 
         .nav-btn.active {
-            background: #28a745;
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
         }
 
         .admin-section {
-            background: white;
+            background: var(--card);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            border: 1px solid var(--border);
             margin-bottom: 20px;
             display: none;
         }
@@ -85,28 +157,34 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #eee;
+            border-bottom: 1px solid var(--border);
         }
 
         .section-header h2 {
-            color: #007acc;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .action-btn {
-            background: #28a745;
-            color: white;
+            background: var(--accent);
+            color: var(--bg);
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 12px 20px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            font-family: inherit;
         }
 
         .action-btn:hover {
-            background: #218838;
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(93, 208, 255, 0.3);
         }
 
         /* Form Styles */
@@ -129,22 +207,30 @@
 
         .form-label {
             font-weight: 600;
-            color: #555;
+            color: var(--text);
             font-size: 14px;
+            margin-bottom: 6px;
         }
 
         .form-input {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
             font-size: 14px;
-            transition: border-color 0.3s ease;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+            font-family: inherit;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #007acc;
-            box-shadow: 0 0 0 3px rgba(0,122,204,0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(93, 208, 255, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--muted);
         }
 
         .form-textarea {
@@ -153,17 +239,19 @@
         }
 
         .form-select {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
             font-size: 14px;
-            background: white;
+            background: var(--bg);
+            color: var(--text);
+            font-family: inherit;
         }
 
         .form-checkbox {
             width: 20px;
             height: 20px;
-            accent-color: #007acc;
+            accent-color: var(--accent);
         }
 
         .checkbox-group {
@@ -176,28 +264,30 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            padding: 8px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            min-height: 45px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            min-height: 50px;
             align-items: center;
+            background: var(--bg);
         }
 
         .tag {
-            background: #007acc;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 12px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .tag-remove {
             background: none;
             border: none;
-            color: white;
+            color: inherit;
             cursor: pointer;
             font-size: 14px;
             padding: 0;
@@ -206,6 +296,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+
+        .tag-remove:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .tag-add-input {
@@ -214,21 +310,34 @@
             padding: 4px;
             flex: 1;
             min-width: 100px;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        .tag-add-input::placeholder {
+            color: var(--muted);
         }
 
         .items-list {
-            border: 2px solid #ddd;
-            border-radius: 6px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
+            background: var(--bg);
         }
 
         .item-card {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .item-card:hover {
+            background: var(--card);
         }
 
         .item-card:last-child {
@@ -236,12 +345,13 @@
         }
 
         .item-info h4 {
-            color: #007acc;
-            margin-bottom: 5px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .item-info p {
-            color: #666;
+            color: var(--muted);
             font-size: 14px;
         }
 
@@ -251,54 +361,98 @@
         }
 
         .btn-edit {
-            background: #ffc107;
-            color: #333;
+            background: var(--warning);
+            color: var(--bg);
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
         }
 
         .btn-delete {
-            background: #dc3545;
+            background: var(--error);
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
         }
 
         .btn-group {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
         }
 
         .btn-save {
-            background: #28a745;
+            background: var(--success);
+            color: var(--bg);
         }
 
         .btn-cancel {
-            background: #6c757d;
+            background: var(--muted);
+            color: var(--bg);
         }
 
         .btn-preview {
-            background: #6f42c1;
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .btn-group .action-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-group .action-btn:hover {
+            transform: translateY(-2px);
         }
 
         .status-message {
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border-radius: 12px;
             margin-top: 15px;
             font-weight: 500;
+            border: 1px solid;
         }
 
         .status-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(143, 240, 167, 0.1);
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .status-error {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--error);
+            border-color: var(--error);
+        }
+
+        .status-info {
+            background: rgba(93, 208, 255, 0.1);
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
         .status-error {
@@ -319,7 +473,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(11, 13, 19, 0.8);
+            backdrop-filter: blur(8px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -327,38 +482,59 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--card);
+            border: 1px solid var(--border);
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 16px;
             width: 90%;
             max-width: 600px;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eee;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h3 {
+            color: var(--text);
+            font-size: 1.5rem;
+            font-weight: 600;
         }
 
         .modal-close {
-            background: none;
-            border: none;
-            font-size: 24px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 18px;
             cursor: pointer;
-            color: #666;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--error);
+            color: white;
+            border-color: var(--error);
         }
 
         /* Image Upload Styles */
         .image-upload-container {
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
             padding: 20px;
-            background: #f9f9f9;
+            background: var(--bg);
         }
 
         .image-input-options {
@@ -392,18 +568,18 @@
         .image-preview {
             width: 100%;
             min-height: 200px;
-            border: 2px dashed #ddd;
-            border-radius: 8px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
+            background: var(--bg);
             position: relative;
             overflow: hidden;
         }
 
         .preview-placeholder {
-            color: #999;
+            color: var(--muted);
             font-size: 14px;
             text-align: center;
         }
@@ -412,7 +588,7 @@
             max-width: 100%;
             max-height: 200px;
             object-fit: contain;
-            border-radius: 4px;
+            border-radius: 8px;
         }
 
         .preview-info {
@@ -420,44 +596,65 @@
             bottom: 10px;
             left: 10px;
             right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 8px;
-            border-radius: 4px;
+            background: rgba(11, 13, 19, 0.8);
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 8px;
             font-size: 12px;
+            backdrop-filter: blur(4px);
         }
 
         .image-actions {
             display: flex;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         .btn-clear-image {
-            background: #dc3545;
+            background: var(--error);
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
 
         .btn-clear-image:hover {
-            background: #c82333;
+            transform: translateY(-1px);
+            opacity: 0.9;
         }
 
         @media (max-width: 768px) {
             .admin-container {
-                padding: 10px;
+                padding: 15px;
+            }
+
+            .admin-header {
+                padding: 20px;
+                text-align: center;
+            }
+
+            .admin-header h1 {
+                font-size: 2rem;
+            }
+
+            .theme-toggle {
+                top: 15px;
+                left: 15px;
             }
 
             .admin-nav {
                 flex-direction: column;
+                gap: 8px;
             }
 
             .nav-btn {
                 width: 100%;
+                padding: 14px 20px;
             }
 
             .admin-section {
@@ -470,8 +667,17 @@
                 align-items: flex-start;
             }
 
+            .section-header h2 {
+                font-size: 1.25rem;
+            }
+
             .btn-group {
                 flex-direction: column;
+            }
+
+            .btn-group .action-btn {
+                width: 100%;
+                text-align: center;
             }
 
             .form-row {
@@ -497,6 +703,7 @@
 <body>
     <div class="admin-container">
         <div class="admin-header">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">🌙</button>
             <h1>🚀 Admin Panel - Mathew Yel Website</h1>
             <p>Manage your website content with easy-to-use forms</p>
         </div>
@@ -1085,8 +1292,38 @@
         let editingIndex = -1;
         let editingSection = '';
 
+        // Theme Management
+        function initTheme() {
+            const savedTheme = localStorage.getItem('admin-theme') || 'dark';
+            const root = document.documentElement;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (savedTheme === 'light') {
+                root.classList.add('light');
+                themeToggle.textContent = '☀️';
+            } else {
+                root.classList.remove('light');
+                themeToggle.textContent = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const themeToggle = document.getElementById('themeToggle');
+            const isLight = root.classList.toggle('light');
+            
+            if (isLight) {
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('admin-theme', 'light');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('admin-theme', 'dark');
+            }
+        }
+
         // Initialize admin panel
         document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
             loadAllData();
         });
 
@@ -2069,10 +2306,22 @@
         // Save data to file (works in both development and production)
         async function saveDataToAPI(section) {
             try {
+                // Check if user is authenticated
+                if (!window.adminAuth || !window.adminAuth.isAuthenticated()) {
+                    showStatus('Please login first', 'error');
+                    return false;
+                }
+
                 const isLocal = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
                 if (!isLocal) {
+                    // Validate and sanitize data before sending
+                    let sanitizedData = currentData[section];
+                    if (window.inputValidator) {
+                        sanitizedData = window.inputValidator.sanitizeFormData(currentData[section]);
+                    }
+
                     // Check data size before sending
-                    const dataString = JSON.stringify(currentData[section]);
+                    const dataString = JSON.stringify(sanitizedData);
                     const dataSizeKB = (dataString.length / 1024).toFixed(1);
                     
                     if (dataString.length > 1024 * 1024) { // 1MB limit
@@ -2080,11 +2329,33 @@
                         return false;
                     }
                     
-                    // Production: use API to save data
+                    // Get authentication token (password hash)
+                    const authToken = localStorage.getItem('admin_password_hash');
+                    if (!authToken) {
+                        showStatus('Authentication token missing. Please login again.', 'error');
+                        window.adminAuth.logout();
+                        return false;
+                    }
+                    
+                    // Production: use API to save data with authentication
+                    const headers = {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    };
+                    
+                    // Add CSRF token if available
+                    if (window.csrfProtection) {
+                        const csrfToken = window.csrfProtection.getToken();
+                        headers['X-CSRF-Token'] = csrfToken;
+                    }
+
                     const response = await fetch(`/api/data/${section}`, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ data: currentData[section] })
+                        headers: headers,
+                        body: JSON.stringify({ 
+                            data: sanitizedData,
+                            csrf_token: window.csrfProtection?.getToken()
+                        })
                     });
 
                     if (response.ok) {
@@ -2094,12 +2365,24 @@
                     } else {
                         // Attempt to extract JSON error details
                         let details = '';
-                        try { details = await response.text(); } catch {}
+                        try { 
+                            const errorData = await response.json();
+                            details = errorData.details || errorData.error || '';
+                        } catch {
+                            details = await response.text();
+                        }
 
-                        if (response.status === 413) {
+                        if (response.status === 401) {
+                            showStatus('Unauthorized. Please login again.', 'error');
+                            window.adminAuth.logout();
+                        } else if (response.status === 403) {
+                            showStatus('CSRF validation failed. Please refresh the page and try again.', 'error');
+                        } else if (response.status === 413) {
                             showStatus(`Data payload too large (${dataSizeKB}KB). Use external image URLs for better performance.`, 'error');
+                        } else if (response.status === 429) {
+                            showStatus('Too many requests. Please wait a moment and try again.', 'error');
                         } else if (response.status === 501) {
-                            showStatus(`Persistence not configured. Set GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO in Vercel env settings. (${section})`, 'info');
+                            showStatus(`Persistence not configured. Set GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, ADMIN_PASSWORD_HASH in Vercel env settings. (${section})`, 'info');
                         } else {
                             showStatus(`Failed to save ${section} (status ${response.status}). ${details.substring(0,180)}`, 'error');
                         }
@@ -2140,18 +2423,29 @@
             const file = fileInput.files[0];
             if (!file) return;
             
+            // Enhanced file validation
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+            const maxSize = 1 * 1024 * 1024; // 1MB
+            const maxDimension = 2048; // Max width/height
+            
             // Validate file type
-            if (!file.type.startsWith('image/')) {
-                showStatus('Please select a valid image file (JPG, PNG, WebP)', 'error');
+            if (!allowedTypes.includes(file.type)) {
+                showStatus('Invalid file type. Only JPEG, PNG, WebP, and GIF images are allowed.', 'error');
                 fileInput.value = '';
                 return;
             }
             
-            // Validate file size (max 1MB for better performance)
-            if (file.size > 1 * 1024 * 1024) {
-                showStatus('Image file too large. Please select an image under 1MB or use an external URL instead.', 'error');
+            // Validate file size
+            if (file.size > maxSize) {
+                showStatus(`Image file too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Please select an image under 1MB or use an external URL instead.`, 'error');
                 fileInput.value = '';
                 return;
+            }
+            
+            // Validate filename for security
+            const sanitizedName = file.name.replace(/[^a-zA-Z0-9._-]/g, '');
+            if (sanitizedName !== file.name) {
+                console.warn('Filename contained potentially unsafe characters');
             }
             
             // Create preview and compressed base64 URL
@@ -2159,6 +2453,13 @@
             reader.onload = function(e) {
                 const img = new Image();
                 img.onload = function() {
+                    // Validate image dimensions
+                    if (img.width > maxDimension || img.height > maxDimension) {
+                        showStatus(`Image dimensions too large (${img.width}x${img.height}). Maximum allowed: ${maxDimension}x${maxDimension}px`, 'error');
+                        fileInput.value = '';
+                        return;
+                    }
+                    
                     // Compress image to reasonable size
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
@@ -2182,7 +2483,17 @@
                     
                     // Draw and compress
                     ctx.drawImage(img, 0, 0, width, height);
-                    const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8); // 80% quality
+                    
+                    // Use higher quality for smaller files, lower for larger
+                    const quality = file.size > 500000 ? 0.7 : 0.8;
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                    
+                    // Additional size check after compression
+                    if (compressedBase64.length > 1.5 * 1024 * 1024) { // 1.5MB base64 limit
+                        showStatus('Compressed image still too large. Please use a smaller image or external URL.', 'error');
+                        fileInput.value = '';
+                        return;
+                    }
                     
                     // Update URL input with compressed base64 data
                     urlInput.value = compressedBase64;
@@ -2190,12 +2501,24 @@
                     // Show preview
                     const originalSize = (file.size / 1024).toFixed(1);
                     const compressedSize = (compressedBase64.length * 0.75 / 1024).toFixed(1); // Approximate
-                    showImagePreview(section, compressedBase64, `${file.name} (${originalSize}KB → ${compressedSize}KB)`);
+                    showImagePreview(section, compressedBase64, `${sanitizedName} (${originalSize}KB → ${compressedSize}KB)`);
                     
-                    showStatus(`Image compressed and uploaded: ${file.name}`, 'success');
+                    showStatus(`Image processed and uploaded: ${sanitizedName}`, 'success');
                 };
+                
+                img.onerror = function() {
+                    showStatus('Invalid or corrupted image file.', 'error');
+                    fileInput.value = '';
+                };
+                
                 img.src = e.target.result;
             };
+            
+            reader.onerror = function() {
+                showStatus('Error reading file.', 'error');
+                fileInput.value = '';
+            };
+            
             reader.readAsDataURL(file);
         }
         
@@ -2208,6 +2531,30 @@
                 return;
             }
             
+            // Validate URL format
+            if (!imageUrl.startsWith('data:') && !imageUrl.startsWith('http://') && !imageUrl.startsWith('https://') && !imageUrl.startsWith('/')) {
+                showStatus('Invalid image URL format.', 'error');
+                clearImagePreview(section);
+                return;
+            }
+            
+            // Additional validation for external URLs
+            if (imageUrl.startsWith('http')) {
+                try {
+                    const url = new URL(imageUrl);
+                    const allowedHosts = ['imgur.com', 'github.com', 'githubusercontent.com', 'unsplash.com', 'pixabay.com', 'pexels.com'];
+                    const isAllowedHost = allowedHosts.some(host => url.hostname.endsWith(host));
+                    
+                    if (!isAllowedHost) {
+                        console.warn('External image from potentially untrusted source:', url.hostname);
+                    }
+                } catch {
+                    showStatus('Invalid URL format.', 'error');
+                    clearImagePreview(section);
+                    return;
+                }
+            }
+            
             // Clear file input when URL is used
             const fileInput = document.getElementById(`${section}-image-file`);
             if (fileInput) {
@@ -2215,7 +2562,7 @@
             }
             
             // Show preview
-            showImagePreview(section, imageUrl, 'External URL');
+            showImagePreview(section, imageUrl, imageUrl.startsWith('data:') ? 'Base64 Data' : 'External URL');
         }
         
         function showImagePreview(section, imageUrl, info) {
