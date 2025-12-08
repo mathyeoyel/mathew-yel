@@ -3,7 +3,7 @@
     "name": "Mathew Yel",
     "title": "Brand Specialist & Technologist",
     "description": "I build brands and digital products that help businesses grow. My work combines design and technology to empower communities and elevate creative solutions in South Sudan and beyond.",
-    "image": "/assets/photos/mathew-portrait-01-1600.jpg",
+    "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765216915/IMG-20250911-WA0144_-_Edited_ew3ryw.png",
     "cta": {
       "primary": {
         "text": "See My Work",
@@ -17,7 +17,7 @@
     "quickInfo": [
       {
         "icon": "fas fa-map-marker-alt",
-        "text": "Kator West, Juba — South Sudan"
+        "text": "Hai Cinema, Juba — South Sudan"
       },
       {
         "icon": "fas fa-university",
