@@ -320,9 +320,10 @@
         
         // Update hero image
         if (personalData.hero.image) {
-          const heroImg = heroSection.querySelector('.hero-image img');
+          const heroImg = heroSection.querySelector('.hero-image-wrapper img');
           if (heroImg) {
             heroImg.src = personalData.hero.image;
+            heroImg.alt = personalData.hero.name + ' - ' + personalData.hero.title;
           }
         }
       }
