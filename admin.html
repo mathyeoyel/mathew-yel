@@ -1299,14 +1299,42 @@
     <div id="status-messages" style="position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
 
     <script>
-        // Cloudinary Configuration
-        const CLOUDINARY_CONFIG = {
-            cloudName: 'djbjifhal',
-            uploadPreset: 'mathew-yel' // You'll need to create this preset in Cloudinary
+        // Cloudinary Configuration - will be loaded from server
+        let CLOUDINARY_CONFIG = {
+            cloudName: null,
+            uploadPreset: null,
+            configured: false
         };
+
+        // Load Cloudinary configuration from server
+        async function loadCloudinaryConfig() {
+            try {
+                const response = await fetch('/api/cloudinary/config');
+                const config = await response.json();
+                
+                if (config.configured) {
+                    CLOUDINARY_CONFIG.cloudName = config.cloudName;
+                    CLOUDINARY_CONFIG.uploadPreset = config.uploadPreset;
+                    CLOUDINARY_CONFIG.configured = true;
+                    console.log('✓ Cloudinary configured successfully');
+                } else {
+                    console.warn('⚠️ Cloudinary not configured on server');
+                    showStatus('Cloudinary upload not available. Please configure environment variables.', 'warning');
+                }
+            } catch (error) {
+                console.error('Failed to load Cloudinary config:', error);
+                showStatus('Failed to load Cloudinary configuration', 'error');
+            }
+        }
 
         // Open Cloudinary Upload Widget
         function openCloudinaryWidget(section, targetInputId) {
+            // Check if Cloudinary is configured
+            if (!CLOUDINARY_CONFIG.configured || !CLOUDINARY_CONFIG.cloudName) {
+                showStatus('Cloudinary is not configured. Please set CLOUDINARY_CLOUD_NAME in environment variables.', 'error');
+                return;
+            }
+
             const widget = cloudinary.createUploadWidget({
                 cloudName: CLOUDINARY_CONFIG.cloudName,
                 uploadPreset: CLOUDINARY_CONFIG.uploadPreset,
@@ -1414,6 +1442,7 @@
         // Initialize admin panel
         document.addEventListener('DOMContentLoaded', function() {
             initTheme();
+            loadCloudinaryConfig(); // Load Cloudinary configuration
             loadAllData();
         });
 

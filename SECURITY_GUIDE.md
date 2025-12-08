@@ -50,30 +50,41 @@ This guide covers the comprehensive security improvements implemented for the Ma
 Set these in your Vercel dashboard under Settings > Environment Variables:
 
 ```
+ADMIN_PASSWORD_HASH=your_sha256_password_hash_here
 GITHUB_TOKEN=your_personal_access_token_here
 GITHUB_OWNER=mathyeoyel
 GITHUB_REPO=mathew-yel
-ADMIN_PASSWORD_HASH=your_sha256_password_hash_here
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_UPLOAD_PRESET=mathew-yel
 ```
 
+**See [ENV_SETUP_GUIDE.md](./ENV_SETUP_GUIDE.md) for detailed setup instructions.**
+
 ### Generating Admin Password Hash
-1. **Change the default password** in `auth.js` (line 15):
-   ```javascript
-   this.correctPasswordHash = 'your_new_hash_here';
-   ```
+1. **Choose a strong password** (12+ characters with uppercase, lowercase, numbers, symbols)
 
 2. **Generate SHA-256 hash** of your password:
    ```bash
    # Using Node.js
    node -e "console.log(require('crypto').createHash('sha256').update('your_password').digest('hex'))"
    
+   # Using PowerShell
+   $password = "your_password"
+   $bytes = [System.Text.Encoding]::UTF8.GetBytes($password)
+   $hash = [System.Security.Cryptography.SHA256]::Create().ComputeHash($bytes)
+   [System.BitConverter]::ToString($hash).Replace('-','').ToLower()
+   
    # Using online tool (less secure)
    # Visit: https://emn178.github.io/online-tools/sha256.html
    ```
 
-3. **Update both locations**:
-   - Replace hash in `auth.js`
-   - Set `ADMIN_PASSWORD_HASH` environment variable
+3. **Set in Vercel Environment Variables**:
+   - Go to Vercel Dashboard → Settings → Environment Variables
+   - Add `ADMIN_PASSWORD_HASH` with your generated hash
+   - Select all environments (Production, Preview, Development)
+   - Save and redeploy
+
+4. **Important**: The admin panel now validates passwords via a secure server-side API endpoint (`/api/auth/validate`), so the password hash is NEVER exposed in client-side code.
 
 ### GitHub Token Setup
 1. Go to GitHub Settings > Developer settings > Personal access tokens

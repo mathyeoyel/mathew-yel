@@ -18,9 +18,8 @@ class AdminAuth {
     this.enableAuditLog = true;
     this.enableDeviceFingerprint = true;
     
-    // Store the correct password hash (change this to your own secure password)
-    // This is SHA-256 hash of "admin123" - CHANGE THIS!
-    this.correctPasswordHash = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
+    // Password hash will be fetched from environment variable via API
+    this.correctPasswordHash = null;
     
     this.deviceFingerprint = null;
     this.sessionDevice = null;
@@ -390,7 +389,18 @@ class AdminAuth {
     try {
       const hashedPassword = await this.hashPassword(password);
       
-      if (hashedPassword === this.correctPasswordHash) {
+      // Validate password with server-side endpoint
+      const response = await fetch('/api/auth/validate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ passwordHash: hashedPassword })
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.valid) {
         // Successful login
         const token = this.generateToken();
         const session = {
