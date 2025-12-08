@@ -20,6 +20,33 @@ const rateLimitStore = new Map();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
 const RATE_LIMIT_MAX_REQUESTS = 50; // Max 50 requests per window per IP
 
+// Audit logging
+const auditLogs = [];
+const MAX_AUDIT_ENTRIES = 1000;
+
+function logAudit(ip, method, section, action, status, details = {}) {
+  const entry = {
+    timestamp: new Date().toISOString(),
+    ip: ip,
+    method: method,
+    section: section,
+    action: action,
+    status: status,
+    userAgent: details.userAgent || 'unknown',
+    details: details
+  };
+  
+  auditLogs.push(entry);
+  if (auditLogs.length > MAX_AUDIT_ENTRIES) {
+    auditLogs.shift();
+  }
+  
+  // Log to console in development
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('📝 Audit:', entry);
+  }
+}
+
 // Helper: safe JSON parse
 function safeParse(jsonStr) {
   try { return JSON.parse(jsonStr); } catch { return null; }
@@ -237,6 +264,7 @@ module.exports = async function handler(req, res) {
 
   if (req.method === 'GET') {
     try {
+      const clientIP = getClientIP(req);
       const filePath = path.join(process.cwd(), 'data', `${section}.json`);
       
       // Ensure we're only accessing files within the data directory
@@ -244,11 +272,13 @@ module.exports = async function handler(req, res) {
       const dataDir = path.resolve(path.join(process.cwd(), 'data'));
       
       if (!resolvedPath.startsWith(dataDir)) {
+        logAudit(clientIP, 'GET', section, 'read', 'BLOCKED', { reason: 'Path traversal attempt' });
         res.status(403).json({ error: 'Access denied' });
         return;
       }
       
       if (!fs.existsSync(resolvedPath)) {
+        logAudit(clientIP, 'GET', section, 'read', 'NOT_FOUND');
         res.status(404).json({ error: 'File not found' });
         return;
       }
@@ -256,19 +286,27 @@ module.exports = async function handler(req, res) {
       const fileContent = fs.readFileSync(resolvedPath, 'utf8');
       const data = safeParse(fileContent);
       if (data === null) {
+        logAudit(clientIP, 'GET', section, 'read', 'ERROR', { reason: 'Invalid JSON format' });
         res.status(500).json({ error: 'Invalid JSON format in data file' });
         return;
       }
+      
+      logAudit(clientIP, 'GET', section, 'read', 'SUCCESS');
       res.status(200).json(data);
     } catch (err) {
+      const clientIP = getClientIP(req);
+      logAudit(clientIP, 'GET', section, 'read', 'ERROR', { error: err.message });
       console.error('GET read error:', err);
       res.status(500).json({ error: 'Failed to read data file' });
     }
   } else if (req.method === 'POST') {
+    const clientIP = getClientIP(req);
+    
     try {
       // Check admin authentication
       const authResult = validateAdminAuth(req);
       if (!authResult.valid) {
+        logAudit(clientIP, 'POST', section, 'write', 'UNAUTHORIZED', { reason: authResult.error });
         res.status(401).json({ error: 'Unauthorized', details: authResult.error });
         return;
       }
@@ -276,6 +314,7 @@ module.exports = async function handler(req, res) {
       // Check CSRF token
       const csrfResult = validateCSRFToken(req);
       if (!csrfResult.valid) {
+        logAudit(clientIP, 'POST', section, 'write', 'CSRF_FAILED', { reason: csrfResult.error });
         res.status(403).json({ error: 'CSRF validation failed', details: csrfResult.error });
         return;
       }
@@ -283,6 +322,7 @@ module.exports = async function handler(req, res) {
       const body = req.body || {};
       const newData = body.data;
       if (typeof newData === 'undefined') {
+        logAudit(clientIP, 'POST', section, 'write', 'BAD_REQUEST', { reason: 'Missing data' });
         res.status(400).json({ error: 'Missing data in request body' });
         return;
       }
@@ -290,6 +330,7 @@ module.exports = async function handler(req, res) {
       // Validate and sanitize input
       const validation = validateAndSanitizeInput(newData);
       if (!validation.valid) {
+        logAudit(clientIP, 'POST', section, 'write', 'VALIDATION_FAILED', { reason: validation.error });
         res.status(400).json({ error: 'Invalid input data', details: validation.error });
         return;
       }
@@ -297,6 +338,7 @@ module.exports = async function handler(req, res) {
       // Attempt commit to GitHub for persistence
       const commitResult = await commitToGitHub(section, validation.data);
       if (!commitResult.ok) {
+        logAudit(clientIP, 'POST', section, 'write', 'GITHUB_ERROR', { reason: commitResult.reason });
         res.status(501).json({
           error: 'Persistence not configured',
           details: commitResult.reason,
@@ -305,8 +347,10 @@ module.exports = async function handler(req, res) {
         return;
       }
 
+      logAudit(clientIP, 'POST', section, 'write', 'SUCCESS');
       res.status(200).json({ success: true, message: 'Data committed to repository' });
     } catch (err) {
+      logAudit(clientIP, 'POST', section, 'write', 'ERROR', { error: err.message });
       console.error('POST write error:', err);
       res.status(500).json({ error: 'Failed to update data file' });
     }

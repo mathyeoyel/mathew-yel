@@ -6,39 +6,24 @@
   if (saved) root.classList.toggle('light', saved === 'light');
 
   // Theme toggle functionality
-  document.addEventListener('click', (e) => {
-    if (e.target && (e.target.id === 'themeToggle' || e.target.id === 'themeToggleMobile')) {
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
       const isLight = root.classList.toggle('light');
       localStorage.setItem(key, isLight ? 'light' : 'dark');
-    }
-  });
+    });
+  }
 
   // Mobile navigation toggle
   const hamburger = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('.nav-links');
   
   if (hamburger && navMenu) {
-    // Ensure menu starts closed on mobile
-    if (window.innerWidth <= 768) {
-      hamburger.setAttribute('aria-expanded', 'false');
-      navMenu.classList.remove('show');
-      document.body.style.overflow = '';
-    }
-    
     hamburger.addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation();
-      
       const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
       hamburger.setAttribute('aria-expanded', !isExpanded);
       navMenu.classList.toggle('show');
-      
-      // Prevent body scroll when menu is open
-      if (!isExpanded) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
     });
 
     // Close menu when clicking outside
@@ -46,7 +31,6 @@
       if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
         hamburger.setAttribute('aria-expanded', 'false');
         navMenu.classList.remove('show');
-        document.body.style.overflow = '';
       }
     });
 
@@ -55,27 +39,15 @@
       if (e.key === 'Escape') {
         hamburger.setAttribute('aria-expanded', 'false');
         navMenu.classList.remove('show');
-        document.body.style.overflow = '';
       }
     });
 
-    // Close menu when clicking on navigation links
-    const navLinks = navMenu.querySelectorAll('a:not(.theme-toggle)');
-    navLinks.forEach(link => {
+    // Close menu when clicking nav links
+    navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.setAttribute('aria-expanded', 'false');
         navMenu.classList.remove('show');
-        document.body.style.overflow = '';
       });
-    });
-
-    // Handle window resize to close mobile menu on desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        hamburger.setAttribute('aria-expanded', 'false');
-        navMenu.classList.remove('show');
-        document.body.style.overflow = '';
-      }
     });
   }
 

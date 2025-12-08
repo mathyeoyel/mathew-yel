@@ -23,39 +23,34 @@
 <body>
   <header class="site-header">
     <div class="container nav">
+      <!-- Logo - Grid Column 1 -->
       <a href="/" class="logo" aria-label="Mathew Yel">
         <img src="/assets/logo-light.png" alt="Mathew Yel Logo" class="logo-img light-mode">
-        <img src="/assets/logo-dark.png"  alt="Mathew Yel Logo (Dark)" class="logo-img dark-mode">
+        <img src="/assets/logo-dark.png" alt="Mathew Yel Logo (Dark)" class="logo-img dark-mode">
         <span class="logo-text">Mathew Yel</span>
       </a>
       
-      <div class="nav-controls">
-        <button id="themeToggleMobile" class="theme-toggle theme-toggle-mobile" aria-label="Toggle dark/light theme" title="Switch theme">
-          <i class="fas fa-sun sun-icon"></i>
-          <span class="sr-only">Toggle theme</span>
-        </button>
-        <nav class="site-nav">
-          <div id="navMenu" class="nav-links">
-            <a href="/#about">About</a>
-            <a href="/projects.html">Projects</a>
-            <a class="active" href="/blog/">Blog</a>
-            <a href="/#awards">Awards</a>
-            <a href="/contact.html">Contact</a>
-            <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Switch theme">
-              <i class="fas fa-sun sun-icon"></i>
-              <span class="sr-only">Toggle theme</span>
-            </button>
-          </div>
-          <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
-            <span class="hamburger">
-              <span class="hamburger-line"></span>
-              <span class="hamburger-line"></span>
-              <span class="hamburger-line"></span>
-            </span>
-            <span class="nav-toggle-text">Menu</span>
+      <!-- Site Nav - Grid Column 3 (Right) -->
+      <nav class="site-nav">
+        <div id="navMenu" class="nav-links">
+          <a href="/#about">About</a>
+          <a href="/projects.html">Projects</a>
+          <a class="active" href="/blog/">Blog</a>
+          <a href="/#awards">Awards</a>
+          <a href="/contact.html">Contact</a>
+          <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
           </button>
-        </nav>
-      </div>
+        </div>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">
+          <span class="hamburger">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </span>
+          <span class="nav-toggle-text">Menu</span>
+        </button>
+      </nav>
     </div>
   </header>
   <main class="container">

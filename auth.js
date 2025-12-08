@@ -10,19 +10,128 @@ class AdminAuth {
     this.maxAttempts = 3;
     this.lockoutTime = 15 * 60 * 1000; // 15 minutes
     this.sessionTimeout = 2 * 60 * 60 * 1000; // 2 hours
+    this.inactivityTimeout = 10 * 60 * 1000; // 10 minutes of inactivity
+    this.sessionRefreshInterval = 5 * 60 * 1000; // Refresh token every 5 minutes
+    
+    // Security flags
+    this.requireHTTPS = true;
+    this.enableAuditLog = true;
+    this.enableDeviceFingerprint = true;
     
     // Store the correct password hash (change this to your own secure password)
     // This is SHA-256 hash of "admin123" - CHANGE THIS!
     this.correctPasswordHash = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9';
     
+    this.deviceFingerprint = null;
+    this.sessionDevice = null;
+    
     this.init();
   }
 
   init() {
+    // Security checks
+    this.performSecurityChecks();
+    
     // Check if we're on admin page
     if (window.location.pathname.includes('admin.html')) {
       this.checkAuthOnLoad();
+      this.setupActivityMonitoring();
+      this.setupSecureRefresh();
     }
+  }
+
+  performSecurityChecks() {
+    // HTTPS check
+    if (this.requireHTTPS && window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+      console.warn('⚠️ Admin panel should be accessed via HTTPS for security');
+    }
+    
+    // Check for suspicious extensions
+    if (this.enableDeviceFingerprint) {
+      this.deviceFingerprint = this.generateDeviceFingerprint();
+    }
+  }
+
+  generateDeviceFingerprint() {
+    const fingerprint = {
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      screenResolution: `${screen.width}x${screen.height}`,
+      colorDepth: screen.colorDepth
+    };
+    return JSON.stringify(fingerprint);
+  }
+
+  verifyDeviceConsistency() {
+    if (!this.enableDeviceFingerprint) return true;
+    
+    const currentFingerprint = this.generateDeviceFingerprint();
+    if (this.sessionDevice && this.sessionDevice !== currentFingerprint) {
+      console.warn('⚠️ Device fingerprint mismatch - potential security risk');
+      return false;
+    }
+    return true;
+  }
+
+  setupActivityMonitoring() {
+    // Track user activity for inactivity timeout
+    let activityTimeout;
+    const resetActivityTimeout = () => {
+      clearTimeout(activityTimeout);
+      activityTimeout = setTimeout(() => {
+        this.auditLog('Session inactive - auto-logout triggered');
+        this.logout();
+      }, this.inactivityTimeout);
+    };
+
+    // Reset on user activity
+    document.addEventListener('click', resetActivityTimeout, true);
+    document.addEventListener('keydown', resetActivityTimeout, true);
+    document.addEventListener('mousemove', resetActivityTimeout, true);
+    document.addEventListener('scroll', resetActivityTimeout, true);
+    
+    resetActivityTimeout(); // Initialize
+  }
+
+  setupSecureRefresh() {
+    // Periodically refresh session token
+    setInterval(() => {
+      const session = this.getSession();
+      if (session && this.isSessionValid(session)) {
+        session.timestamp = Date.now();
+        localStorage.setItem(this.sessionKey, JSON.stringify(session));
+        this.auditLog('Session token refreshed');
+      }
+    }, this.sessionRefreshInterval);
+  }
+
+  auditLog(action, details = {}) {
+    if (!this.enableAuditLog) return;
+    
+    const logEntry = {
+      timestamp: new Date().toISOString(),
+      action: action,
+      userAgent: navigator.userAgent,
+      url: window.location.href,
+      details: details
+    };
+    
+    // Store in localStorage (last 50 entries)
+    let logs = [];
+    try {
+      logs = JSON.parse(localStorage.getItem('admin_audit_log') || '[]');
+    } catch (e) {
+      logs = [];
+    }
+    
+    logs.push(logEntry);
+    if (logs.length > 50) {
+      logs.shift();
+    }
+    
+    localStorage.setItem('admin_audit_log', JSON.stringify(logs));
+    console.log('📝 Audit:', logEntry);
   }
 
   async hashPassword(password) {
@@ -44,11 +153,22 @@ class AdminAuth {
     const session = this.getSession();
     
     if (!session || !this.isSessionValid(session)) {
+      this.auditLog('Unauthorized access attempt', { path: window.location.pathname });
+      this.showLoginForm();
+      return false;
+    }
+    
+    // Verify device consistency
+    if (!this.verifyDeviceConsistency()) {
+      this.auditLog('Device mismatch detected');
+      this.clearSession();
+      alert('Security check failed: Device fingerprint mismatch. Please login again.');
       this.showLoginForm();
       return false;
     }
     
     // Valid session - show admin panel
+    this.auditLog('Admin panel accessed');
     this.showAdminPanel();
     this.setupLogout();
     return true;
@@ -109,10 +229,12 @@ class AdminAuth {
     if (attempts.count >= this.maxAttempts) {
       const timeSinceLastAttempt = Date.now() - attempts.lastAttempt;
       if (timeSinceLastAttempt < this.lockoutTime) {
+        this.auditLog('Login attempts exceeded', { attemptCount: attempts.count });
         return Math.ceil((this.lockoutTime - timeSinceLastAttempt) / 1000 / 60); // minutes remaining
       } else {
         // Reset attempts after lockout period
         this.setAttempts(0);
+        this.auditLog('Lockout period expired - attempts reset');
         return false;
       }
     }
@@ -252,7 +374,13 @@ class AdminAuth {
 
     if (!password) {
       this.showMessage('Please enter a password', 'error');
+      this.auditLog('Login attempt with empty password');
       return;
+    }
+
+    // Check password strength (warn but don't block)
+    if (password.length < 8) {
+      console.warn('⚠️ Weak password detected');
     }
 
     // Disable button during login
@@ -267,13 +395,17 @@ class AdminAuth {
         const token = this.generateToken();
         const session = {
           token: token,
-          timestamp: Date.now()
+          timestamp: Date.now(),
+          device: this.deviceFingerprint,
+          createdAt: new Date().toISOString()
         };
         
+        this.sessionDevice = this.deviceFingerprint;
         localStorage.setItem(this.sessionKey, JSON.stringify(session));
         localStorage.setItem('admin_password_hash', hashedPassword); // Store for API calls
         this.setAttempts(0); // Reset failed attempts
         
+        this.auditLog('Successful login');
         this.showMessage('Login successful! Redirecting...', 'success');
         
         setTimeout(() => {
@@ -288,8 +420,11 @@ class AdminAuth {
         
         const remainingAttempts = this.maxAttempts - newAttemptCount;
         
+        this.auditLog('Failed login attempt', { attemptNumber: newAttemptCount, remaining: remainingAttempts });
+        
         if (remainingAttempts <= 0) {
           this.showMessage(`Too many failed attempts. Access locked for 15 minutes.`, 'error');
+          this.auditLog('Account locked due to failed attempts', { totalAttempts: newAttemptCount });
           setTimeout(() => {
             window.location.reload();
           }, 2000);
@@ -297,7 +432,9 @@ class AdminAuth {
           this.showMessage(`Invalid password. ${remainingAttempts} attempts remaining.`, 'error');
         }
         
+        // Clear password input
         passwordInput.value = '';
+        passwordInput.focus();
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -392,9 +529,41 @@ class AdminAuth {
 
   logout() {
     if (confirm('Are you sure you want to logout?')) {
+      this.auditLog('User logout initiated');
       this.clearSession();
-      window.location.reload();
+      this.showMessage('You have been logged out successfully.', 'success');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     }
+  }
+
+  // Get audit logs for security review
+  getAuditLogs() {
+    try {
+      return JSON.parse(localStorage.getItem('admin_audit_log') || '[]');
+    } catch (e) {
+      return [];
+    }
+  }
+
+  // Clear audit logs (only by authenticated admin)
+  clearAuditLogs() {
+    localStorage.removeItem('admin_audit_log');
+    this.auditLog('Audit logs cleared');
+  }
+
+  // Export audit logs
+  exportAuditLogs() {
+    const logs = this.getAuditLogs();
+    const dataStr = JSON.stringify(logs, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `audit-logs-${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    this.auditLog('Audit logs exported');
   }
 
   // Method to get current session token for API calls
@@ -406,7 +575,13 @@ class AdminAuth {
   // Method to check if user is authenticated (for API calls)
   isAuthenticated() {
     const session = this.getSession();
-    return session && this.isSessionValid(session);
+    const isValid = session && this.isSessionValid(session);
+    
+    if (isValid && this.enableDeviceFingerprint) {
+      return this.verifyDeviceConsistency();
+    }
+    
+    return isValid;
   }
 }
 

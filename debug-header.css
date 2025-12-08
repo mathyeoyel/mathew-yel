@@ -1,0 +1,96 @@
+/* ============================================================================
+   VISUAL DEBUG HELPER - Header Layout Troubleshooting
+   ============================================================================
+   
+   HOW TO USE:
+   1. Add this to your HTML: <link rel="stylesheet" href="/debug-header.css">
+   2. Add class="debug-layout" to <body> tag
+   3. Refresh page
+   4. Inspect colored outlines to see layout boxes
+   5. Remove class and link when done debugging
+   
+   ============================================================================ */
+
+/* Main debug toggle */
+body.debug-layout * {
+  outline: 1px dashed rgba(255, 0, 0, 0.3) !important;
+}
+
+/* Header container - Green */
+body.debug-layout .site-header {
+  outline: 3px solid lime !important;
+  background: rgba(0, 255, 0, 0.05) !important;
+}
+
+/* Grid container - Yellow */
+body.debug-layout .container.nav {
+  outline: 3px solid yellow !important;
+  background: rgba(255, 255, 0, 0.05) !important;
+}
+
+/* Logo - Orange */
+body.debug-layout .logo {
+  outline: 3px solid orange !important;
+  background: rgba(255, 165, 0, 0.1) !important;
+}
+
+/* Site Nav container - Cyan */
+body.debug-layout .site-nav {
+  outline: 3px solid cyan !important;
+  background: rgba(0, 255, 255, 0.1) !important;
+}
+
+/* Hamburger button - Magenta */
+body.debug-layout .nav-toggle {
+  outline: 3px solid magenta !important;
+  background: rgba(255, 0, 255, 0.1) !important;
+}
+
+/* Nav links dropdown - Blue */
+body.debug-layout .nav-links {
+  outline: 3px solid blue !important;
+  background: rgba(0, 0, 255, 0.05) !important;
+}
+
+/* Individual nav links - Red */
+body.debug-layout .nav-links a {
+  outline: 2px solid red !important;
+  background: rgba(255, 0, 0, 0.05) !important;
+}
+
+/* Debug info overlay */
+body.debug-layout::before {
+  content: "🐛 DEBUG MODE ACTIVE - Remove .debug-layout class when done";
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff0000;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Grid column indicators */
+body.debug-layout .logo::after {
+  content: "Column 1";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 10px;
+  color: orange;
+  font-weight: bold;
+}
+
+body.debug-layout .site-nav::after {
+  content: "Column 3";
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  font-size: 10px;
+  color: cyan;
+  font-weight: bold;
+}

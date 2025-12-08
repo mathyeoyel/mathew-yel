@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Mathew Yel</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://upload-widget.cloudinary.com https://widget.cloudinary.com; style-src 'self' 'unsafe-inline' https://upload-widget.cloudinary.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.cloudinary.com https://*.cloudinary.com; font-src 'self' data:; frame-src https://widget.cloudinary.com https://upload-widget.cloudinary.com; form-action 'self'; frame-ancestors 'none';">
     <script src="/auth.js"></script>
     <script src="/csrf.js"></script>
     <script src="/validation.js"></script>
+    <script src="/security-config.js"></script>
+    
+    <!-- Cloudinary Upload Widget -->
+    <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
     <style>
         :root {
             --bg: #0b0d13;
@@ -1024,14 +1029,21 @@
                     <div class="image-upload-container">
                         <div class="image-input-options">
                             <div class="image-option">
-                                <label class="form-label">Option 1: Upload Small Image</label>
-                                <input type="file" id="project-image-file" class="form-input" accept="image/*" onchange="handleImageUpload('project')">
-                                <small class="form-hint">Upload JPG/PNG under 1MB (will be compressed)</small>
+                                <label class="form-label">Option 1: Upload to Cloudinary (Recommended)</label>
+                                <button type="button" class="action-btn" onclick="openCloudinaryWidget('projects', 'project-image')" style="margin-bottom: 10px;">
+                                    <i class="fas fa-cloud-upload-alt"></i> Upload to Cloudinary
+                                </button>
+                                <small class="form-hint">Upload images up to 10MB with automatic optimization</small>
                             </div>
                             <div class="image-option">
-                                <label class="form-label">Option 2: Image URL (Recommended)</label>
-                                <input type="url" id="project-image" class="form-input" placeholder="/assets/projects/image.jpg or https://..." onchange="previewImageURL('project')">
-                                <small class="form-hint">External URL or server path - better performance</small>
+                                <label class="form-label">Option 2: Use Existing URL</label>
+                                <input type="url" id="project-image" class="form-input" placeholder="Cloudinary URL or external image URL" onchange="previewImageURL('project')">
+                                <small class="form-hint">Paste image URL from Cloudinary or external source</small>
+                            </div>
+                            <div class="image-option" style="margin-top: 10px;">
+                                <label class="form-label">Option 3: Upload Small Image (Base64)</label>
+                                <input type="file" id="project-image-file" class="form-input" accept="image/*" onchange="handleImageUpload('project')">
+                                <small class="form-hint">Only for small images < 100KB (will be compressed)</small>
                             </div>
                         </div>
                         <div class="image-preview" id="project-image-preview">
@@ -1231,14 +1243,21 @@
                     <div class="image-upload-container">
                         <div class="image-input-options">
                             <div class="image-option">
-                                <label class="form-label">Option 1: Upload Small Image</label>
-                                <input type="file" id="blog-image-file" class="form-input" accept="image/*" onchange="handleImageUpload('blog')">
-                                <small class="form-hint">Upload JPG/PNG under 1MB (will be compressed)</small>
+                                <label class="form-label">Option 1: Upload to Cloudinary (Recommended)</label>
+                                <button type="button" class="action-btn" onclick="openCloudinaryWidget('blogs', 'blog-image')" style="margin-bottom: 10px;">
+                                    <i class="fas fa-cloud-upload-alt"></i> Upload to Cloudinary
+                                </button>
+                                <small class="form-hint">Upload images up to 10MB with automatic optimization</small>
                             </div>
                             <div class="image-option">
-                                <label class="form-label">Option 2: Image URL (Recommended)</label>
-                                <input type="url" id="blog-image" class="form-input" placeholder="/assets/blog/image.jpg or https://..." onchange="previewImageURL('blog')">
-                                <small class="form-hint">External URL or server path - better performance</small>
+                                <label class="form-label">Option 2: Use Existing URL</label>
+                                <input type="url" id="blog-image" class="form-input" placeholder="Cloudinary URL or external image URL" onchange="previewImageURL('blog')">
+                                <small class="form-hint">Paste image URL from Cloudinary or external source</small>
+                            </div>
+                            <div class="image-option" style="margin-top: 10px;">
+                                <label class="form-label">Option 3: Upload Small Image (Base64)</label>
+                                <input type="file" id="blog-image-file" class="form-input" accept="image/*" onchange="handleImageUpload('blog')">
+                                <small class="form-hint">Only for small images < 100KB (will be compressed)</small>
                             </div>
                         </div>
                         <div class="image-preview" id="blog-image-preview">
@@ -1280,6 +1299,77 @@
     <div id="status-messages" style="position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
 
     <script>
+        // Cloudinary Configuration
+        const CLOUDINARY_CONFIG = {
+            cloudName: 'djbjifhal',
+            uploadPreset: 'mathew-yel' // You'll need to create this preset in Cloudinary
+        };
+
+        // Open Cloudinary Upload Widget
+        function openCloudinaryWidget(section, targetInputId) {
+            const widget = cloudinary.createUploadWidget({
+                cloudName: CLOUDINARY_CONFIG.cloudName,
+                uploadPreset: CLOUDINARY_CONFIG.uploadPreset,
+                sources: ['local', 'url', 'camera'],
+                multiple: false,
+                maxFileSize: 10000000, // 10MB
+                maxImageWidth: 2000,
+                maxImageHeight: 2000,
+                cropping: true,
+                croppingAspectRatio: 1.5,
+                folder: `mathew-yel/${section}`,
+                resourceType: 'auto',
+                clientAllowedFormats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'mp4', 'mov'],
+                styles: {
+                    palette: {
+                        window: '#121521',
+                        windowBorder: '#5dd0ff',
+                        tabIcon: '#5dd0ff',
+                        menuIcons: '#f2f4f8',
+                        textDark: '#0b1020',
+                        textLight: '#f2f4f8',
+                        link: '#5dd0ff',
+                        action: '#5dd0ff',
+                        inactiveTabIcon: '#a7b0c0',
+                        error: '#ff6b6b',
+                        inProgress: '#ffb366',
+                        complete: '#8ff0a7',
+                        sourceBg: '#0b0d13'
+                    },
+                    fonts: {
+                        default: null,
+                        'sans-serif': {
+                            url: null,
+                            active: true
+                        }
+                    }
+                }
+            }, (error, result) => {
+                if (!error && result && result.event === "success") {
+                    const imageUrl = result.info.secure_url;
+                    
+                    // Set URL in input field
+                    document.getElementById(targetInputId).value = imageUrl;
+                    
+                    // Show preview
+                    previewImageURL(section);
+                    
+                    // Show success message with file info
+                    const sizeKB = (result.info.bytes / 1024).toFixed(1);
+                    showStatus(`✓ Uploaded: ${result.info.original_filename} (${sizeKB}KB)`, 'success');
+                    
+                    console.log('Cloudinary upload success:', result.info);
+                }
+                
+                if (error) {
+                    console.error('Cloudinary upload error:', error);
+                    showStatus('Upload failed. Please try again.', 'error');
+                }
+            });
+            
+            widget.open();
+        }
+
         // Global variables
         let currentData = {
             projects: [],
@@ -2524,6 +2614,12 @@
         
         function previewImageURL(section) {
             const urlInput = document.getElementById(`${section}-image`);
+            
+            if (!urlInput) {
+                console.error(`Input element not found: ${section}-image`);
+                return;
+            }
+            
             const imageUrl = urlInput.value.trim();
             
             if (!imageUrl) {
@@ -2542,13 +2638,14 @@
             if (imageUrl.startsWith('http')) {
                 try {
                     const url = new URL(imageUrl);
-                    const allowedHosts = ['imgur.com', 'github.com', 'githubusercontent.com', 'unsplash.com', 'pixabay.com', 'pexels.com'];
-                    const isAllowedHost = allowedHosts.some(host => url.hostname.endsWith(host));
+                    const allowedHosts = ['cloudinary.com', 'imgur.com', 'github.com', 'githubusercontent.com', 'unsplash.com', 'pixabay.com', 'pexels.com'];
+                    const isAllowedHost = allowedHosts.some(host => url.hostname.includes(host));
                     
                     if (!isAllowedHost) {
                         console.warn('External image from potentially untrusted source:', url.hostname);
                     }
-                } catch {
+                } catch (err) {
+                    console.error('URL validation error:', err);
                     showStatus('Invalid URL format.', 'error');
                     clearImagePreview(section);
                     return;
@@ -2568,6 +2665,11 @@
         function showImagePreview(section, imageUrl, info) {
             const preview = document.getElementById(`${section}-image-preview`);
             
+            if (!preview) {
+                console.error(`Preview element not found: ${section}-image-preview`);
+                return;
+            }
+            
             preview.innerHTML = `
                 <img src="${imageUrl}" alt="Preview" class="preview-image" onerror="handleImageError(this, '${section}')">
                 <div class="preview-info">${info}</div>
@@ -2581,6 +2683,11 @@
             const preview = document.getElementById(`${section}-image-preview`);
             const urlInput = document.getElementById(`${section}-image`);
             const fileInput = document.getElementById(`${section}-image-file`);
+            
+            if (!preview) {
+                console.error(`Preview element not found: ${section}-image-preview`);
+                return;
+            }
             
             preview.innerHTML = '<div class="preview-placeholder">No image selected</div>';
             if (urlInput) urlInput.value = '';
