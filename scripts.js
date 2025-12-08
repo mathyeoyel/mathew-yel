@@ -268,11 +268,79 @@
   const heroSection = document.querySelector('.hero');
   if (heroSection) {
     Promise.all([
+      fetch('/data/personal.json').then(r => r.json()),
       fetch('/data/social.json').then(r => r.json()),
       fetch('/data/projects.json').then(r => r.json())
     ])
-    .then(([socialData, projectsData]) => {
-      // Update hero links with dynamic data
+    .then(([personalData, socialData, projectsData]) => {
+      // Update hero text content
+      if (personalData.hero) {
+        const heroH1 = heroSection.querySelector('.hero-text h1');
+        const heroLead = heroSection.querySelector('.hero-text .lead');
+        const heroSub = heroSection.querySelector('.hero-text .sub');
+        
+        if (heroH1 && personalData.hero.name) {
+          heroH1.innerHTML = `Hi, I'm <span class="accent">${personalData.hero.name}</span>.`;
+        }
+        
+        if (heroLead && personalData.hero.title) {
+          // Split title by bullet points or similar separators
+          const titleParts = personalData.hero.title.split('•').map(s => s.trim());
+          heroLead.innerHTML = titleParts.join(' <i class="fas fa-circle" style="font-size: 6px; vertical-align: middle;"></i> ');
+        }
+        
+        if (heroSub && personalData.hero.description) {
+          heroSub.textContent = personalData.hero.description;
+        }
+        
+        // Update CTA buttons
+        if (personalData.hero.cta) {
+          const primaryBtn = heroSection.querySelector('.btn.primary');
+          const secondaryBtn = heroSection.querySelector('.btn.ghost');
+          
+          if (primaryBtn && personalData.hero.cta.primary) {
+            primaryBtn.textContent = personalData.hero.cta.primary.text;
+            primaryBtn.href = personalData.hero.cta.primary.link;
+          }
+          
+          if (secondaryBtn && personalData.hero.cta.secondary) {
+            secondaryBtn.textContent = personalData.hero.cta.secondary.text;
+            secondaryBtn.href = personalData.hero.cta.secondary.link;
+          }
+        }
+        
+        // Update quick info (location, university, languages)
+        if (personalData.hero.quickInfo) {
+          const quickMetaList = heroSection.querySelector('.quick.meta');
+          if (quickMetaList) {
+            quickMetaList.innerHTML = personalData.hero.quickInfo.map(info => 
+              `<li><i class="${info.icon}"></i> ${info.text}</li>`
+            ).join('');
+          }
+        }
+        
+        // Update highlights
+        if (personalData.hero.highlights) {
+          const highlightsList = heroSection.querySelector('.checklist');
+          if (highlightsList) {
+            highlightsList.innerHTML = personalData.hero.highlights.map(highlight => 
+              `<li>${highlight}</li>`
+            ).join('');
+          }
+        }
+        
+        // Update hero card links
+        if (personalData.hero.links) {
+          const linksContainer = heroSection.querySelector('.hero-card .links');
+          if (linksContainer) {
+            linksContainer.innerHTML = personalData.hero.links.map(link => 
+              `<a class="link" href="${link.url}" target="${link.external ? '_blank' : '_self'}" rel="${link.external ? 'noopener' : ''}">${link.text} ${link.external ? '<i class="fas fa-external-link-alt"></i>' : ''}</a>`
+            ).join('');
+          }
+        }
+      }
+      
+      // Fallback: Update hero links with social data if not in personal.json
       const portfolioLink = heroSection.querySelector('a[href*="yelosegraphics"]');
       const linkedinLink = heroSection.querySelector('a[href*="linkedin"]');
       
@@ -283,34 +351,9 @@
       if (linkedinLink && socialData.linkedin) {
         linkedinLink.href = socialData.linkedin;
       }
-
-      // Update contact link if available
-      const contactBtn = heroSection.querySelector('a[href="/contact.html"]');
-      if (contactBtn && socialData.email) {
-        const emailBtn = document.createElement('a');
-        emailBtn.className = 'btn ghost';
-        emailBtn.href = `mailto:${socialData.email}`;
-        emailBtn.innerHTML = '<i class="fas fa-envelope"></i> Email';
-        contactBtn.parentNode.insertBefore(emailBtn, contactBtn.nextSibling);
-      }
-
-      // Update highlights with featured projects
-      const highlightsList = heroSection.querySelector('.checklist');
-      if (highlightsList && projectsData.items) {
-        const featuredProjects = projectsData.items.filter(p => p.featured).slice(0, 3);
-        const existingItems = highlightsList.querySelectorAll('li');
-        
-        // Add dynamic project highlights
-        featuredProjects.forEach((project, index) => {
-          if (index + 1 < existingItems.length) {
-            const listItem = existingItems[index + 1];
-            if (project.role) {
-              listItem.innerHTML = `${project.role} — ${project.title}`;
-            }
-          }
-        });
-      }
     })
-    .catch(console.error);
+    .catch(error => {
+      console.error('Error loading hero section:', error);
+    });
   }
 })();
