@@ -894,6 +894,11 @@
                     <label class="form-label">Hero Description</label>
                     <textarea id="personal-description" class="form-input form-textarea" placeholder="Main description for your hero section..."></textarea>
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Hero Image URL</label>
+                    <input type="url" id="personal-hero-image" class="form-input" placeholder="https://example.com/image.jpg">
+                    <small class="form-hint">Upload to Cloudinary or enter direct image URL</small>
+                </div>
                 
                 <h3 style="color: #007acc; margin: 25px 0 15px 0;">About Section</h3>
                 <div class="form-group">
@@ -2114,6 +2119,7 @@
                 document.getElementById('personal-name').value = currentData.personal.hero.name || '';
                 document.getElementById('personal-title').value = currentData.personal.hero.title || '';
                 document.getElementById('personal-description').value = currentData.personal.hero.description || '';
+                document.getElementById('personal-hero-image').value = currentData.personal.hero.image || '';
                 
                 // Load location from quickInfo
                 if (currentData.personal.hero.quickInfo && currentData.personal.hero.quickInfo[0]) {
@@ -2177,9 +2183,10 @@
                     name: document.getElementById('personal-name').value,
                     title: document.getElementById('personal-title').value,
                     description: document.getElementById('personal-description').value,
+                    image: document.getElementById('personal-hero-image').value,
                     cta: currentData.personal.hero?.cta || {
-                        primary: { text: "See Projects", link: "/projects.html" },
-                        secondary: { text: "Contact", link: "/contact.html" }
+                        primary: { text: "See My Work", link: "/projects.html" },
+                        secondary: { text: "Hire Me", link: "/contact.html" }
                     },
                     quickInfo: [
                         {

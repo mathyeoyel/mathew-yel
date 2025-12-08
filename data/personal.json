@@ -1,15 +1,16 @@
 {
   "hero": {
     "name": "Mathew Yel",
-    "title": "Creative Entrepreneur • Technologist • Community Builder",
-    "description": "I'm passionate about shaping the future of design and digital innovation in South Sudan, connecting creativity with technology to empower local communities and drive global impact.",
+    "title": "Brand Specialist & Technologist",
+    "description": "I build brands and digital products that help businesses grow. My work combines design and technology to empower communities and elevate creative solutions in South Sudan and beyond.",
+    "image": "/assets/photos/mathew-portrait-01-1600.jpg",
     "cta": {
       "primary": {
-        "text": "See Projects",
+        "text": "See My Work",
         "link": "/projects.html"
       },
       "secondary": {
-        "text": "Contact",
+        "text": "Hire Me",
         "link": "/contact.html"
       }
     },

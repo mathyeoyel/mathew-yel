@@ -276,27 +276,26 @@
       // Update hero text content
       if (personalData.hero) {
         const heroH1 = heroSection.querySelector('.hero-text h1');
-        const heroLead = heroSection.querySelector('.hero-text .lead');
-        const heroSub = heroSection.querySelector('.hero-text .sub');
+        const heroSubtitle = heroSection.querySelector('.hero-subtitle');
+        const heroDescription = heroSection.querySelector('.hero-description');
         
         if (heroH1 && personalData.hero.name) {
           heroH1.innerHTML = `Hi, I'm <span class="accent">${personalData.hero.name}</span>.`;
         }
         
-        if (heroLead && personalData.hero.title) {
-          // Split title by bullet points or similar separators
-          const titleParts = personalData.hero.title.split('•').map(s => s.trim());
-          heroLead.innerHTML = titleParts.join(' <i class="fas fa-circle" style="font-size: 6px; vertical-align: middle;"></i> ');
+        if (heroSubtitle && personalData.hero.title) {
+          // Use the title directly for the subtitle
+          heroSubtitle.textContent = personalData.hero.title.split('•')[0].trim() + '.';
         }
         
-        if (heroSub && personalData.hero.description) {
-          heroSub.textContent = personalData.hero.description;
+        if (heroDescription && personalData.hero.description) {
+          heroDescription.textContent = personalData.hero.description;
         }
         
         // Update CTA buttons
         if (personalData.hero.cta) {
-          const primaryBtn = heroSection.querySelector('.btn.primary');
-          const secondaryBtn = heroSection.querySelector('.btn.ghost');
+          const primaryBtn = heroSection.querySelector('.btn-hero-primary');
+          const secondaryBtn = heroSection.querySelector('.btn-hero-secondary');
           
           if (primaryBtn && personalData.hero.cta.primary) {
             primaryBtn.textContent = personalData.hero.cta.primary.text;
@@ -309,33 +308,21 @@
           }
         }
         
-        // Update quick info (location, university, languages)
+        // Update hero info (location, university, languages)
         if (personalData.hero.quickInfo) {
-          const quickMetaList = heroSection.querySelector('.quick.meta');
-          if (quickMetaList) {
-            quickMetaList.innerHTML = personalData.hero.quickInfo.map(info => 
-              `<li><i class="${info.icon}"></i> ${info.text}</li>`
+          const heroInfo = heroSection.querySelector('.hero-info');
+          if (heroInfo) {
+            heroInfo.innerHTML = personalData.hero.quickInfo.map(info => 
+              `<p><i class="${info.icon}"></i> ${info.text}</p>`
             ).join('');
           }
         }
         
-        // Update highlights
-        if (personalData.hero.highlights) {
-          const highlightsList = heroSection.querySelector('.checklist');
-          if (highlightsList) {
-            highlightsList.innerHTML = personalData.hero.highlights.map(highlight => 
-              `<li>${highlight}</li>`
-            ).join('');
-          }
-        }
-        
-        // Update hero card links
-        if (personalData.hero.links) {
-          const linksContainer = heroSection.querySelector('.hero-card .links');
-          if (linksContainer) {
-            linksContainer.innerHTML = personalData.hero.links.map(link => 
-              `<a class="link" href="${link.url}" target="${link.external ? '_blank' : '_self'}" rel="${link.external ? 'noopener' : ''}">${link.text} ${link.external ? '<i class="fas fa-external-link-alt"></i>' : ''}</a>`
-            ).join('');
+        // Update hero image
+        if (personalData.hero.image) {
+          const heroImg = heroSection.querySelector('.hero-image img');
+          if (heroImg) {
+            heroImg.src = personalData.hero.image;
           }
         }
       }
