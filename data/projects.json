@@ -123,6 +123,33 @@
         "Fraud Detection",
         "Public Voting"
       ]
+    },
+    {
+      "id": "item-1765285880488-5o65wjp7c",
+      "title": "AGA Membership & Website Management System",
+      "summary": "A full membership management and content-driven website for the Aweil Graduates Association, powered by Sanity CMS with automated ID generation, verification tools, and admin controls.",
+      "description": "The AGA website is a complete digital platform built for the Aweil Graduates Association to manage public membership applications, publish organizational content, and strengthen their online presence. It features a dynamic CMS-driven website connected to a powerful admin dashboard with automated workflows.\n\nThe membership system automatically generates ID numbers, verifies applications, and categorizes them using custom filters. Admins can approve or reject applications, send real-time email notifications, export verified members to PDF, and manage public content such as leadership profiles, events, announcements, and pages — all without touching code.\n\nThe platform is optimized for fast performance, secure data handling, and scalable updates, making it a long-term solution for AGA’s digital operations.",
+      "status": "completed",
+      "role": "Full-stack Developer (CMS, API, Workflow Automation)",
+      "startDate": "2025-11-28",
+      "endDate": "2025-12-08",
+      "link": "https://aweilgraduatesassociation.org",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765285734/mathew-yel/projects/yyvqnh3kvsyemdrkp6ir.jpg",
+      "featured": true,
+      "tech": [
+        "Next.js",
+        "Tailwind CSS",
+        "React",
+        "Sanity CMS (v3)",
+        "GROQ Queries",
+        "Resend (Email)",
+        "Vercel Deployment"
+      ],
+      "tags": [
+        "Membership System",
+        "CMS Website",
+        "Admin Dashboard"
+      ]
     }
   ]
 }
