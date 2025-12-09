@@ -23,7 +23,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://upload-widget.cloudinary.com https://widget.cloudinary.com; style-src 'self' 'unsafe-inline' https://upload-widget.cloudinary.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.cloudinary.com https://*.cloudinary.com; frame-src https://widget.cloudinary.com https://upload-widget.cloudinary.com; frame-ancestors 'none';"
         },
         {
           "key": "Strict-Transport-Security",
