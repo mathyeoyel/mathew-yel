@@ -320,8 +320,17 @@
         
         // Update hero image
         if (personalData.hero.image) {
-          const heroImg = heroSection.querySelector('.hero-image img');
-          if (heroImg) {
+          const heroPicture = heroSection.querySelector('.hero-image');
+          const heroImg = heroSection.querySelector('.hero-image-wrapper img');
+          
+          if (heroPicture && heroImg) {
+            // Clear all source elements so browser uses img src directly
+            const sources = heroPicture.querySelectorAll('source');
+            sources.forEach(source => {
+              source.srcset = personalData.hero.image;
+            });
+            
+            // Update img element
             heroImg.src = personalData.hero.image;
             heroImg.alt = personalData.hero.name + ' - ' + personalData.hero.title;
           }
