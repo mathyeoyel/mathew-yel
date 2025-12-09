@@ -53,30 +53,6 @@
       ]
     },
     {
-      "id": "etix-south-sudan",
-      "title": "Etix South Sudan",
-      "summary": "E-ticket website and mobile app concept for local events and transport.",
-      "description": "A comprehensive digital ticketing solution designed specifically for the South Sudanese market. The platform aims to modernize event management and transportation booking while providing secure, accessible ticketing services.",
-      "status": "completed",
-      "role": "Product Designer & Developer",
-      "startDate": "2024-11-13",
-      "endDate": "2025-04-28",
-      "link": "https://www.etixss.com",
-      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765195378/mathew-yel/projects/zliamgbok7mc3iyrjeku.jpg",
-      "featured": true,
-      "tech": [
-        "React Native",
-        "UI/UX Design",
-        "Payment Integration"
-      ],
-      "tags": [
-        "Product",
-        "UI/UX",
-        "Prototype",
-        "Mobile App"
-      ]
-    },
-    {
       "id": "south-gleam-forex",
       "title": "South Gleam Forex & Money Transfer",
       "summary": "Professional website for forex and money transfer services.",
