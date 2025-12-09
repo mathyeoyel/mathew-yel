@@ -64,7 +64,7 @@
           <p class="hero-description">I build brands and digital products that help businesses grow. My work combines design and technology to empower communities and elevate creative solutions in South Sudan and beyond.</p>
           <div class="hero-buttons">
             <a class="btn-hero-primary" href="/projects.html">See My Work</a>
-            <a class="btn-hero-secondary" href="/contact.html">Hire Me</a>
+            <button class="btn-hero-secondary" id="hireMeBtn">Hire Me</button>
           </div>
           <div class="hero-info">
             <p><i class="fas fa-map-marker-alt"></i> Kator West, Juba — South Sudan</p>
@@ -146,5 +146,107 @@
     </div>
   </footer>
 
+  <!-- Hire Me Modal -->
+  <div id="hireMeModal" class="hire-modal" role="dialog" aria-modal="true" aria-labelledby="hireModalTitle">
+    <div class="hire-modal-overlay"></div>
+    <div class="hire-modal-content">
+      <button class="hire-modal-close" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <!-- Progress Indicator -->
+      <div class="hire-progress">
+        <div class="hire-progress-step active" data-step="1">
+          <span class="step-number">1</span>
+          <span class="step-label">Service</span>
+        </div>
+        <div class="hire-progress-line"></div>
+        <div class="hire-progress-step" data-step="2">
+          <span class="step-number">2</span>
+          <span class="step-label">Details</span>
+        </div>
+        <div class="hire-progress-line"></div>
+        <div class="hire-progress-step" data-step="3">
+          <span class="step-number">3</span>
+          <span class="step-label">Connect</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Choose Service -->
+      <div class="hire-step" id="hireStep1" data-step="1">
+        <h2 id="hireModalTitle">Choose a Service</h2>
+        <p class="hire-subtitle">Select the service you're interested in</p>
+        <div class="hire-service-grid">
+          <button class="hire-service-card" data-service="branding">
+            <div class="service-icon"><i class="fa-solid fa-palette"></i></div>
+            <h3>Branding & Visual Identity</h3>
+            <p>Logos, brand kits, and visual systems</p>
+          </button>
+          <button class="hire-service-card" data-service="web-design">
+            <div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div>
+            <h3>Website/App Design</h3>
+            <p>Custom websites and app interfaces</p>
+          </button>
+          <button class="hire-service-card" data-service="custom">
+            <div class="service-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <h3>Custom Project</h3>
+            <p>Consultation and specialized work</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Project Details -->
+      <div class="hire-step" id="hireStep2" data-step="2" style="display: none;">
+        <button class="hire-back-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>
+        <h2 class="hire-step-title">Project Details</h2>
+        <p class="hire-subtitle">Tell me more about your project</p>
+        
+        <form id="hireForm" class="hire-form">
+          <!-- Dynamic form fields will be inserted here -->
+        </form>
+        
+        <button class="hire-submit-btn" id="hireFormSubmit">Continue <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <!-- Step 3: Contact Options -->
+      <div class="hire-step" id="hireStep3" data-step="3" style="display: none;">
+        <div class="hire-success-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h2>Let's Connect!</h2>
+        <p class="hire-subtitle">Choose your preferred way to reach out</p>
+        
+        <div class="hire-summary" id="hireSummary">
+          <!-- Summary will be populated here -->
+        </div>
+        
+        <div class="hire-contact-actions">
+          <a href="#" class="hire-contact-btn whatsapp" id="whatsappBtn" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div>
+              <strong>WhatsApp</strong>
+              <span>Message me directly</span>
+            </div>
+          </a>
+          <a href="https://calendly.com/meeting" class="hire-contact-btn calendly" target="_blank">
+            <i class="fa-solid fa-calendar-days"></i>
+            <div>
+              <strong>Schedule a Call</strong>
+              <span>Book a meeting time</span>
+            </div>
+          </a>
+          <a href="#" class="hire-contact-btn email" id="emailBtn">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong>Send Email</strong>
+              <span>Reach out via email</span>
+            </div>
+          </a>
+        </div>
+        
+        <button class="hire-new-inquiry">Start New Inquiry</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/hire-me.js"></script>
 </body>
 </html>
