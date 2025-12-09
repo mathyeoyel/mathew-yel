@@ -150,6 +150,28 @@
         "CMS Website",
         "Admin Dashboard"
       ]
+    },
+    {
+      "id": "item-1765288361408-tia3mpq5u",
+      "title": "AYAT Capital — Corporate & Digital Presence Website",
+      "summary": "A modern, professionally designed corporate website for a diversified investment and enterprise group, showcasing AYAT Capital’s sectors, portfolio, impact metrics, news/insights, and a contact pipeline.",
+      "description": "AYAT Capital’s website is a full-scale corporate and public-facing platform built to represent the company’s business scope — from investments and real estate to technology, logistics, agribusiness, and more. The site highlights their sectors, impact statistics, portfolio, news and insights, and includes contact/consultation request mechanisms, giving the firm a polished and trustworthy digital presence.\n\nPart of the work involved: implementing a robust multi-page site structure (Home, About, Portfolio, Impact, News & Insights, Careers/Contact), designing a clean UI/UX with strong branding suitable for a corporate investment firm, and integrating dynamic content management to allow updates to sectors, impact numbers, portfolio items, news articles, and contact forms.\n\nThe aim was to present AYAT Capital as a credible, professional enterprise group — reflecting their values (integrity, innovation, sustainability, excellence) — and make it easy for clients/partners to explore their services and reach out.",
+      "status": "completed",
+      "role": "Frontend Developer (UI/UX + CMS + Site Structure + Responsive Design)",
+      "startDate": "2025-09-29",
+      "endDate": "2025-10-11",
+      "link": "https://www.ayatcapital.com/",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765287977/mathew-yel/projects/uccaofehv4ullbnptjqz.png",
+      "featured": true,
+      "tech": [
+        "Next.js",
+        "SEO / Metadata Setup",
+        "Vercel Deployment"
+      ],
+      "tags": [
+        "Corporate Website",
+        "Multi-Sector Business"
+      ]
     }
   ]
 }
