@@ -133,24 +133,35 @@
         if (pageTitle) pageTitle.textContent = data.title;
         if (pageSubtitle) pageSubtitle.textContent = data.subtitle;
 
-        projectGrid.innerHTML = data.items.map(p => `
-          <article class="project card ${p.featured ? 'featured' : ''}">
-            ${p.image ? `<div class="project-image">
-              <img src="${p.image}" alt="${p.title}" loading="lazy">
-            </div>` : ''}
-            <div class="project-content">
-              <h3>${p.title}</h3>
-              <p>${p.summary}</p>
-              ${p.description ? `<p class="project-description">${p.description}</p>` : ''}
-              <ul class="tags">${p.tags.map(t => `<li>${t}</li>`).join('')}</ul>
-              <div class="project-meta">
-                ${p.role ? `<span class="role">Role: ${p.role}</span>` : ''}
-                ${p.status ? `<span class="status status-${p.status}">${p.status}</span>` : ''}
-              </div>
-              ${p.link && p.link !== '#' ? `<a class="link" href="${p.link}" target="_blank" rel="noopener">Open <i class="fas fa-external-link-alt"></i></a>` : ''}
+        projectGrid.innerHTML = data.items.map((p, index) => `
+          <article class="project-compact-card" data-project-id="${index}">
+            <div class="project-compact-thumbnail">
+              ${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy">` : '<div class="project-placeholder"><i class="fa-solid fa-briefcase"></i></div>'}
             </div>
+            <div class="project-compact-content">
+              <h3 class="project-compact-title">
+                ${p.title}
+                <i class="fa-solid fa-chevron-down"></i>
+              </h3>
+              <p class="project-compact-summary">${p.summary}</p>
+              <div class="project-compact-tags">
+                ${p.tags.map(t => `<span class="tag-chip">${t}</span>`).join('')}
+              </div>
+            </div>
+            <button class="project-more-btn" data-project-id="${index}" aria-label="View ${p.title} details">
+              More <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </article>
         `).join('');
+        
+        // Attach click handlers for modal
+        document.querySelectorAll('.project-compact-card, .project-more-btn').forEach((el) => {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const projectId = el.dataset.projectId;
+            openProjectModal(data.items[projectId]);
+          });
+        });
       })
       .catch(() => projectGrid.innerHTML = '<p>Could not load projects.</p>');
   }
@@ -351,6 +362,67 @@
     })
     .catch(error => {
       console.error('Error loading hero section:', error);
+    });
+  }
+
+  // Project Modal Functions
+  function openProjectModal(project) {
+    const modal = document.getElementById('projectModal');
+    const modalBody = document.getElementById('modalBody');
+    
+    if (!modal || !modalBody) return;
+    
+    modalBody.innerHTML = `
+      ${project.image ? `<div class="modal-project-image">
+        <img src="${project.image}" alt="${project.title}">
+      </div>` : ''}
+      <h2 id="modalTitle">${project.title}</h2>
+      ${project.description ? `<p class="modal-description">${project.description}</p>` : ''}
+      ${project.summary ? `<p class="modal-summary">${project.summary}</p>` : ''}
+      
+      <div class="modal-meta">
+        ${project.role ? `<div class="modal-meta-item">
+          <strong>Role:</strong> ${project.role}
+        </div>` : ''}
+        ${project.status ? `<div class="modal-meta-item">
+          <strong>Status:</strong> <span class="status status-${project.status}">${project.status}</span>
+        </div>` : ''}
+        ${project.tags && project.tags.length ? `<div class="modal-meta-item">
+          <strong>Tags:</strong>
+          <div class="modal-tags">
+            ${project.tags.map(t => `<span class="tag-chip">${t}</span>`).join('')}
+          </div>
+        </div>` : ''}
+      </div>
+      
+      ${project.link && project.link !== '#' ? `<a class="modal-cta-btn" href="${project.link}" target="_blank" rel="noopener">
+        View Project <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>` : ''}
+    `;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeProjectModal() {
+    const modal = document.getElementById('projectModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+  
+  // Modal event listeners
+  const modal = document.getElementById('projectModal');
+  if (modal) {
+    modal.querySelectorAll('[data-close-modal]').forEach(el => {
+      el.addEventListener('click', closeProjectModal);
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeProjectModal();
+      }
     });
   }
 })();
