@@ -21,7 +21,7 @@
         name: 'projectName',
         label: 'Business/Project Name',
         type: 'text',
-        placeholder: 'e.g., Sunrise Cafe',
+        placeholder: 'e.g., Juba Cafe',
         required: true
       },
       {
@@ -42,7 +42,7 @@
         name: 'budget',
         label: 'Budget Range',
         type: 'select',
-        options: ['$100 - $200', '$200 - $500', '$500 - $1,000', '$1,000+'],
+        options: ['$5 - $100', '$100 - $200', '$200 - $500', '$500 - $1,000', '$1,000+'],
         required: true
       }
     ],
@@ -371,8 +371,8 @@
     
     message += `\nLet's chat!`;
 
-    // WhatsApp link (replace with your actual number)
-    const whatsappNumber = '211926780588'; // Replace with your WhatsApp number
+    // WhatsApp link
+    const whatsappNumber = '211922931515'; 
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     const whatsappBtn = document.getElementById('whatsappBtn');
     if (whatsappBtn) whatsappBtn.href = whatsappUrl;
@@ -380,7 +380,7 @@
     // Email link
     const emailSubject = `Project Inquiry — ${serviceName}`;
     const emailBody = message;
-    const emailUrl = `mailto:mathewyel.work@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    const emailUrl = `mailto:info@mathewyel.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
     const emailBtn = document.getElementById('emailBtn');
     if (emailBtn) emailBtn.href = emailUrl;
   }
