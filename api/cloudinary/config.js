@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
   try {
     // Get Cloudinary config from environment variables
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-    const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || 'mathew-yel';
+    const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET;
     
     if (!cloudName) {
       console.error('CLOUDINARY_CLOUD_NAME environment variable not set');
@@ -31,6 +31,16 @@ module.exports = async (req, res) => {
         configured: false
       });
     }
+
+    if (!uploadPreset) {
+      console.error('CLOUDINARY_UPLOAD_PRESET environment variable not set');
+      return res.status(500).json({ 
+        error: 'Upload preset not configured',
+        configured: false
+      });
+    }
+
+    console.log('Cloudinary config:', { cloudName, uploadPreset });
 
     return res.status(200).json({ 
       configured: true,

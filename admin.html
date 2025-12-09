@@ -1334,13 +1334,32 @@
 
         // Open Cloudinary Upload Widget
         function openCloudinaryWidget(section, targetInputId) {
+            // Check if Cloudinary script is loaded
+            if (typeof cloudinary === 'undefined') {
+                showStatus('Cloudinary widget not loaded. Please refresh the page and try again.', 'error');
+                console.error('Cloudinary widget script not loaded');
+                return;
+            }
+
             // Check if Cloudinary is configured
             if (!CLOUDINARY_CONFIG.configured || !CLOUDINARY_CONFIG.cloudName) {
                 showStatus('Cloudinary is not configured. Please set CLOUDINARY_CLOUD_NAME in environment variables.', 'error');
                 return;
             }
 
-            const widget = cloudinary.createUploadWidget({
+            if (!CLOUDINARY_CONFIG.uploadPreset) {
+                showStatus('Upload preset is not configured. Please set CLOUDINARY_UPLOAD_PRESET in environment variables.', 'error');
+                return;
+            }
+
+            console.log('Opening Cloudinary widget with config:', {
+                cloudName: CLOUDINARY_CONFIG.cloudName,
+                uploadPreset: CLOUDINARY_CONFIG.uploadPreset,
+                folder: `mathew-yel/${section}`
+            });
+
+            try {
+                const widget = cloudinary.createUploadWidget({
                 cloudName: CLOUDINARY_CONFIG.cloudName,
                 uploadPreset: CLOUDINARY_CONFIG.uploadPreset,
                 sources: ['local', 'url', 'camera'],
@@ -1378,7 +1397,31 @@
                     }
                 }
             }, (error, result) => {
-                if (!error && result && result.event === "success") {
+                // Log all events for debugging
+                console.log('Cloudinary widget event:', result?.event, result);
+                
+                if (error) {
+                    console.error('Cloudinary upload error:', error);
+                    let errorMsg = 'Upload failed. ';
+                    
+                    if (error.message) {
+                        errorMsg += error.message;
+                    } else if (typeof error === 'string') {
+                        errorMsg += error;
+                    } else {
+                        errorMsg += 'Please check console for details.';
+                    }
+                    
+                    // Check for common upload preset error
+                    if (error.message && error.message.includes('preset')) {
+                        errorMsg = 'Upload preset error: The upload preset "' + CLOUDINARY_CONFIG.uploadPreset + '" must be configured as "unsigned" in your Cloudinary account settings.';
+                    }
+                    
+                    showStatus(errorMsg, 'error');
+                    return;
+                }
+                
+                if (result && result.event === "success") {
                     const imageUrl = result.info.secure_url;
                     
                     // Set URL in input field
@@ -1393,14 +1436,13 @@
                     
                     console.log('Cloudinary upload success:', result.info);
                 }
-                
-                if (error) {
-                    console.error('Cloudinary upload error:', error);
-                    showStatus('Upload failed. Please try again.', 'error');
-                }
             });
             
             widget.open();
+            } catch (error) {
+                console.error('Error creating Cloudinary widget:', error);
+                showStatus('Failed to open upload widget: ' + error.message, 'error');
+            }
         }
 
         // Global variables
