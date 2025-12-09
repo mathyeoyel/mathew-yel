@@ -140,7 +140,15 @@
         if (pageTitle) pageTitle.textContent = data.title;
         if (pageSubtitle) pageSubtitle.textContent = data.subtitle;
 
-        projectGrid.innerHTML = data.items.map((p, index) => `
+        // Sort projects by date (most recent first)
+        const sortedProjects = [...data.items].sort((a, b) => {
+          // Assuming projects have a date field or createdAt field
+          const dateA = new Date(a.date || a.createdAt || '2020-01-01');
+          const dateB = new Date(b.date || b.createdAt || '2020-01-01');
+          return dateB - dateA; // Descending order (newest first)
+        });
+
+        projectGrid.innerHTML = sortedProjects.map((p, index) => `
           <article class="project-compact-card" data-project-id="${index}">
             <div class="project-compact-thumbnail">
               ${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy">` : '<div class="project-placeholder"><i class="fa-solid fa-briefcase"></i></div>'}
@@ -166,7 +174,7 @@
           el.addEventListener('click', (e) => {
             e.preventDefault();
             const projectId = el.dataset.projectId;
-            openProjectModal(data.items[projectId]);
+            openProjectModal(sortedProjects[projectId]);
           });
         });
       })
