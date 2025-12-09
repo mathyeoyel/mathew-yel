@@ -3,7 +3,14 @@
   const root = document.documentElement;
   const key = 'theme';
   const saved = localStorage.getItem(key);
-  if (saved) root.classList.toggle('light', saved === 'light');
+  
+  // Set light mode as default if no saved preference
+  if (saved) {
+    root.classList.toggle('light', saved === 'light');
+  } else {
+    root.classList.add('light');
+    localStorage.setItem(key, 'light');
+  }
 
   // Theme toggle functionality
   const themeToggle = document.getElementById('themeToggle');
