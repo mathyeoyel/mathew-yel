@@ -372,7 +372,7 @@
     message += `\nLet's chat!`;
 
     // WhatsApp link
-    const whatsappNumber = '211922931515'; 
+    const whatsappNumber = '211926191941'; 
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     const whatsappBtn = document.getElementById('whatsappBtn');
     if (whatsappBtn) whatsappBtn.href = whatsappUrl;
