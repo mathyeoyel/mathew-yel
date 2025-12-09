@@ -172,6 +172,30 @@
         "Corporate Website",
         "Multi-Sector Business"
       ]
+    },
+    {
+      "id": "item-1765289043454-ttcwldzxo",
+      "title": "Holistic Wellness Initiative South Sudan (HWISS) — Website Platform",
+      "summary": "A modern, content-driven nonprofit website for HWISS, designed to strengthen communications, donor visibility, and public awareness of community programs in health, nutrition, WASH, climate resilience, and peacebuilding.",
+      "description": "This project focuses on building the official website for the Holistic Wellness Initiative South Sudan (HWISS), a South Sudanese-led nonprofit registered under the Relief and Rehabilitation Commission (RRC). The platform is being developed to provide accessible information about HWISS’s community work across remote and vulnerable areas.\n\nThe website will showcase their integrated programs in:\n\nHealth & Nutrition\n\nWater, Sanitation & Hygiene (WASH)\n\nMental Health & Rehabilitation\n\nEnvironmental Health & Climate Resilience\n\nProtection & Peacebuilding\n\nOnce completed, the website will support storytelling, program documentation, donor reporting, volunteer engagement, and digital transparency. The design emphasizes trust, clarity, and impact—reflecting the organization’s humanitarian mission and grassroots leadership.",
+      "status": "in-progress",
+      "role": "Frontend / Full-stack Developer (UX, Web Structure, Nonprofit Information Architecture)",
+      "startDate": "2025-09-13",
+      "endDate": "",
+      "link": "https://hwiss-org.vercel.app/",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765288969/mathew-yel/projects/fkl5jh6aljpi7ftg88hl.png",
+      "featured": true,
+      "tech": [
+        "Next.js",
+        "Tailwind CSS",
+        "Vercel Deployment"
+      ],
+      "tags": [
+        "NGO Website",
+        "Nonprofit Platform",
+        "WASH Programs",
+        "South Sudan"
+      ]
     }
   ]
 }
