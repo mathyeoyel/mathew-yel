@@ -140,13 +140,8 @@
         if (pageTitle) pageTitle.textContent = data.title;
         if (pageSubtitle) pageSubtitle.textContent = data.subtitle;
 
-        // Sort projects by date (most recent first)
-        const sortedProjects = [...data.items].sort((a, b) => {
-          // Assuming projects have a date field or createdAt field
-          const dateA = new Date(a.date || a.createdAt || '2020-01-01');
-          const dateB = new Date(b.date || b.createdAt || '2020-01-01');
-          return dateB - dateA; // Descending order (newest first)
-        });
+        // Reverse projects array so newest additions appear first
+        const sortedProjects = [...data.items].reverse();
 
         projectGrid.innerHTML = sortedProjects.map((p, index) => `
           <article class="project-compact-card" data-project-id="${index}">
