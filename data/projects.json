@@ -96,6 +96,33 @@
         "CMS",
         "Responsive Design"
       ]
+    },
+    {
+      "id": "item-1765272630936-8g666ude8",
+      "title": "ETA Voting System",
+      "summary": "A secure and scalable online voting platform designed for the Eastern Talent Awards, enabling thousands of users to vote reliably in real time.",
+      "description": "The ETA Voting System is a modern web-based application developed to manage large-scale public voting for the Eastern Talent Awards. The platform ensures fair, transparent, and authenticated voting by implementing unique voter verification, device-level detection against multiple fraudulent accounts, and real-time vote tracking.\n\nThe system features a smooth user experience optimized for both mobile and desktop, with live statistics, voting limits, instant notifications, and admin analytics. The backend includes a fraud prevention mechanism that identifies suspicious activities such as fake accounts, repeated device usage, and abnormal voting frequency.\n\nThis solution helped organizers conduct trusted digital voting, handle heavy traffic, and eliminate manual counting errors while building credibility with participants.",
+      "status": "completed",
+      "role": "Full-stack Developer (UI, API, Database, Security)",
+      "startDate": "2025-11-11",
+      "endDate": "2025-11-18",
+      "link": "https://www.easterntalentawards18.com",
+      "image": "",
+      "featured": true,
+      "tech": [
+        "React.js",
+        "Tailwind CSS",
+        "Axios",
+        "Firebase Authentication",
+        "Firebase Firestore",
+        "Firebase Cloud Functions"
+      ],
+      "tags": [
+        "Voting System",
+        "Real-time App",
+        "Fraud Detection",
+        "Public Voting"
+      ]
     }
   ]
 }
