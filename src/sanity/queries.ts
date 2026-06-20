@@ -43,18 +43,17 @@ export const siteSettingsQuery = groq`
   }
 `;
 
-export const featuredProjectsQuery = groq`
-  *[_type == "project"] | order(featured desc, startDate desc, title asc)[0...4]{
+export const homepageProjectsQuery = groq`
+  *[_type == "project" && showOnHomepage == true]
+  | order(homepageOrder asc, startDate desc, title asc)[0...3]{
     _id,
     title,
     "slug": slug.current,
     summary,
     coverImage{${imageFields}},
-    role,
     status,
     category,
     tags,
-    technologies,
     projectUrl
   }
 `;

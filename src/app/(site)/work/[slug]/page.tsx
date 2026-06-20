@@ -42,28 +42,54 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   return (
     <main>
-      <section className="bg-slate-950 text-white">
+      <section className="page-hero-dark">
         <div className="mx-auto max-w-6xl px-5 py-16">
-          <Link href="/work" className="text-sm font-bold text-amber-400 hover:text-amber-300">
+          <Link href="/work" className="link-accent-on-dark text-sm">
             ← Back to work
           </Link>
           <h1 className="mt-8 max-w-4xl text-4xl font-black tracking-tight md:text-6xl">
             {project.title}
           </h1>
           {project.summary ? (
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
               {project.summary}
             </p>
           ) : null}
 
-          <div className="mt-8 grid gap-4 text-sm text-slate-300 md:grid-cols-4">
-            {project.role ? <div><strong className="text-white">Role:</strong><br />{project.role}</div> : null}
-            {project.status ? <div><strong className="text-white">Status:</strong><br />{project.status}</div> : null}
-            {project.startDate ? <div><strong className="text-white">Started:</strong><br />{formatDate(project.startDate)}</div> : null}
+          <div className="mt-8 grid gap-4 text-sm text-brand-muted md:grid-cols-4">
+            {project.role ? (
+              <div>
+                <strong className="text-white">Role:</strong>
+                <br />
+                {project.role}
+              </div>
+            ) : null}
+            {project.status ? (
+              <div>
+                <strong className="text-white">Status:</strong>
+                <br />
+                {project.status}
+              </div>
+            ) : null}
+            {project.startDate ? (
+              <div>
+                <strong className="text-white">Started:</strong>
+                <br />
+                {formatDate(project.startDate)}
+              </div>
+            ) : null}
             {project.projectUrl ? (
               <div>
-                <strong className="text-white">Link:</strong><br />
-                <a href={project.projectUrl} className="text-amber-400" target="_blank" rel="noreferrer">Visit project</a>
+                <strong className="text-white">Link:</strong>
+                <br />
+                <a
+                  href={project.projectUrl}
+                  className="text-brand-accent"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Visit project
+                </a>
               </div>
             ) : null}
           </div>
@@ -76,7 +102,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           altFallback={project.title}
           width={1400}
           height={800}
-          className="h-auto w-full rounded-[2rem] object-cover"
+          className="h-auto w-full object-cover"
         />
       </section>
 
@@ -85,10 +111,10 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         {project.technologies?.length ? (
           <div className="mt-12">
-            <h2 className="text-2xl font-black text-slate-950">Tools & technologies</h2>
+            <h2 className="text-2xl font-black text-brand-deep">Tools & technologies</h2>
             <div className="mt-5 flex flex-wrap gap-2">
               {project.technologies.map((tech) => (
-                <span key={tech} className="rounded-full bg-slate-100 px-4 py-2 text-sm font-bold text-slate-700">
+                <span key={tech} className="tag tag-muted">
                   {tech}
                 </span>
               ))}
@@ -99,14 +125,14 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       {project.galleryImages?.length ? (
         <section className="mx-auto max-w-6xl px-5 pb-20">
-          <h2 className="text-2xl font-black text-slate-950">Project images</h2>
+          <h2 className="text-2xl font-black text-brand-deep">Project images</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {project.galleryImages.map((image, index) => (
               <ImageBox
                 key={index}
                 image={image}
                 altFallback={`${project.title} image ${index + 1}`}
-                className="h-80 w-full rounded-3xl object-cover"
+                className="h-80 w-full object-cover"
               />
             ))}
           </div>

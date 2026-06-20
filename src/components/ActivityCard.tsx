@@ -9,33 +9,33 @@ type Props = {
 
 export function ActivityCard({ activity }: Props) {
   return (
-    <article className="grid gap-5 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-lg md:grid-cols-[220px_1fr]">
+    <article className="card grid gap-5 p-4 md:grid-cols-[220px_1fr]">
       <Link href={`/activities/${activity.slug}`}>
         <ImageBox
           image={activity.coverImage}
           altFallback={activity.title}
-          className="h-48 w-full rounded-2xl object-cover md:h-full"
+          className="h-48 w-full object-cover md:h-full"
           width={500}
           height={360}
         />
       </Link>
       <div className="p-2">
-        <div className="flex flex-wrap gap-2 text-xs font-black uppercase tracking-wide">
+        <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wide">
           {activity.category ? (
-            <span className="text-amber-700">{activity.category}</span>
+            <span className="text-brand-accent">{activity.category}</span>
           ) : null}
-          <span className="text-slate-400">{formatDate(activity.activityDate)}</span>
+          <span className="text-brand-muted">{formatDate(activity.activityDate)}</span>
         </div>
-        <h3 className="mt-3 text-xl font-black tracking-tight text-slate-950">
-          <Link href={`/activities/${activity.slug}`} className="hover:text-amber-700">
+        <h3 className="mt-3 text-xl font-black tracking-tight text-brand-deep">
+          <Link href={`/activities/${activity.slug}`} className="hover:text-brand-accent">
             {activity.title}
           </Link>
         </h3>
         {activity.location ? (
-          <p className="mt-2 text-sm font-semibold text-slate-500">{activity.location}</p>
+          <p className="mt-2 text-sm font-semibold text-brand-body">{activity.location}</p>
         ) : null}
         {activity.shortDescription ? (
-          <p className="mt-3 text-sm leading-7 text-slate-600">
+          <p className="mt-3 text-sm leading-7 text-brand-body">
             {activity.shortDescription}
           </p>
         ) : null}

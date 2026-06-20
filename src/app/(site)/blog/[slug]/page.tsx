@@ -43,19 +43,19 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <main>
       <section className="mx-auto max-w-4xl px-5 py-16">
-        <Link href="/blog" className="text-sm font-bold text-amber-700 hover:text-amber-800">
+        <Link href="/blog" className="link-accent text-sm">
           ← Back to blog
         </Link>
-        <div className="mt-8 flex flex-wrap gap-3 text-sm font-black uppercase tracking-wide text-slate-500">
+        <div className="mt-8 flex flex-wrap gap-3 text-xs font-bold uppercase tracking-wide text-brand-muted">
           {post.category ? <span>{post.category}</span> : null}
           <span>{formatDate(post.publishedAt)}</span>
           {post.readingTime ? <span>{post.readingTime} min read</span> : null}
         </div>
-        <h1 className="mt-5 text-4xl font-black tracking-tight text-slate-950 md:text-6xl">
+        <h1 className="mt-5 text-4xl font-black tracking-tight text-brand-deep md:text-6xl">
           {post.title}
         </h1>
         {post.excerpt ? (
-          <p className="mt-6 text-lg leading-8 text-slate-600">{post.excerpt}</p>
+          <p className="mt-6 text-lg leading-8 text-brand-body">{post.excerpt}</p>
         ) : null}
       </section>
 
@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: Props) {
           altFallback={post.title}
           width={1400}
           height={800}
-          className="h-auto w-full rounded-[2rem] object-cover"
+          className="h-auto w-full object-cover"
         />
       </section>
 
