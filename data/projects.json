@@ -1,0 +1,201 @@
+{
+  "title": "Projects",
+  "subtitle": "A selection of creative and technical projects that showcase my journey as an entrepreneur and technologist.",
+  "items": [
+    {
+      "id": "yelose-graphics",
+      "title": "Yelose Graphics",
+      "summary": "Creative studio delivering brand identities, social content, and simple web builds for SMEs.",
+      "description": "Founded in 2022, Yelose Graphics has become a leading design agency in South Sudan, specializing in comprehensive branding solutions for small and medium enterprises. From logo design to complete brand identity systems, we help businesses establish their visual presence and connect with their audiences.",
+      "status": "completed",
+      "role": "Founder & Creative Director",
+      "startDate": "2022-05-08",
+      "endDate": "",
+      "link": "https://www.yelosegraphics.com",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765195245/mathew-yel/projects/jr5cpviccqljvwshubba.png",
+      "featured": true,
+      "tech": [
+        "Adobe Creative Suite",
+        "Figma",
+        "WordPress",
+        "Web Design"
+      ],
+      "tags": [
+        "Branding",
+        "Content",
+        "Web",
+        "Design Agency"
+      ]
+    },
+    {
+      "id": "vikrahub",
+      "title": "VikraHub",
+      "summary": "Creative platform connecting and empowering South Sudanese creatives and entrepreneurs.",
+      "description": "VikraHub is an innovative platform designed to bridge the gap between talented South Sudanese creatives and opportunities. It serves as a community hub, marketplace, and resource center for designers, developers, writers, and other creative professionals.",
+      "status": "in-progress",
+      "role": "Founder & Technical Lead",
+      "startDate": "2025-06-09",
+      "endDate": "",
+      "link": "https://vikrahub.com",
+      "image": "https://res.cloudinary.com/dxpwtdjzp/image/upload/v1757154395/blog_images/zghyccbosxlbqnqbbxew.jpg",
+      "featured": true,
+      "tech": [
+        "React",
+        "Community Building",
+        "Django",
+        "South Sudanese Creatives"
+      ],
+      "tags": [
+        "Platform",
+        "Community",
+        "Tech",
+        "Startup"
+      ]
+    },
+    {
+      "id": "south-gleam-forex",
+      "title": "South Gleam Forex & Money Transfer",
+      "summary": "Professional website for forex and money transfer services.",
+      "description": "Designed and developed a modern, trustworthy website for South Gleam's financial services. The project focused on building user confidence through clean design and clear communication of services.",
+      "status": "completed",
+      "role": "Web Developer & Designer",
+      "startDate": "2025-04-25",
+      "endDate": "2025-05-03",
+      "link": "https://southgleamforex.com",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765195432/mathew-yel/projects/fqfndblxclhb2ny862o8.png",
+      "featured": true,
+      "tech": [
+        "HTML/CSS",
+        "JavaScript",
+        "Responsive Design"
+      ],
+      "tags": [
+        "Web Development",
+        "Financial Services",
+        "UI/UX"
+      ]
+    },
+    {
+      "id": "aweil-news-agency",
+      "title": "Aweil News Agency Website",
+      "summary": "News platform for local journalism and community updates.",
+      "description": "Built a modern news website platform to help Aweil News Agency reach wider audiences with local and national news coverage. The site features content management capabilities and mobile-responsive design.",
+      "status": "completed",
+      "role": "Web Developer",
+      "startDate": "2025-05-24",
+      "endDate": "2025-06-04",
+      "link": "https://www.aweilnewsagency.com",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765195506/mathew-yel/projects/rhvwbvtrmss63dpe21k0.jpg",
+      "featured": false,
+      "tech": [
+        "Custom Theme",
+        "SEO Optimization"
+      ],
+      "tags": [
+        "News Platform",
+        "CMS",
+        "Responsive Design"
+      ]
+    },
+    {
+      "id": "item-1765272630936-8g666ude8",
+      "title": "ETA Voting System",
+      "summary": "A secure and scalable online voting platform designed for the Eastern Talent Awards, enabling thousands of users to vote reliably in real time.",
+      "description": "The ETA Voting System is a modern web-based application developed to manage large-scale public voting for the Eastern Talent Awards. The platform ensures fair, transparent, and authenticated voting by implementing unique voter verification, device-level detection against multiple fraudulent accounts, and real-time vote tracking.\n\nThe system features a smooth user experience optimized for both mobile and desktop, with live statistics, voting limits, instant notifications, and admin analytics. The backend includes a fraud prevention mechanism that identifies suspicious activities such as fake accounts, repeated device usage, and abnormal voting frequency.\n\nThis solution helped organizers conduct trusted digital voting, handle heavy traffic, and eliminate manual counting errors while building credibility with participants.",
+      "status": "completed",
+      "role": "Full-stack Developer (UI, API, Database, Security)",
+      "startDate": "2025-11-11",
+      "endDate": "2025-11-18",
+      "link": "https://easterntalentawards18.com",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765275519/mathew-yel/projects/q71lmboh9papjtzfhwru.jpg",
+      "featured": true,
+      "tech": [
+        "React.js",
+        "Tailwind CSS",
+        "Axios",
+        "Firebase Authentication",
+        "Firebase Firestore",
+        "Firebase Cloud Functions"
+      ],
+      "tags": [
+        "Voting System",
+        "Real-time App",
+        "Fraud Detection",
+        "Public Voting"
+      ]
+    },
+    {
+      "id": "item-1765285880488-5o65wjp7c",
+      "title": "AGA Membership & Website Management System",
+      "summary": "A full membership management and content-driven website for the Aweil Graduates Association, powered by Sanity CMS with automated ID generation, verification tools, and admin controls.",
+      "description": "The AGA website is a complete digital platform built for the Aweil Graduates Association to manage public membership applications, publish organizational content, and strengthen their online presence. It features a dynamic CMS-driven website connected to a powerful admin dashboard with automated workflows.\n\nThe membership system automatically generates ID numbers, verifies applications, and categorizes them using custom filters. Admins can approve or reject applications, send real-time email notifications, export verified members to PDF, and manage public content such as leadership profiles, events, announcements, and pages — all without touching code.\n\nThe platform is optimized for fast performance, secure data handling, and scalable updates, making it a long-term solution for AGA’s digital operations.",
+      "status": "completed",
+      "role": "Full-stack Developer (CMS, API, Workflow Automation)",
+      "startDate": "2025-11-28",
+      "endDate": "2025-12-08",
+      "link": "https://aweilgraduatesassociation.org",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765285734/mathew-yel/projects/yyvqnh3kvsyemdrkp6ir.jpg",
+      "featured": true,
+      "tech": [
+        "Next.js",
+        "Tailwind CSS",
+        "React",
+        "Sanity CMS (v3)",
+        "GROQ Queries",
+        "Resend (Email)",
+        "Vercel Deployment"
+      ],
+      "tags": [
+        "Membership System",
+        "CMS Website",
+        "Admin Dashboard"
+      ]
+    },
+    {
+      "id": "item-1765288361408-tia3mpq5u",
+      "title": "AYAT Capital — Corporate & Digital Presence Website",
+      "summary": "A modern, professionally designed corporate website for a diversified investment and enterprise group, showcasing AYAT Capital’s sectors, portfolio, impact metrics, news/insights, and a contact pipeline.",
+      "description": "AYAT Capital’s website is a full-scale corporate and public-facing platform built to represent the company’s business scope — from investments and real estate to technology, logistics, agribusiness, and more. The site highlights their sectors, impact statistics, portfolio, news and insights, and includes contact/consultation request mechanisms, giving the firm a polished and trustworthy digital presence.\n\nPart of the work involved: implementing a robust multi-page site structure (Home, About, Portfolio, Impact, News & Insights, Careers/Contact), designing a clean UI/UX with strong branding suitable for a corporate investment firm, and integrating dynamic content management to allow updates to sectors, impact numbers, portfolio items, news articles, and contact forms.\n\nThe aim was to present AYAT Capital as a credible, professional enterprise group — reflecting their values (integrity, innovation, sustainability, excellence) — and make it easy for clients/partners to explore their services and reach out.",
+      "status": "completed",
+      "role": "Frontend Developer (UI/UX + CMS + Site Structure + Responsive Design)",
+      "startDate": "2025-09-29",
+      "endDate": "2025-10-11",
+      "link": "https://www.ayatcapital.com/",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765287977/mathew-yel/projects/uccaofehv4ullbnptjqz.png",
+      "featured": true,
+      "tech": [
+        "Next.js",
+        "SEO / Metadata Setup",
+        "Vercel Deployment"
+      ],
+      "tags": [
+        "Corporate Website",
+        "Multi-Sector Business"
+      ]
+    },
+    {
+      "id": "item-1765289043454-ttcwldzxo",
+      "title": "Holistic Wellness Initiative South Sudan (HWISS) — Website Platform",
+      "summary": "A modern, content-driven nonprofit website for HWISS, designed to strengthen communications, donor visibility, and public awareness of community programs in health, nutrition, WASH, climate resilience, and peacebuilding.",
+      "description": "This project focuses on building the official website for the Holistic Wellness Initiative South Sudan (HWISS), a South Sudanese-led nonprofit registered under the Relief and Rehabilitation Commission (RRC). The platform is being developed to provide accessible information about HWISS’s community work across remote and vulnerable areas.\n\nThe website will showcase their integrated programs in:\n\nHealth & Nutrition\n\nWater, Sanitation & Hygiene (WASH)\n\nMental Health & Rehabilitation\n\nEnvironmental Health & Climate Resilience\n\nProtection & Peacebuilding\n\nOnce completed, the website will support storytelling, program documentation, donor reporting, volunteer engagement, and digital transparency. The design emphasizes trust, clarity, and impact—reflecting the organization’s humanitarian mission and grassroots leadership.",
+      "status": "in-progress",
+      "role": "Frontend / Full-stack Developer (UX, Web Structure, Nonprofit Information Architecture)",
+      "startDate": "2025-09-13",
+      "endDate": "",
+      "link": "https://hwiss-org.vercel.app/",
+      "image": "https://res.cloudinary.com/djbjifhal/image/upload/v1765288969/mathew-yel/projects/fkl5jh6aljpi7ftg88hl.png",
+      "featured": true,
+      "tech": [
+        "Next.js",
+        "Tailwind CSS",
+        "Vercel Deployment"
+      ],
+      "tags": [
+        "NGO Website",
+        "Nonprofit Platform",
+        "WASH Programs",
+        "South Sudan"
+      ]
+    }
+  ]
+}

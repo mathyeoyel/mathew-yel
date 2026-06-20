@@ -1,0 +1,104 @@
+{
+  "title": "Skills & Expertise",
+  "categories": [
+    {
+      "id": "design",
+      "name": "Design & Branding",
+      "skills": [
+        {
+          "name": "Brand Identity Design",
+          "level": "expert",
+          "description": "Logo design, brand guidelines, visual identity systems"
+        },
+        {
+          "name": "Adobe Creative Suite",
+          "level": "expert",
+          "description": "Illustrator, Photoshop, InDesign, After Effects"
+        },
+        {
+          "name": "UI/UX Design",
+          "level": "advanced",
+          "description": "User interface design, user experience research, prototyping"
+        },
+        {
+          "name": "Figma",
+          "level": "advanced",
+          "description": "Collaborative design, prototyping, design systems"
+        }
+      ]
+    },
+    {
+      "id": "development",
+      "name": "Web Development",
+      "skills": [
+        {
+          "name": "Frontend Development",
+          "level": "advanced",
+          "description": "HTML, CSS, JavaScript, React, responsive design"
+        },
+        {
+          "name": "WordPress Development",
+          "level": "advanced",
+          "description": "Custom themes, plugins, content management"
+        },
+        {
+          "name": "SEO & Web Performance",
+          "level": "intermediate",
+          "description": "Search engine optimization, page speed, analytics"
+        },
+        {
+          "name": "Node.js",
+          "level": "intermediate",
+          "description": "Backend development, API creation, server management"
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "name": "Business & Strategy",
+      "skills": [
+        {
+          "name": "Entrepreneurship",
+          "level": "expert",
+          "description": "Business development, startup creation, strategic planning"
+        },
+        {
+          "name": "Community Building",
+          "level": "expert",
+          "description": "Platform development, engagement strategies, workshops"
+        },
+        {
+          "name": "Project Management",
+          "level": "advanced",
+          "description": "Client relations, timeline management, team coordination"
+        },
+        {
+          "name": "Digital Marketing",
+          "level": "intermediate",
+          "description": "Social media strategy, content marketing, brand awareness"
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "name": "Technology & Innovation",
+      "skills": [
+        {
+          "name": "Cybersecurity Awareness",
+          "level": "intermediate",
+          "description": "Security best practices, risk assessment, digital safety"
+        },
+        {
+          "name": "Database Management",
+          "level": "intermediate",
+          "description": "MongoDB, data structure, information architecture"
+        },
+        {
+          "name": "Mobile App Concepts",
+          "level": "beginner",
+          "description": "React Native basics, app design, user flow planning"
+        }
+      ]
+    }
+  ]
+}
