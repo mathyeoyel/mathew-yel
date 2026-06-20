@@ -1,24 +1,37 @@
 {
-  "name": "mathew-yel-website",
-  "version": "1.0.0",
-  "description": "Personal portfolio website for Mathew Yel with dynamic content management",
-  "main": "index.html",
+  "name": "mathew-yel-next-sanity",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Next.js + Sanity rebuild for the Mathew Yel personal website.",
   "scripts": {
-    "dev": "python -m http.server 8000",
-    "start": "echo 'Static site ready for deployment'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "schema:extract": "sanity schema extract --path sanity/schema.json",
+    "seed:sanity": "tsx scripts/seed-sanity.ts"
   },
-  "keywords": [
-    "portfolio",
-    "personal-website",
-    "entrepreneur",
-    "technologist",
-    "south-sudan"
-  ],
-  "author": "Mathew Yel",
-  "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {},
-  "engines": {
-    "node": ">=18.0.0"
+  "dependencies": {
+    "@portabletext/react": "latest",
+    "@sanity/image-url": "latest",
+    "next": "16.2.2",
+    "next-sanity": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "sanity": "latest",
+    "styled-components": "latest"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@sanity/client": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "16.2.2",
+    "tailwindcss": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
   }
 }

@@ -1,260 +1,144 @@
-# 🌟 Mathew Yel - Personal Portfolio Website
+# Mathew Yel — Next.js + Sanity Rebuild
 
-> **Creative Entrepreneur • Technologist • Community Builder**
+This is the clean rebuild foundation for `mathewyel.com`.
 
-A modern, responsive portfolio website showcasing the work and achievements of Mathew Yel, founder of Yelose Graphics and VikraHub, with a passion for digital innovation in South Sudan.
+It replaces the old static JSON + custom `admin.html` workflow with:
 
-## ✨ Features
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- Sanity Studio at `/studio`
+- Sanity content schemas for profile, projects, activities, posts, awards, and site settings
+- Project and activity image support
+- Back-dated public timeline dates
+- Dynamic pages for work, activities, and blog posts
 
-### 🎨 **Modern Design**
-- Mobile-first responsive design
-- Professional typography and color scheme
-- Smooth animations and transitions
-- Font Awesome icons throughout
-- Clean, minimalist aesthetic
+## Why this version exists
 
-### 📱 **Fully Responsive**
-- Optimized for mobile, tablet, and desktop
-- Touch-friendly navigation
-- Adaptive layouts for all screen sizes
-- Fast loading on all devices
+The old site stores content in JSON and uses a custom admin panel that commits changes back to GitHub. That became too complex for regular updates.
 
-### 🚀 **Dynamic Content Management**
-- **Admin Panel**: Easy-to-use content management interface
-- **Form-Based Editing**: No JSON knowledge required
-- **Live Updates**: Changes save directly to production
-- **Visual Interface**: Intuitive forms for all content sections
+This rebuild uses Sanity Studio as the admin panel, so updates become:
 
-### 🔧 **Admin Panel Features**
-- **Projects Management**: Add, edit, delete portfolio projects
-- **Gallery Management**: Upload and organize photos
-- **Awards Timeline**: Manage achievements and recognition
-- **Personal Information**: Update bio, contact info, skills
-- **Real-Time Preview**: See changes before publishing
-- **Auto-Save**: Direct updates to live website
+1. Open `/studio`
+2. Add project, activity, post, or award
+3. Upload images
+4. Set the public date
+5. Publish
 
-### 📊 **Content Sections**
-- **Hero Section**: Professional introduction with call-to-actions
-- **About**: Detailed background and journey
-- **Projects**: Portfolio showcase with detailed descriptions
-- **Gallery**: Moments & milestones photo collection
-- **Awards**: Recognition and achievements timeline
-- **Skills**: Technical and creative expertise
-- **Contact**: Professional contact information
+## First setup
 
-## 🛠️ **Technology Stack**
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
+```
 
-### Frontend
-- **HTML5**: Semantic markup and accessibility
-- **CSS3**: Modern styling with Flexbox and Grid
-- **Vanilla JavaScript**: Dynamic functionality and API integration
-- **Font Awesome 6.4.0**: Professional icon library
+Open:
 
-### Backend (Production)
-- **Vercel Serverless Functions**: API endpoints for content management
-- **Node.js**: Server-side JavaScript runtime
-- **File System API**: Direct JSON file manipulation
+```txt
+http://localhost:3000
+http://localhost:3000/studio
+```
 
-### Deployment
-- **Vercel**: Modern hosting platform with global CDN
-- **GitHub**: Version control and continuous deployment
-- **HTTPS**: Secure connections with automatic SSL
+## Required environment variables
 
-## 🚀 **Quick Start**
+```txt
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2026-06-19
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
 
-### Development Setup
+You get `NEXT_PUBLIC_SANITY_PROJECT_ID` from your Sanity project dashboard.
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/mathyeoyel/mathew-yel.git
-   cd mathew-yel
-   ```
+## Seed content from old JSON files
 
-2. **Start local server**:
-   ```bash
-   python -m http.server 8000
-   ```
+If you still have the old static site JSON files, place them in a `data/` folder at the project root:
 
-3. **Access the website**:
-   - Website: `http://localhost:8000`
-   - Admin Panel: `http://localhost:8000/admin.html`
+```txt
+data/personal.json
+data/projects.json
+data/awards.json
+data/blogs.json
+data/posts.json
+```
 
-### Production Deployment
+Create a Sanity **Editor** (or **Administrator**) token with write access at [sanity.io/manage](https://sanity.io/manage), then add it to `.env.local`:
 
-1. **Push to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Deploy to production"
-   git push origin main
-   ```
+```env
+SANITY_API_WRITE_TOKEN=your-write-token-here
+```
 
-2. **Deploy to Vercel**:
-   - Connect GitHub repository to Vercel
-   - Automatic deployments on every push
-   - Admin panel works in production with live updates
+Run the migration script:
 
-## 📖 **Usage Guide**
+```bash
+npm run seed:sanity
+```
 
-### Content Management
+The script uses stable document IDs and `createOrReplace`, so it is safe to run more than once. Missing JSON files are skipped gracefully. Remote image URLs are not imported into Sanity image fields yet — upload images in Studio after seeding.
 
-#### **Admin Panel Access**
-- **Local**: `http://localhost:8000/admin.html`
-- **Production**: `https://your-domain.vercel.app/admin.html`
+Profile documents use `_id: profile` to match the Studio singleton and frontend queries.
 
-#### **Managing Content**
+## Sanity content types
 
-1. **Projects**:
-   - Add new portfolio projects
-   - Edit existing project details
-   - Manage project status and technologies
-   - Set featured projects
+- Profile
+- Project
+- Activity
+- Post
+- Award
+- Site Settings
 
-2. **Gallery**:
-   - Upload new photos
-   - Organize by categories
-   - Add captions and descriptions
-   - Control display order
+There is intentionally no standalone gallery in the MVP. Projects and Activities both support:
 
-3. **Awards**:
-   - Add achievements and recognition
-   - Set dates and organizations
-   - Categorize awards
-   - Mark featured achievements
+- `coverImage`
+- `galleryImages`
 
-4. **Personal Information**:
-   - Update hero section content
-   - Edit about paragraphs
-   - Manage contact information
-   - Update skills and highlights
+## Back-dating updates
 
-## 🎯 **Key Sections**
+Activities use `activityDate`, not Sanity’s `_createdAt`.
 
-### **Hero Section**
-Professional introduction with:
-- Name and title
-- Compelling description
-- Quick info (location, education, languages)
-- Career highlights
-- Call-to-action buttons
+That means you can publish an update today but set its public date to the real day the event happened.
 
-### **About Section**
-Detailed narrative covering:
-- Journey into technology
-- Professional background
-- Current ventures and projects
-- Vision and goals
+Example:
 
-### **Projects Portfolio**
-Showcase of work including:
-- **Yelose Graphics**: Creative design agency
-- **VikraHub**: Platform for South Sudanese creatives
-- **South Sudan Digital Summit**: Conference website
-- **Various client projects**: Web development and branding
+```txt
+activityDate: 2026-05-01
+title: World Labour Day — UNDP Student Ambassador Activity
+```
 
-### **Moments & Milestones**
-Visual gallery featuring:
-- Award ceremonies and recognition
-- Speaking engagements
-- Workshop and community events
-- Professional milestones
+The website will sort and display it according to `activityDate`.
 
-### **Recognition Timeline**
-Achievements including:
-- **Digitally Fit Awards 2025**: Bronze Winner
-- **Digital Innovation Award 2024**: Chamber of Commerce
-- Various professional recognitions
+## Suggested migration from the old static repo
 
-## 🔒 **Security Features**
+Old file | New Sanity document
+--- | ---
+`data/personal.json` | `profile`
+`data/projects.json` | `project`
+`data/blogs.json` / `data/posts.json` | `post`
+`data/awards.json` | `award`
+Gallery content | move into `activity.galleryImages` or `project.galleryImages`
 
-- **API Protection**: Secure endpoints for content management
-- **CORS Configuration**: Proper cross-origin resource sharing
-- **Input Validation**: Form validation and sanitization
-- **HTTPS Enforcement**: Secure connections in production
+## MVP pages
 
-## 📱 **Mobile Optimization**
+- `/`
+- `/about`
+- `/work`
+- `/work/[slug]`
+- `/activities`
+- `/activities/[slug]`
+- `/blog`
+- `/blog/[slug]`
+- `/contact`
+- `/studio`
 
-- **Responsive Design**: Adaptive layouts for all screen sizes
-- **Touch Navigation**: Mobile-friendly menu and interactions
-- **Fast Loading**: Optimized images and minimal assets
-- **Progressive Enhancement**: Works on all devices and connections
+## Deployment notes
 
-## 🌍 **Production Features**
+Deploy on Vercel, then add these to Sanity CORS origins:
 
-- **Global CDN**: Fast loading worldwide via Vercel
-- **Automatic SSL**: HTTPS encryption included
-- **Custom Domains**: Easy domain configuration
-- **Analytics Ready**: Performance monitoring included
-- **SEO Optimized**: Meta tags and structured markup
+```txt
+http://localhost:3000
+https://mathewyel.com
+https://www.mathewyel.com
+```
 
-## 📈 **Performance**
-
-- **Lighthouse Score**: 95+ across all metrics
-- **Core Web Vitals**: Optimized for Google's performance standards
-- **Fast Loading**: < 2 seconds initial load time
-- **Efficient Caching**: Browser and CDN optimization
-
-## 🤝 **Contributing**
-
-This is a personal portfolio website. For suggestions or improvements:
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request with detailed description
-
-## 📄 **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 **Contact**
-
-**Mathew Yel**
-- **Email**: hello@mathewyel.com
-- **LinkedIn**: [linkedin.com/in/mathew-yel-0806my](https://www.linkedin.com/in/mathew-yel-0806my)
-- **Portfolio**: [yelosegraphics.com](https://www.yelosegraphics.com)
-
----
-
-## 🏆 **About Mathew Yel**
-
-Mathew Yel is a creative entrepreneur and technologist from South Sudan, passionate about bridging creativity with technology. As the founder of Yelose Graphics and VikraHub, he's dedicated to empowering local communities through digital innovation while building for global impact.
-
-### **Current Ventures**
-- **Yelose Graphics**: Leading design agency specializing in branding
-- **VikraHub**: Platform connecting South Sudanese creatives
-- **Community Building**: Workshops and mentorship programs
-- **Digital Innovation**: Web development and tech solutions
-
-### **Recognition**
-- **Digitally Fit Awards 2025**: Bronze Winner (East Africa)
-- **Digital Innovation Award 2024**: South Sudan Chamber of Commerce
-- **University of Juba**: BSc IT (ongoing)
-- **Tech Journey**: Since 2020
-
----
-
-**Built with ❤️ in South Sudan | Deployed globally with Vercel**
-
-Multi-page static site, SEO-ready, with light/dark theme, JSON-driven projects & posts.
-
-## Quick Start
-1) Edit content in HTML files and `/data/*.json`.
-2) Replace `/assets/favicon.svg` and add images as needed.
-3) Deploy to any static host (DirectAdmin, GitHub Pages, Netlify, Vercel).
-
-## Contact Form
-- Uses Formspree: replace `action` with your endpoint in `contact.html`.
-
-## Files
-- index.html — Home, About, Awards
-- projects.html — renders `/data/projects.json`
-- blog/index.html — renders `/data/posts.json`
-- contact.html — simple form + contacts
-- 404.html — not found page
-- styles.css — theme + layout
-- scripts.js — theme toggle + JSON rendering
-- robots.txt, sitemap.xml, site.webmanifest — SEO
-
-© 2025 — MIT License
-#   F o r c e   d e p l o y m e n t  
- #   F o r c e   d e p l o y m e n t   -   0 9 / 2 3 / 2 0 2 5   1 6 : 0 0 : 0 8  
- 
+Enable credentials if you later add visual editing or preview features.
