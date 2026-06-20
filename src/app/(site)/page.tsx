@@ -2,7 +2,7 @@ import Link from "next/link";
 import { sanityFetch } from "@/sanity/client";
 import {
   featuredAwardsQuery,
-  featuredProjectsQuery,
+  homepageProjectsQuery,
   profileQuery,
   recentActivitiesQuery,
   recentPostsQuery
@@ -29,7 +29,7 @@ async function fetchHomeData() {
 
   const [profile, projects, activities, posts, awards] = await Promise.all([
     sanityFetch<Profile | null>(profileQuery),
-    sanityFetch<ProjectCardType[]>(featuredProjectsQuery),
+    sanityFetch<ProjectCardType[]>(homepageProjectsQuery),
     sanityFetch<ActivityCardType[]>(recentActivitiesQuery),
     sanityFetch<PostCardType[]>(recentPostsQuery),
     sanityFetch<Award[]>(featuredAwardsQuery)
@@ -60,24 +60,24 @@ export default async function HomePage() {
 
         {projects.length ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
+            {projects.slice(0, 3).map((project) => (
               <ProjectCard key={project._id} project={project} />
             ))}
           </div>
         ) : (
-          <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-8 text-slate-600">
-            Add featured projects in Sanity Studio to show them here.
+          <div className="empty-state">
+            Enable Show on homepage for up to 3 projects in Sanity Studio to feature them here.
           </div>
         )}
 
         <div className="mt-10">
-          <Link href="/work" className="font-black text-amber-700 hover:text-amber-800">
+          <Link href="/work" className="link-accent">
             View all projects →
           </Link>
         </div>
       </section>
 
-      <section className="bg-slate-50">
+      <section className="section-muted">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <SectionHeader
             eyebrow="Recent activities"
@@ -92,13 +92,13 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-slate-600">
+            <div className="empty-state bg-white">
               Add activities in Sanity Studio to build your timeline.
             </div>
           )}
 
           <div className="mt-10">
-            <Link href="/activities" className="font-black text-amber-700 hover:text-amber-800">
+            <Link href="/activities" className="link-accent">
               Explore activities →
             </Link>
           </div>
@@ -119,15 +119,16 @@ export default async function HomePage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-8 text-slate-600">
+          <div className="empty-state">
             Add blog posts in Sanity Studio when you are ready.
           </div>
         )}
       </section>
 
-      <section className="bg-slate-950 text-white">
+      <section className="section-dark">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <SectionHeader
+            tone="dark"
             eyebrow="Recognition"
             title="Milestones worth remembering."
             description="Awards, leadership roles, invitations, and professional recognition."
@@ -136,17 +137,17 @@ export default async function HomePage() {
           {awards.length ? (
             <div className="grid gap-4 md:grid-cols-3">
               {awards.map((award) => (
-                <article key={award._id} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                  <p className="text-sm font-black text-amber-400">{award.year}</p>
+                <article key={award._id} className="card-dark p-6">
+                  <p className="text-sm font-black text-brand-accent">{award.year}</p>
                   <h3 className="mt-3 text-lg font-black">{award.title}</h3>
                   {award.description ? (
-                    <p className="mt-3 text-sm leading-7 text-slate-300">{award.description}</p>
+                    <p className="mt-3 text-sm leading-7 text-brand-muted">{award.description}</p>
                   ) : null}
                 </article>
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-white/20 bg-white/5 p-8 text-slate-300">
+            <div className="empty-state-dark">
               Add awards and recognition in Sanity Studio.
             </div>
           )}

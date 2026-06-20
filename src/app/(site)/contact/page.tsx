@@ -28,23 +28,23 @@ export default async function ContactPage() {
 
       <div className="grid gap-5 md:grid-cols-2">
         {profile.email ? (
-          <a href={`mailto:${profile.email}`} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg">
-            <p className="text-sm font-black uppercase tracking-wide text-amber-700">Email</p>
-            <h2 className="mt-3 text-xl font-black text-slate-950">{profile.email}</h2>
+          <a href={`mailto:${profile.email}`} className="card p-6 transition hover:border-brand-accent">
+            <p className="eyebrow tracking-wide">Email</p>
+            <h2 className="mt-3 text-xl font-black text-brand-deep">{profile.email}</h2>
           </a>
         ) : null}
 
         {profile.phone ? (
-          <a href={`tel:${profile.phone}`} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-lg">
-            <p className="text-sm font-black uppercase tracking-wide text-amber-700">Phone / WhatsApp</p>
-            <h2 className="mt-3 text-xl font-black text-slate-950">{profile.phone}</h2>
+          <a href={`tel:${profile.phone}`} className="card p-6 transition hover:border-brand-accent">
+            <p className="eyebrow tracking-wide">Phone / WhatsApp</p>
+            <h2 className="mt-3 text-xl font-black text-brand-deep">{profile.phone}</h2>
           </a>
         ) : null}
       </div>
 
       {profile.socialLinks?.length ? (
         <section className="mt-12">
-          <h2 className="text-2xl font-black text-slate-950">Social links</h2>
+          <h2 className="text-2xl font-black text-brand-deep">Social links</h2>
           <div className="mt-5 flex flex-wrap gap-3">
             {profile.socialLinks.map((link) => (
               <a
@@ -52,7 +52,7 @@ export default async function ContactPage() {
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full bg-slate-950 px-5 py-3 text-sm font-black text-white hover:bg-amber-600"
+                className="btn-primary px-5 py-3 text-sm"
               >
                 {link.label}
               </a>

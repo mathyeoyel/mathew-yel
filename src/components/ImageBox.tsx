@@ -9,6 +9,7 @@ type Props = {
   className?: string;
   width?: number;
   height?: number;
+  variant?: "light" | "dark";
 };
 
 export function ImageBox({
@@ -16,7 +17,8 @@ export function ImageBox({
   altFallback,
   className = "",
   width = 900,
-  height = 600
+  height = 600,
+  variant = "light"
 }: Props) {
   const imageUrl =
     image?.url ??
@@ -26,7 +28,9 @@ export function ImageBox({
 
   if (!imageUrl) {
     return (
-      <div className={`flex min-h-56 items-center justify-center bg-slate-100 text-sm text-slate-500 ${className}`}>
+      <div
+        className={`image-placeholder min-h-56 ${variant === "dark" ? "image-placeholder-dark" : ""} ${className}`}
+      >
         Image will appear here
       </div>
     );

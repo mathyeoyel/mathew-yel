@@ -33,7 +33,7 @@ export default async function ActivitiesPage() {
           ))}
         </div>
       ) : (
-        <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-8 text-slate-600">
+        <div className="empty-state">
           Add activities in Sanity Studio. Remember: use activityDate for back-dated public updates.
         </div>
       )}

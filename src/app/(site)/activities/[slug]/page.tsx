@@ -42,21 +42,21 @@ export default async function ActivityDetailPage({ params }: Props) {
 
   return (
     <main>
-      <section className="bg-slate-950 text-white">
+      <section className="page-hero-dark">
         <div className="mx-auto max-w-5xl px-5 py-16">
-          <Link href="/activities" className="text-sm font-bold text-amber-400 hover:text-amber-300">
+          <Link href="/activities" className="link-accent-on-dark text-sm">
             ← Back to activities
           </Link>
-          <div className="mt-8 flex flex-wrap gap-3 text-sm font-black uppercase tracking-wide">
-            {activity.category ? <span className="text-amber-400">{activity.category}</span> : null}
-            <span className="text-slate-400">{formatDate(activity.activityDate)}</span>
-            {activity.location ? <span className="text-slate-400">{activity.location}</span> : null}
+          <div className="mt-8 flex flex-wrap gap-3 text-xs font-black uppercase tracking-wide">
+            {activity.category ? <span className="text-brand-accent">{activity.category}</span> : null}
+            <span className="text-brand-muted">{formatDate(activity.activityDate)}</span>
+            {activity.location ? <span className="text-brand-muted">{activity.location}</span> : null}
           </div>
           <h1 className="mt-5 max-w-4xl text-4xl font-black tracking-tight md:text-6xl">
             {activity.title}
           </h1>
           {activity.shortDescription ? (
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-brand-muted">
               {activity.shortDescription}
             </p>
           ) : null}
@@ -69,7 +69,7 @@ export default async function ActivityDetailPage({ params }: Props) {
           altFallback={activity.title}
           width={1400}
           height={800}
-          className="h-auto w-full rounded-[2rem] object-cover"
+          className="h-auto w-full object-cover"
         />
       </section>
 
@@ -77,13 +77,17 @@ export default async function ActivityDetailPage({ params }: Props) {
         <PortableContent value={activity.content} />
 
         {activity.relatedProject ? (
-          <div className="mt-12 rounded-3xl border border-amber-200 bg-amber-50 p-6">
-            <p className="text-sm font-black uppercase tracking-wide text-amber-700">Related project</p>
-            <h2 className="mt-2 text-xl font-black text-slate-950">
-              <Link href={`/work/${activity.relatedProject.slug}`}>{activity.relatedProject.title}</Link>
+          <div className="mt-12 border border-brand-border-light bg-brand-light p-6">
+            <p className="eyebrow tracking-wide">Related project</p>
+            <h2 className="mt-2 text-xl font-black text-brand-deep">
+              <Link href={`/work/${activity.relatedProject.slug}`} className="hover:text-brand-accent">
+                {activity.relatedProject.title}
+              </Link>
             </h2>
             {activity.relatedProject.summary ? (
-              <p className="mt-2 text-sm leading-7 text-slate-700">{activity.relatedProject.summary}</p>
+              <p className="mt-2 text-sm leading-7 text-brand-body">
+                {activity.relatedProject.summary}
+              </p>
             ) : null}
           </div>
         ) : null}
@@ -91,14 +95,14 @@ export default async function ActivityDetailPage({ params }: Props) {
 
       {activity.galleryImages?.length ? (
         <section className="mx-auto max-w-6xl px-5 pb-20">
-          <h2 className="text-2xl font-black text-slate-950">More images</h2>
+          <h2 className="text-2xl font-black text-brand-deep">More images</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {activity.galleryImages.map((image, index) => (
               <ImageBox
                 key={index}
                 image={image}
                 altFallback={`${activity.title} image ${index + 1}`}
-                className="h-80 w-full rounded-3xl object-cover"
+                className="h-80 w-full object-cover"
               />
             ))}
           </div>

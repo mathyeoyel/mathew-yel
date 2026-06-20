@@ -5,6 +5,13 @@ export const project = defineType({
   name: "project",
   title: "Project",
   type: "document",
+  fieldsets: [
+    {
+      name: "homepageDisplay",
+      title: "Homepage display",
+      options: { collapsible: true, collapsed: false }
+    }
+  ],
   fields: [
     defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
     defineField({
@@ -62,7 +69,49 @@ export const project = defineType({
     }),
     defineField({ name: "technologies", title: "Technologies / tools", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "tags", title: "Tags", type: "array", of: [{ type: "string" }] }),
-    defineField({ name: "featured", title: "Featured project", type: "boolean", initialValue: false }),
+    defineField({
+      name: "featured",
+      title: "Featured project",
+      type: "boolean",
+      initialValue: false,
+      description: "Highlights this project on the Work page.",
+      fieldset: "homepageDisplay"
+    }),
+    defineField({
+      name: "showOnHomepage",
+      title: "Show on homepage",
+      type: "boolean",
+      initialValue: false,
+      description:
+        "Enable this to feature this project on the homepage. Only 3 projects should be selected at a time.",
+      fieldset: "homepageDisplay"
+    }),
+    defineField({
+      name: "homepageOrder",
+      title: "Homepage order",
+      type: "number",
+      description: "Controls order on the homepage. Use 1, 2, or 3.",
+      hidden: ({ document }) => !document?.showOnHomepage,
+      fieldset: "homepageDisplay",
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const doc = context.document as { showOnHomepage?: boolean };
+
+          if (!doc?.showOnHomepage) {
+            return true;
+          }
+
+          if (value === undefined || value === null) {
+            return "Homepage order is required when Show on homepage is enabled.";
+          }
+
+          if (value < 1 || value > 3) {
+            return "Use 1, 2, or 3 for homepage order.";
+          }
+
+          return true;
+        })
+    }),
     defineField({ name: "displayOrder", title: "Display order", type: "number", initialValue: 100 }),
     defineField({
       name: "seo",

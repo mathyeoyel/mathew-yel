@@ -33,7 +33,7 @@ export default async function WorkPage() {
           ))}
         </div>
       ) : (
-        <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-8 text-slate-600">
+        <div className="empty-state">
           Add projects in Sanity Studio to fill this page.
         </div>
       )}
