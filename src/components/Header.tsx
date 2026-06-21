@@ -4,15 +4,16 @@ import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { SiteSettings } from "@/types/content";
 import { fallbackSettings } from "@/lib/fallbacks";
+import { filterPublicNavLinks } from "@/lib/navigation";
 
 type Props = {
   settings?: SiteSettings | null;
 };
 
 export function Header({ settings }: Props) {
-  const nav = settings?.navigationLinks?.length
-    ? settings.navigationLinks
-    : fallbackSettings.navigationLinks;
+  const nav = filterPublicNavLinks(
+    settings?.navigationLinks?.length ? settings.navigationLinks : fallbackSettings.navigationLinks
+  );
 
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();

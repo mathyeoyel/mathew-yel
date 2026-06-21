@@ -27,9 +27,6 @@ export function Footer({ settings }: Props) {
           <Link href="/blog" className="transition hover:text-brand-accent">
             Blog
           </Link>
-          <Link href="/studio" className="transition hover:text-brand-accent">
-            Studio
-          </Link>
         </div>
       </div>
       <div className="border-t border-brand-border px-5 py-5 text-center text-xs text-brand-muted">
