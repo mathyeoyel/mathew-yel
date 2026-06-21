@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 import { imageWithAlt } from "./objects";
 
 export const siteSettings = defineType({
@@ -16,7 +16,55 @@ export const siteSettings = defineType({
     }),
     defineField({ name: "defaultOgImage", title: "Default social preview image", ...imageWithAlt }),
     defineField({ name: "contactEmail", title: "Contact email", type: "email" }),
-    defineField({ name: "whatsapp", title: "WhatsApp", type: "string" }),
+    defineField({
+      name: "whatsapp",
+      title: "WhatsApp",
+      type: "string",
+      description: "Phone number with country code, e.g. 211922931515"
+    }),
+    defineField({
+      name: "socialLinks",
+      title: "Social links",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "platform",
+              title: "Platform",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Email", value: "email" },
+                  { title: "WhatsApp", value: "whatsapp" },
+                  { title: "Facebook", value: "facebook" },
+                  { title: "X / Twitter", value: "x" },
+                  { title: "LinkedIn", value: "linkedin" },
+                  { title: "GitHub", value: "github" },
+                  { title: "Instagram", value: "instagram" },
+                  { title: "VikraHub", value: "vikrahub" },
+                  { title: "Website", value: "website" }
+                ]
+              },
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              name: "url",
+              title: "URL",
+              type: "url",
+              validation: (Rule) => Rule.required()
+            })
+          ],
+          preview: {
+            select: {
+              title: "platform",
+              subtitle: "url"
+            }
+          }
+        })
+      ]
+    }),
     defineField({
       name: "seoKeywords",
       title: "SEO keywords",

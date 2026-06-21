@@ -123,6 +123,17 @@ export type Award = {
   featured?: boolean;
 };
 
+export type SiteSocialPlatform =
+  | "email"
+  | "whatsapp"
+  | "facebook"
+  | "x"
+  | "linkedin"
+  | "github"
+  | "instagram"
+  | "vikrahub"
+  | "website";
+
 export type SiteSettings = {
   siteTitle?: string;
   siteDescription?: string;

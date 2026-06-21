@@ -51,6 +51,19 @@ export const profileQuery = groq`
   }
 `;
 
+export const footerProfileQuery = groq`
+  coalesce(
+    *[_type == "profile" && _id == "profile"][0],
+    *[_type == "profile"] | order(_updatedAt desc)[0]
+  ){
+    name,
+    socialLinks[]{
+      label,
+      url
+    }
+  }
+`;
+
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings" && _id == "siteSettings"][0]{
     siteTitle,
