@@ -8,6 +8,7 @@ import type { ProjectDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
+import { ProjectGallery } from "@/components/ProjectGallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -127,34 +128,11 @@ export default async function ProjectDetailPage({ params }: Props) {
       </section>
 
       {galleryImages.length ? (
-        <section className="mx-auto max-w-6xl px-5 pb-20">
-          <h2 className="text-2xl font-black text-brand-deep">Project images</h2>
-          <div className="project-gallery-scroll mt-6 flex gap-4 overflow-x-auto overscroll-x-contain pb-4 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:pb-0">
-            {galleryImages.map((image, index) => (
-              <figure
-                key={image._key || `${project._id}-gallery-${index}`}
-                className="project-gallery-item min-w-[82%] flex-shrink-0 overflow-hidden border border-brand-border-light bg-brand-light md:min-w-0"
-              >
-                <div className="flex min-h-[220px] items-center justify-center p-4 md:min-h-[240px]">
-                  <ImageBox
-                    image={image}
-                    altFallback={`${project.title} image ${index + 1}`}
-                    width={image.width}
-                    height={image.height}
-                    fit="max"
-                    className="max-h-[360px] w-full object-contain md:max-h-[480px]"
-                  />
-                </div>
-                {image.caption ? (
-                  <figcaption className="border-t border-brand-border-light px-4 py-3 text-sm leading-6 text-brand-body">
-                    {image.caption}
-                  </figcaption>
-                ) : null}
-              </figure>
-            ))}
-            <div className="min-w-3 flex-shrink-0 md:hidden" aria-hidden="true" />
-          </div>
-        </section>
+        <ProjectGallery
+          images={galleryImages}
+          projectId={project._id}
+          projectTitle={project.title}
+        />
       ) : null}
     </main>
   );
