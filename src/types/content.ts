@@ -103,6 +103,7 @@ export type PostCard = {
 
 export type PostDetail = PostCard & {
   content?: PortableTextBlock[];
+  galleryImages?: ImageWithAlt[];
   seo?: {
     title?: string;
     description?: string;

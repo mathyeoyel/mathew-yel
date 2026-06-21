@@ -156,7 +156,7 @@ export const activityBySlugQuery = groq`
     shortDescription,
     content,
     coverImage{${imageFields}},
-    galleryImages[]{${imageFields}},
+    galleryImages[]{${galleryImageFields}},
     featured,
     seo,
     relatedProject->{
@@ -206,6 +206,7 @@ export const postBySlugQuery = groq`
     excerpt,
     content,
     coverImage{${coverImageFields}},
+    galleryImages[]{${galleryImageFields}},
     category,
     tags,
     readingTime,

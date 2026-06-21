@@ -9,3 +9,7 @@ export function hasImage(image?: ImageWithAlt | null): boolean {
 
   return Boolean(asset._ref || asset.url);
 }
+
+export function filterValidImages(images?: ImageWithAlt[] | null): ImageWithAlt[] {
+  return images?.filter((image) => hasImage(image)) ?? [];
+}

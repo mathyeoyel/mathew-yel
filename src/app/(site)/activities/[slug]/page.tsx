@@ -6,8 +6,10 @@ import { activityBySlugQuery } from "@/sanity/queries";
 import { isSanityConfigured } from "@/sanity/env";
 import type { ActivityDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
+import { filterValidImages } from "@/lib/image";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
+import { MediaGallery } from "@/components/MediaGallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -39,6 +41,8 @@ export default async function ActivityDetailPage({ params }: Props) {
   const activity = await getActivity(slug);
 
   if (!activity) notFound();
+
+  const galleryImages = filterValidImages(activity.galleryImages);
 
   return (
     <main>
@@ -93,21 +97,12 @@ export default async function ActivityDetailPage({ params }: Props) {
         ) : null}
       </section>
 
-      {activity.galleryImages?.length ? (
-        <section className="mx-auto max-w-6xl px-5 pb-20">
-          <h2 className="text-2xl font-black text-brand-deep">More images</h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            {activity.galleryImages.map((image, index) => (
-              <ImageBox
-                key={index}
-                image={image}
-                altFallback={`${activity.title} image ${index + 1}`}
-                className="h-80 w-full object-cover"
-              />
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <MediaGallery
+        title="More images"
+        images={galleryImages}
+        idPrefix={activity._id}
+        imageLabel={activity.title}
+      />
     </main>
   );
 }

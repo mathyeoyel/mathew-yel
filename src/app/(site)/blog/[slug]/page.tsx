@@ -6,9 +6,10 @@ import { postBySlugQuery } from "@/sanity/queries";
 import { isSanityConfigured } from "@/sanity/env";
 import type { PostDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
-import { hasImage } from "@/lib/image";
+import { filterValidImages, hasImage } from "@/lib/image";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
+import { MediaGallery } from "@/components/MediaGallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -40,6 +41,8 @@ export default async function BlogPostPage({ params }: Props) {
   const post = await getPost(slug);
 
   if (!post) notFound();
+
+  const galleryImages = filterValidImages(post.galleryImages);
 
   return (
     <main>
@@ -84,6 +87,13 @@ export default async function BlogPostPage({ params }: Props) {
       <section className="mx-auto max-w-3xl px-5 pb-14 pt-4">
         <PortableContent value={post.content} />
       </section>
+
+      <MediaGallery
+        title="More images"
+        images={galleryImages}
+        idPrefix={post._id}
+        imageLabel={post.title}
+      />
     </main>
   );
 }

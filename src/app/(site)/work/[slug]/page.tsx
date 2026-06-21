@@ -6,9 +6,10 @@ import { projectBySlugQuery } from "@/sanity/queries";
 import { isSanityConfigured } from "@/sanity/env";
 import type { ProjectDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
+import { filterValidImages } from "@/lib/image";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
-import { ProjectGallery } from "@/components/ProjectGallery";
+import { MediaGallery } from "@/components/MediaGallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -41,8 +42,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   if (!project) notFound();
 
-  const galleryImages =
-    project.galleryImages?.filter((image) => Boolean(image?.url || image?.asset)) ?? [];
+  const galleryImages = filterValidImages(project.galleryImages);
 
   return (
     <main>
@@ -127,13 +127,12 @@ export default async function ProjectDetailPage({ params }: Props) {
         ) : null}
       </section>
 
-      {galleryImages.length ? (
-        <ProjectGallery
-          images={galleryImages}
-          projectId={project._id}
-          projectTitle={project.title}
-        />
-      ) : null}
+      <MediaGallery
+        title="Project images"
+        images={galleryImages}
+        idPrefix={project._id}
+        imageLabel={project.title}
+      />
     </main>
   );
 }
