@@ -7,16 +7,6 @@ const imageFields = `
   caption
 `;
 
-const galleryImageFields = `
-  _key,
-  asset,
-  "url": coalesce(asset->url, asset.url),
-  "width": asset->metadata.dimensions.width,
-  "height": asset->metadata.dimensions.height,
-  alt,
-  caption
-`;
-
 const coverImageFields = `
   _key,
   alt,
@@ -25,6 +15,16 @@ const coverImageFields = `
   "url": coalesce(asset->url, asset.url),
   "width": asset->metadata.dimensions.width,
   "height": asset->metadata.dimensions.height
+`;
+
+const quickGalleryImageFields = `
+  _key,
+  asset,
+  "url": coalesce(asset->url, asset.url),
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height,
+  "alt": "",
+  "caption": ""
 `;
 
 // Blog content status (not Sanity document publish state).
@@ -102,7 +102,7 @@ export const projectBySlugQuery = groq`
     summary,
     description,
     coverImage{${imageFields}},
-    galleryImages[]{${galleryImageFields}},
+    "galleryImages": quickGalleryImages[]{${quickGalleryImageFields}},
     role,
     status,
     startDate,
@@ -156,7 +156,7 @@ export const activityBySlugQuery = groq`
     shortDescription,
     content,
     coverImage{${imageFields}},
-    galleryImages[]{${galleryImageFields}},
+    "galleryImages": quickGalleryImages[]{${quickGalleryImageFields}},
     featured,
     seo,
     relatedProject->{
@@ -206,7 +206,7 @@ export const postBySlugQuery = groq`
     excerpt,
     content,
     coverImage{${coverImageFields}},
-    galleryImages[]{${galleryImageFields}},
+    "galleryImages": quickGalleryImages[]{${quickGalleryImageFields}},
     category,
     tags,
     readingTime,

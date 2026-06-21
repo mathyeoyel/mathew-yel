@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { imageWithAlt } from "./objects";
+import { quickGalleryImagesField } from "./quickGalleryImagesField";
 
 export const activity = defineType({
   name: "activity",
@@ -45,12 +46,7 @@ export const activity = defineType({
     defineField({ name: "shortDescription", title: "Short description", type: "text", rows: 3, validation: (Rule) => Rule.required().max(260) }),
     defineField({ name: "content", title: "Full story", type: "richText" }),
     defineField({ name: "coverImage", title: "Cover image", ...imageWithAlt }),
-    defineField({
-      name: "galleryImages",
-      title: "Extra activity images",
-      type: "array",
-      of: [{ ...imageWithAlt }]
-    }),
+    quickGalleryImagesField,
     defineField({
       name: "relatedProject",
       title: "Related project",

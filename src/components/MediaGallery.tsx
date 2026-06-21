@@ -36,11 +36,16 @@ export function MediaGallery({
     setLightboxOpen(false);
   };
 
+  const scrollClassName =
+    images.length > 4
+      ? "media-gallery-scroll media-gallery-scroll--many"
+      : "media-gallery-scroll";
+
   return (
     <>
       <section className={`mx-auto max-w-6xl px-5 pb-20 ${className}`.trim()}>
         <h2 className="text-2xl font-black text-brand-deep">{title}</h2>
-        <div className="media-gallery-scroll mt-6">
+        <div className={`${scrollClassName} mt-6`}>
           {images.map((image, index) => (
             <figure
               key={image._key || `${idPrefix}-gallery-${index}`}
@@ -52,14 +57,13 @@ export function MediaGallery({
                 aria-label={`View ${imageLabel} image ${index + 1} in full screen`}
                 onClick={() => openLightbox(index)}
               >
-                <div className="flex min-h-[220px] items-center justify-center p-4 md:min-h-[240px]">
+                <div className="media-gallery-frame">
                   <ImageBox
                     image={image}
                     altFallback={`${imageLabel} image ${index + 1}`}
                     width={image.width}
                     height={image.height}
                     fit="max"
-                    className="max-h-[360px] w-full object-contain md:max-h-[480px]"
                   />
                 </div>
               </button>
