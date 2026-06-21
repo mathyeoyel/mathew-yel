@@ -255,14 +255,36 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
   padding: 1rem 1.25rem;
+}
+
+.image-lightbox-toolbar-start {
+  min-width: 4rem;
+}
+
+.image-lightbox-zoom-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 1;
 }
 
 .image-lightbox-count {
   margin: 0;
   font-size: 0.875rem;
   font-weight: 600;
+  color: var(--color-brand-muted);
+}
+
+.image-lightbox-zoom-level {
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--color-brand-muted);
 }
 
@@ -282,7 +304,12 @@ a {
   font-weight: 700;
   letter-spacing: 0.02em;
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.image-lightbox-control:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
 }
 
 .image-lightbox-control:hover,
@@ -292,6 +319,12 @@ a {
   border-color: var(--color-brand-accent);
   color: var(--color-brand-accent);
   outline: none;
+}
+
+.image-lightbox-control:disabled:hover,
+.image-lightbox-control:disabled:focus-visible {
+  border-color: var(--color-brand-border);
+  color: #ffffff;
 }
 
 .image-lightbox-stage {
@@ -315,12 +348,45 @@ a {
   max-height: calc(100vh - 6rem);
 }
 
+.image-lightbox-viewport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: min(100%, 72rem);
+  max-height: calc(100vh - 10rem);
+  overflow: hidden;
+  touch-action: none;
+  cursor: zoom-in;
+}
+
+.image-lightbox-viewport.is-zoomed {
+  cursor: grab;
+}
+
+.image-lightbox-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.image-lightbox-transform {
+  transform-origin: center center;
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+
+.image-lightbox-transform.is-dragging {
+  transition: none;
+}
+
 .image-lightbox-image {
+  display: block;
   max-width: min(100%, 72rem);
   max-height: calc(100vh - 10rem);
   width: auto;
   height: auto;
   object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .image-lightbox-caption {
@@ -340,6 +406,16 @@ a {
 }
 
 @media (max-width: 639px) {
+  .image-lightbox-toolbar {
+    padding-inline: 1rem;
+  }
+
+  .image-lightbox-zoom-controls {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   .image-lightbox-stage {
     padding-inline: 0.5rem;
   }
@@ -364,8 +440,9 @@ a {
     padding-bottom: 3.5rem;
   }
 
+  .image-lightbox-viewport,
   .image-lightbox-image {
-    max-height: calc(100vh - 12rem);
+    max-height: calc(100vh - 13rem);
   }
 }
 
