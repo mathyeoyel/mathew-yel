@@ -7,9 +7,11 @@ import { isSanityConfigured } from "@/sanity/env";
 import type { ProjectDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
 import { filterValidImages } from "@/lib/image";
+import { buildShareMetadata, buildSharePageUrl } from "@/lib/shareMetadata";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
 import { MediaGallery } from "@/components/MediaGallery";
+import { ShareButtons } from "@/components/ShareButtons";
 
 export const revalidate = 60;
 
@@ -32,10 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  return {
+  return buildShareMetadata({
     title: project.seo?.title || project.title,
-    description: project.seo?.description || project.summary
-  };
+    description: project.seo?.description || project.summary,
+    path: `/work/${project.slug}`,
+    coverImage: project.coverImage
+  });
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
@@ -45,6 +49,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   if (!project) notFound();
 
   const galleryImages = filterValidImages(project.galleryImages);
+  const shareUrl = buildSharePageUrl(`/work/${project.slug}`);
 
   return (
     <main>
@@ -61,6 +66,13 @@ export default async function ProjectDetailPage({ params }: Props) {
               {project.summary}
             </p>
           ) : null}
+
+          <ShareButtons
+            title={project.title}
+            url={shareUrl}
+            description={project.summary}
+            variant="dark"
+          />
 
           <div className="mt-8 grid gap-4 text-sm text-brand-muted md:grid-cols-4">
             {project.role ? (
@@ -127,6 +139,14 @@ export default async function ProjectDetailPage({ params }: Props) {
             </div>
           </div>
         ) : null}
+
+        <ShareButtons
+          title={project.title}
+          url={shareUrl}
+          description={project.summary}
+          variant="light"
+          className="mt-12"
+        />
       </section>
 
       <MediaGallery

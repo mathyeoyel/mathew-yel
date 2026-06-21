@@ -67,6 +67,16 @@ export const footerProfileQuery = groq`
   }
 `;
 
+export const shareFallbacksQuery = groq`
+{
+  "profileImage": coalesce(
+    *[_type == "profile" && _id == "profile"][0].heroImage,
+    *[_type == "profile"] | order(_updatedAt desc)[0].heroImage
+  ){${imageFields}},
+  "defaultOgImage": *[_type == "siteSettings" && _id == "siteSettings"][0].defaultOgImage{${imageFields}}
+}
+`;
+
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings" && _id == "siteSettings"][0]{
     siteTitle,

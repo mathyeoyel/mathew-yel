@@ -7,9 +7,11 @@ import { isSanityConfigured } from "@/sanity/env";
 import type { ActivityDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
 import { filterValidImages } from "@/lib/image";
+import { buildShareMetadata, buildSharePageUrl } from "@/lib/shareMetadata";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
 import { MediaGallery } from "@/components/MediaGallery";
+import { ShareButtons } from "@/components/ShareButtons";
 
 export const revalidate = 60;
 
@@ -32,10 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  return {
+  return buildShareMetadata({
     title: activity.seo?.title || activity.title,
-    description: activity.seo?.description || activity.shortDescription
-  };
+    description: activity.seo?.description || activity.shortDescription,
+    path: `/activities/${activity.slug}`,
+    coverImage: activity.coverImage
+  });
 }
 
 export default async function ActivityDetailPage({ params }: Props) {
@@ -45,6 +49,7 @@ export default async function ActivityDetailPage({ params }: Props) {
   if (!activity) notFound();
 
   const galleryImages = filterValidImages(activity.galleryImages);
+  const shareUrl = buildSharePageUrl(`/activities/${activity.slug}`);
 
   return (
     <main>
@@ -66,6 +71,12 @@ export default async function ActivityDetailPage({ params }: Props) {
               {activity.shortDescription}
             </p>
           ) : null}
+          <ShareButtons
+            title={activity.title}
+            url={shareUrl}
+            description={activity.shortDescription}
+            variant="dark"
+          />
         </div>
       </section>
 
@@ -97,6 +108,14 @@ export default async function ActivityDetailPage({ params }: Props) {
             ) : null}
           </div>
         ) : null}
+
+        <ShareButtons
+          title={activity.title}
+          url={shareUrl}
+          description={activity.shortDescription}
+          variant="light"
+          className="mt-12"
+        />
       </section>
 
       <MediaGallery

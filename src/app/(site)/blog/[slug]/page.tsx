@@ -7,9 +7,11 @@ import { isSanityConfigured } from "@/sanity/env";
 import type { PostDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
 import { filterValidImages, hasImage } from "@/lib/image";
+import { buildShareMetadata, buildSharePageUrl } from "@/lib/shareMetadata";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
 import { MediaGallery } from "@/components/MediaGallery";
+import { ShareButtons } from "@/components/ShareButtons";
 
 export const revalidate = 60;
 
@@ -32,10 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  return {
+  return buildShareMetadata({
     title: post.seo?.title || post.title,
-    description: post.seo?.description || post.excerpt
-  };
+    description: post.seo?.description || post.excerpt,
+    path: `/blog/${post.slug}`,
+    coverImage: post.coverImage
+  });
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -45,6 +49,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const galleryImages = filterValidImages(post.galleryImages);
+  const shareUrl = buildSharePageUrl(`/blog/${post.slug}`);
 
   return (
     <main>
@@ -63,6 +68,12 @@ export default async function BlogPostPage({ params }: Props) {
         {post.excerpt ? (
           <p className="mt-6 text-lg leading-8 text-brand-body">{post.excerpt}</p>
         ) : null}
+        <ShareButtons
+          title={post.title}
+          url={shareUrl}
+          description={post.excerpt}
+          variant="light"
+        />
       </section>
 
       {hasImage(post.coverImage) ? (
@@ -88,6 +99,13 @@ export default async function BlogPostPage({ params }: Props) {
 
       <section className="mx-auto max-w-3xl px-5 pb-14 pt-4">
         <PortableContent value={post.content} />
+        <ShareButtons
+          title={post.title}
+          url={shareUrl}
+          description={post.excerpt}
+          variant="light"
+          className="mt-12"
+        />
       </section>
 
       <MediaGallery
