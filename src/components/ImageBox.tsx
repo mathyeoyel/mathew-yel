@@ -10,20 +10,25 @@ type Props = {
   width?: number;
   height?: number;
   variant?: "light" | "dark";
+  fit?: "crop" | "max" | "min" | "fill";
 };
 
 export function ImageBox({
   image,
   altFallback,
   className = "",
-  width = 900,
-  height = 600,
-  variant = "light"
+  width,
+  height,
+  variant = "light",
+  fit = "crop"
 }: Props) {
+  const resolvedWidth = width ?? image?.width ?? 900;
+  const resolvedHeight = height ?? image?.height ?? 600;
+
   const imageUrl =
     image?.url ??
     (image?.asset && isSanityConfigured
-      ? urlFor(image).width(width).height(height).fit("crop").url()
+      ? urlFor(image).width(resolvedWidth).height(resolvedHeight).fit(fit).url()
       : null);
 
   if (!imageUrl) {
@@ -40,8 +45,8 @@ export function ImageBox({
     <Image
       src={imageUrl}
       alt={image?.alt || altFallback}
-      width={width}
-      height={height}
+      width={resolvedWidth}
+      height={resolvedHeight}
       className={className}
     />
   );

@@ -7,6 +7,16 @@ const imageFields = `
   caption
 `;
 
+const galleryImageFields = `
+  _key,
+  asset,
+  "url": asset->url,
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height,
+  alt,
+  caption
+`;
+
 // Blog content status (not Sanity document publish state).
 const publishedPostFilter = `(status == "published" || published == true || !defined(status))`;
 
@@ -82,7 +92,7 @@ export const projectBySlugQuery = groq`
     summary,
     description,
     coverImage{${imageFields}},
-    galleryImages[]{${imageFields}},
+    galleryImages[]{${galleryImageFields}},
     role,
     status,
     startDate,

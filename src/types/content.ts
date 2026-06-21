@@ -1,10 +1,13 @@
 import type { PortableTextBlock } from "sanity";
 
 export type ImageWithAlt = {
+  _key?: string;
   asset?: unknown;
   url?: string;
   alt?: string;
   caption?: string;
+  width?: number;
+  height?: number;
 };
 
 export type LinkItem = {

@@ -40,6 +40,9 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   if (!project) notFound();
 
+  const galleryImages =
+    project.galleryImages?.filter((image) => Boolean(image?.url || image?.asset)) ?? [];
+
   return (
     <main>
       <section className="page-hero-dark">
@@ -123,17 +126,31 @@ export default async function ProjectDetailPage({ params }: Props) {
         ) : null}
       </section>
 
-      {project.galleryImages?.length ? (
+      {galleryImages.length ? (
         <section className="mx-auto max-w-6xl px-5 pb-20">
           <h2 className="text-2xl font-black text-brand-deep">Project images</h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            {project.galleryImages.map((image, index) => (
-              <ImageBox
-                key={index}
-                image={image}
-                altFallback={`${project.title} image ${index + 1}`}
-                className="h-80 w-full object-cover"
-              />
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {galleryImages.map((image, index) => (
+              <figure
+                key={image._key || `${project._id}-gallery-${index}`}
+                className="overflow-hidden border border-brand-border-light bg-brand-light"
+              >
+                <div className="flex min-h-[240px] items-center justify-center p-4">
+                  <ImageBox
+                    image={image}
+                    altFallback={`${project.title} image ${index + 1}`}
+                    width={image.width}
+                    height={image.height}
+                    fit="max"
+                    className="max-h-[480px] w-full object-contain"
+                  />
+                </div>
+                {image.caption ? (
+                  <figcaption className="border-t border-brand-border-light px-4 py-3 text-sm leading-6 text-brand-body">
+                    {image.caption}
+                  </figcaption>
+                ) : null}
+              </figure>
             ))}
           </div>
         </section>
