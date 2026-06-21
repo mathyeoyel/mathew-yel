@@ -7,7 +7,8 @@ import { PostCard } from "@/components/PostCard";
 
 export const metadata = {
   title: "Blog",
-  description: "Writing by Mathew Yel on design, technology, VikraHub, and creative growth."
+  description:
+    "Reflections on design, technology, creativity, personal growth, and the lessons I am learning while building from South Sudan."
 };
 
 export const revalidate = 60;
@@ -25,7 +26,7 @@ export default async function BlogPage() {
       <SectionHeader
         eyebrow="Blog"
         title="Writing and reflections."
-        description="Longer thoughts about design, product building, creative technology, South Sudan, and lessons from the journey."
+        description="Reflections on design, technology, creativity, personal growth, and the lessons I am learning while building from South Sudan."
       />
 
       {posts.length ? (

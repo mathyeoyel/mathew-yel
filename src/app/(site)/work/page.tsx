@@ -7,7 +7,8 @@ import { ProjectCard } from "@/components/ProjectCard";
 
 export const metadata = {
   title: "Work",
-  description: "Projects by Mathew Yel across design, websites, platforms, UI/UX, and community technology."
+  description:
+    "A collection of digital products, websites, platforms, and creative systems I have designed, built, or contributed to."
 };
 
 export const revalidate = 60;
@@ -25,7 +26,7 @@ export default async function WorkPage() {
       <SectionHeader
         eyebrow="Work"
         title="Projects and case studies."
-        description="A record of products, platforms, websites, client systems, and creative technology work."
+        description="A collection of digital products, websites, platforms, and creative systems I have designed, built, or contributed to."
       />
 
       {projects.length ? (

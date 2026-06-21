@@ -58,7 +58,7 @@ export default async function HomePage() {
           <SectionHeader
             eyebrow="Journey"
             title="Featured Activities"
-            description="Selected milestones, events, and updates from my creative and technology journey."
+            description="Recent moments from my journey — from product milestones and events to leadership, learning, and community work."
           />
 
           {activities.length ? (
@@ -87,7 +87,7 @@ export default async function HomePage() {
           <SectionHeader
             eyebrow="Work"
             title="Selected Projects"
-            description="A focused selection of digital products, brand systems, and platforms I have designed or built."
+            description="Selected projects that reflect my work across design, technology, community platforms, and digital products."
           />
 
           {projects.length ? (
@@ -116,7 +116,7 @@ export default async function HomePage() {
           <SectionHeader
             eyebrow="Writing"
             title="Notes, lessons, and reflections."
-            description="Use the blog for deeper thoughts about design, technology, VikraHub, and creative growth."
+            description="Thoughts, lessons, and reflections from building, designing, and growing as a creative technologist."
           />
 
           {posts.length ? (
@@ -146,7 +146,7 @@ export default async function HomePage() {
             tone="dark"
             eyebrow="Recognition"
             title="Milestones worth remembering."
-            description="Awards, leadership roles, invitations, and professional recognition."
+            description="Recognition, leadership roles, and milestones that continue to shape my creative and professional journey."
           />
 
           {awards.length ? (

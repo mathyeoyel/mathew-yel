@@ -7,7 +7,8 @@ import { ActivityCard } from "@/components/ActivityCard";
 
 export const metadata = {
   title: "Activities",
-  description: "A timeline of Mathew Yel's activities, events, milestones, and community work."
+  description:
+    "A living record of the moments, milestones, events, and community experiences shaping my journey in creative technology, leadership, and impact."
 };
 
 export const revalidate = 60;
@@ -25,7 +26,7 @@ export default async function ActivitiesPage() {
       <SectionHeader
         eyebrow="Activities"
         title="The journey, documented."
-        description="Events, forums, awards, VikraHub milestones, UNDP work, and community activities sorted by the real date they happened."
+        description="A living record of the moments, milestones, events, and community experiences shaping my journey in creative technology, leadership, and impact."
       />
 
       {activities.length ? (

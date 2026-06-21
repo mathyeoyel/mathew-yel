@@ -7,7 +7,8 @@ import { SectionHeader } from "@/components/SectionHeader";
 
 export const metadata = {
   title: "Contact",
-  description: "Contact Mathew Yel for collaborations, projects, speaking, and creative technology work."
+  description:
+    "Open to meaningful collaborations in design, web projects, creative technology, speaking, and community-driven initiatives."
 };
 
 async function getProfile(): Promise<Profile> {
@@ -23,7 +24,7 @@ export default async function ContactPage() {
       <SectionHeader
         eyebrow="Contact"
         title="Let’s build something meaningful."
-        description="Reach out for product design, web projects, creative technology collaborations, speaking, or community work."
+        description="Open to meaningful collaborations in design, web projects, creative technology, speaking, and community-driven initiatives."
       />
 
       <div className="grid gap-5 md:grid-cols-2">
