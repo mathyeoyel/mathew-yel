@@ -51,8 +51,8 @@ export default async function HomePage() {
     <main>
       <Hero profile={profile} />
 
-      <section className="section-muted">
-        <div className="mx-auto max-w-6xl px-5 py-20">
+      <section className="home-section home-section--soft">
+        <div className="home-section-inner">
           <SectionHeader
             eyebrow="Journey"
             title="Latest Activities"
@@ -72,7 +72,7 @@ export default async function HomePage() {
             </div>
           )}
 
-          <div className="mt-10">
+          <div className="home-section-footer">
             <Link href="/activities" className="link-accent">
               Explore activities →
             </Link>
@@ -80,56 +80,66 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20">
-        <SectionHeader
-          eyebrow="Work"
-          title="Selected Projects"
-          description="A focused selection of digital products, brand systems, and platforms I have designed or built."
-        />
+      <section className="home-section home-section--white">
+        <div className="home-section-inner">
+          <SectionHeader
+            eyebrow="Work"
+            title="Selected Projects"
+            description="A focused selection of digital products, brand systems, and platforms I have designed or built."
+          />
 
-        {projects.length ? (
-          <div className="home-scroll-row home-scroll-row--cols-3">
-            {projects.slice(0, 3).map((project) => (
-              <ProjectCard key={project._id} project={project} compact />
-            ))}
-            <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
-          </div>
-        ) : (
-          <div className="empty-state">
-            Enable Show on homepage for up to 3 projects in Sanity Studio to feature them here.
-          </div>
-        )}
+          {projects.length ? (
+            <div className="home-scroll-row home-scroll-row--cols-3">
+              {projects.slice(0, 3).map((project) => (
+                <ProjectCard key={project._id} project={project} compact />
+              ))}
+              <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
+            </div>
+          ) : (
+            <div className="empty-state">
+              Enable Show on homepage for up to 3 projects in Sanity Studio to feature them here.
+            </div>
+          )}
 
-        <div className="mt-10">
-          <Link href="/work" className="link-accent">
-            View all projects →
-          </Link>
+          <div className="home-section-footer">
+            <Link href="/work" className="link-accent">
+              View all projects →
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20">
-        <SectionHeader
-          eyebrow="Writing"
-          title="Notes, lessons, and reflections."
-          description="Use the blog for deeper thoughts about design, technology, VikraHub, and creative growth."
-        />
+      <section className="home-section home-section--soft">
+        <div className="home-section-inner">
+          <SectionHeader
+            eyebrow="Writing"
+            title="Notes, lessons, and reflections."
+            description="Use the blog for deeper thoughts about design, technology, VikraHub, and creative growth."
+          />
 
-        {posts.length ? (
-          <div className="home-scroll-row home-scroll-row--cols-3">
-            {posts.map((post) => (
-              <PostCard key={post._id} post={post} compact />
-            ))}
-            <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
+          {posts.length ? (
+            <div className="home-scroll-row home-scroll-row--cols-3">
+              {posts.map((post) => (
+                <PostCard key={post._id} post={post} compact />
+              ))}
+              <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
+            </div>
+          ) : (
+            <div className="empty-state bg-white">
+              Add blog posts in Sanity Studio when you are ready.
+            </div>
+          )}
+
+          <div className="home-section-footer">
+            <Link href="/blog" className="link-accent">
+              Read all posts →
+            </Link>
           </div>
-        ) : (
-          <div className="empty-state">
-            Add blog posts in Sanity Studio when you are ready.
-          </div>
-        )}
+        </div>
       </section>
 
-      <section className="section-dark">
-        <div className="mx-auto max-w-6xl px-5 py-20">
+      <section className="home-section home-section--dark">
+        <div className="home-section-inner">
           <SectionHeader
             tone="dark"
             eyebrow="Recognition"
