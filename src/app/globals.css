@@ -193,6 +193,72 @@ a {
   color: #ffffff;
 }
 
+.home-scroll-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-border-light) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.home-scroll-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.home-scroll-row::-webkit-scrollbar-thumb {
+  background: var(--color-brand-border-light);
+}
+
+.home-scroll-row > * {
+  scroll-snap-align: start;
+  flex: 0 0 min(78vw, 320px);
+}
+
+.home-scroll-row-end {
+  flex: 0 0 0.75rem;
+}
+
+@media (max-width: 767px) {
+  .home-scroll-row {
+    margin-inline: -1.25rem;
+    padding-inline: 1.25rem;
+    scroll-padding-inline: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .home-scroll-row {
+    display: grid;
+    gap: 1.25rem;
+    overflow: visible;
+    padding-bottom: 0;
+    margin-inline: 0;
+    padding-inline: 0;
+    scroll-snap-type: none;
+  }
+
+  .home-scroll-row > * {
+    flex: initial;
+    min-width: 0;
+  }
+
+  .home-scroll-row-end {
+    display: none;
+  }
+
+  .home-scroll-row--cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-scroll-row--cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .project-gallery-scroll {
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory;

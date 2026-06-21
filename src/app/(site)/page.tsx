@@ -51,45 +51,20 @@ export default async function HomePage() {
     <main>
       <Hero profile={profile} />
 
-      <section className="mx-auto max-w-6xl px-5 py-20">
-        <SectionHeader
-          eyebrow="Selected work"
-          title="Projects that show the builder behind the brand."
-          description="A focused portfolio of products, websites, platforms, and client work."
-        />
-
-        {projects.length ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.slice(0, 3).map((project) => (
-              <ProjectCard key={project._id} project={project} />
-            ))}
-          </div>
-        ) : (
-          <div className="empty-state">
-            Enable Show on homepage for up to 3 projects in Sanity Studio to feature them here.
-          </div>
-        )}
-
-        <div className="mt-10">
-          <Link href="/work" className="link-accent">
-            View all projects →
-          </Link>
-        </div>
-      </section>
-
       <section className="section-muted">
         <div className="mx-auto max-w-6xl px-5 py-20">
           <SectionHeader
-            eyebrow="Recent activities"
-            title="A living record of work, community, and milestones."
-            description="Back-date activities to the real date they happened and keep your public timeline clean."
+            eyebrow="Journey"
+            title="Latest Activities"
+            description="Moments, milestones, events, and updates from my creative and technology journey."
           />
 
           {activities.length ? (
-            <div className="grid gap-5">
+            <div className="home-scroll-row home-scroll-row--cols-3">
               {activities.map((activity) => (
-                <ActivityCard key={activity._id} activity={activity} />
+                <ActivityCard key={activity._id} activity={activity} compact />
               ))}
+              <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
             </div>
           ) : (
             <div className="empty-state bg-white">
@@ -107,16 +82,44 @@ export default async function HomePage() {
 
       <section className="mx-auto max-w-6xl px-5 py-20">
         <SectionHeader
+          eyebrow="Work"
+          title="Selected Projects"
+          description="A focused selection of digital products, brand systems, and platforms I have designed or built."
+        />
+
+        {projects.length ? (
+          <div className="home-scroll-row home-scroll-row--cols-3">
+            {projects.slice(0, 3).map((project) => (
+              <ProjectCard key={project._id} project={project} compact />
+            ))}
+            <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
+          </div>
+        ) : (
+          <div className="empty-state">
+            Enable Show on homepage for up to 3 projects in Sanity Studio to feature them here.
+          </div>
+        )}
+
+        <div className="mt-10">
+          <Link href="/work" className="link-accent">
+            View all projects →
+          </Link>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-20">
+        <SectionHeader
           eyebrow="Writing"
           title="Notes, lessons, and reflections."
           description="Use the blog for deeper thoughts about design, technology, VikraHub, and creative growth."
         />
 
         {posts.length ? (
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="home-scroll-row home-scroll-row--cols-3">
             {posts.map((post) => (
-              <PostCard key={post._id} post={post} />
+              <PostCard key={post._id} post={post} compact />
             ))}
+            <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
           </div>
         ) : (
           <div className="empty-state">
