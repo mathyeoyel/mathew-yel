@@ -6,6 +6,13 @@ export const activity = defineType({
   name: "activity",
   title: "Activity",
   type: "document",
+  fieldsets: [
+    {
+      name: "homepageDisplay",
+      title: "Homepage display",
+      options: { collapsible: true, collapsed: false }
+    }
+  ],
   fields: [
     defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
     defineField({
@@ -54,6 +61,40 @@ export const activity = defineType({
       to: [{ type: "project" }]
     }),
     defineField({ name: "featured", title: "Featured activity", type: "boolean", initialValue: false }),
+    defineField({
+      name: "showOnHomepage",
+      title: "Show on homepage",
+      type: "boolean",
+      initialValue: false,
+      description: "Enable this to feature this activity on the homepage.",
+      fieldset: "homepageDisplay"
+    }),
+    defineField({
+      name: "homepageOrder",
+      title: "Homepage order",
+      type: "number",
+      description: "Lower numbers appear first on the homepage when Show on homepage is enabled.",
+      hidden: ({ document }) => !document?.showOnHomepage,
+      fieldset: "homepageDisplay",
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const doc = context.document as { showOnHomepage?: boolean };
+
+          if (!doc?.showOnHomepage) {
+            return true;
+          }
+
+          if (value === undefined || value === null) {
+            return "Homepage order is required when Show on homepage is enabled.";
+          }
+
+          if (value < 1 || value > 6) {
+            return "Use 1 through 6 for homepage order.";
+          }
+
+          return true;
+        })
+    }),
     defineField({
       name: "status",
       title: "Status",

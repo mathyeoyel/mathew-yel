@@ -10,6 +10,8 @@ export const metadata = {
   description: "Projects by Mathew Yel across design, websites, platforms, UI/UX, and community technology."
 };
 
+export const revalidate = 60;
+
 async function getProjects() {
   if (!isSanityConfigured) return [];
   return sanityFetch<ProjectCardType[]>(allProjectsQuery);

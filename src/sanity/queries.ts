@@ -30,6 +30,9 @@ const quickGalleryImageFields = `
 // Blog content status (not Sanity document publish state).
 const publishedPostFilter = `(status == "published" || published == true || !defined(status))`;
 
+// Activity content status (not Sanity document publish state).
+const publishedActivityFilter = `(status == "published" || !defined(status))`;
+
 export const profileQuery = groq`
   coalesce(
     *[_type == "profile" && _id == "profile"][0],
@@ -130,8 +133,30 @@ export const projectBySlugQuery = groq`
   }
 `;
 
+export const homepageActivitiesQuery = groq`
+  *[
+    _type == "activity" &&
+    defined(slug.current) &&
+    showOnHomepage == true &&
+    ${publishedActivityFilter}
+  ] | order(coalesce(homepageOrder, 999) asc, activityDate desc)[0...6]{
+    _id,
+    title,
+    "slug": slug.current,
+    activityDate,
+    category,
+    location,
+    shortDescription,
+    coverImage{${imageFields}},
+    featured,
+    showOnHomepage,
+    homepageOrder
+  }
+`;
+
 export const recentActivitiesQuery = groq`
-  *[_type == "activity" && status == "published"] | order(activityDate desc)[0...6]{
+  *[_type == "activity" && defined(slug.current) && ${publishedActivityFilter}]
+  | order(activityDate desc)[0...6]{
     _id,
     title,
     "slug": slug.current,
@@ -145,7 +170,8 @@ export const recentActivitiesQuery = groq`
 `;
 
 export const allActivitiesQuery = groq`
-  *[_type == "activity" && status == "published"] | order(activityDate desc){
+  *[_type == "activity" && defined(slug.current) && ${publishedActivityFilter}]
+  | order(activityDate desc){
     _id,
     title,
     "slug": slug.current,
@@ -159,7 +185,12 @@ export const allActivitiesQuery = groq`
 `;
 
 export const activityBySlugQuery = groq`
-  *[_type == "activity" && slug.current == $slug][0]{
+  *[
+    _type == "activity" &&
+    slug.current == $slug &&
+    defined(slug.current) &&
+    ${publishedActivityFilter}
+  ][0]{
     _id,
     title,
     "slug": slug.current,

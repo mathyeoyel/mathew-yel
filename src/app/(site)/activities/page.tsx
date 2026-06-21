@@ -10,6 +10,8 @@ export const metadata = {
   description: "A timeline of Mathew Yel's activities, events, milestones, and community work."
 };
 
+export const revalidate = 60;
+
 async function getActivities() {
   if (!isSanityConfigured) return [];
   return sanityFetch<ActivityCardType[]>(allActivitiesQuery);

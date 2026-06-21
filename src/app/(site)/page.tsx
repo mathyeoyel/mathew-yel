@@ -2,9 +2,9 @@ import Link from "next/link";
 import { sanityFetch } from "@/sanity/client";
 import {
   featuredAwardsQuery,
+  homepageActivitiesQuery,
   homepageProjectsQuery,
   profileQuery,
-  recentActivitiesQuery,
   recentPostsQuery
 } from "@/sanity/queries";
 import { fallbackProfile } from "@/lib/fallbacks";
@@ -15,6 +15,8 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ActivityCard } from "@/components/ActivityCard";
 import { PostCard } from "@/components/PostCard";
+
+export const revalidate = 60;
 
 async function fetchHomeData() {
   if (!isSanityConfigured) {
@@ -30,7 +32,7 @@ async function fetchHomeData() {
   const [profile, projects, activities, posts, awards] = await Promise.all([
     sanityFetch<Profile | null>(profileQuery),
     sanityFetch<ProjectCardType[]>(homepageProjectsQuery),
-    sanityFetch<ActivityCardType[]>(recentActivitiesQuery),
+    sanityFetch<ActivityCardType[]>(homepageActivitiesQuery),
     sanityFetch<PostCardType[]>(recentPostsQuery),
     sanityFetch<Award[]>(featuredAwardsQuery)
   ]);
@@ -55,8 +57,8 @@ export default async function HomePage() {
         <div className="home-section-inner">
           <SectionHeader
             eyebrow="Journey"
-            title="Latest Activities"
-            description="Moments, milestones, events, and updates from my creative and technology journey."
+            title="Featured Activities"
+            description="Selected milestones, events, and updates from my creative and technology journey."
           />
 
           {activities.length ? (
@@ -68,7 +70,7 @@ export default async function HomePage() {
             </div>
           ) : (
             <div className="empty-state bg-white">
-              Add activities in Sanity Studio to build your timeline.
+              Enable Show on homepage for activities in Sanity Studio to feature them here.
             </div>
           )}
 

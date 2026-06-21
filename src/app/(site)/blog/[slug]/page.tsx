@@ -11,6 +11,8 @@ import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
 import { MediaGallery } from "@/components/MediaGallery";
 
+export const revalidate = 60;
+
 type Props = {
   params: Promise<{ slug: string }>;
 };

@@ -10,6 +10,8 @@ export const metadata = {
   description: "Writing by Mathew Yel on design, technology, VikraHub, and creative growth."
 };
 
+export const revalidate = 60;
+
 async function getPosts() {
   if (!isSanityConfigured) return [];
   return sanityFetch<PostCardType[]>(allPostsQuery);
