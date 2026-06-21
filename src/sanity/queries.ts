@@ -10,11 +10,21 @@ const imageFields = `
 const galleryImageFields = `
   _key,
   asset,
-  "url": asset->url,
+  "url": coalesce(asset->url, asset.url),
   "width": asset->metadata.dimensions.width,
   "height": asset->metadata.dimensions.height,
   alt,
   caption
+`;
+
+const coverImageFields = `
+  _key,
+  alt,
+  caption,
+  asset,
+  "url": coalesce(asset->url, asset.url),
+  "width": asset->metadata.dimensions.width,
+  "height": asset->metadata.dimensions.height
 `;
 
 // Blog content status (not Sanity document publish state).
@@ -164,7 +174,7 @@ export const recentPostsQuery = groq`
     "slug": slug.current,
     publishedAt,
     excerpt,
-    coverImage{${imageFields}},
+    coverImage{${coverImageFields}},
     category,
     tags,
     readingTime,
@@ -179,7 +189,7 @@ export const allPostsQuery = groq`
     "slug": slug.current,
     publishedAt,
     excerpt,
-    coverImage{${imageFields}},
+    coverImage{${coverImageFields}},
     category,
     tags,
     readingTime,
@@ -195,7 +205,7 @@ export const postBySlugQuery = groq`
     publishedAt,
     excerpt,
     content,
-    coverImage{${imageFields}},
+    coverImage{${coverImageFields}},
     category,
     tags,
     readingTime,

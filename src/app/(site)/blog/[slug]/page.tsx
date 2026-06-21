@@ -6,6 +6,7 @@ import { postBySlugQuery } from "@/sanity/queries";
 import { isSanityConfigured } from "@/sanity/env";
 import type { PostDetail } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
+import { hasImage } from "@/lib/image";
 import { ImageBox } from "@/components/ImageBox";
 import { PortableContent } from "@/components/PortableContent";
 
@@ -59,17 +60,23 @@ export default async function BlogPostPage({ params }: Props) {
         ) : null}
       </section>
 
-      <section className="mx-auto max-w-5xl px-5">
-        <ImageBox
-          image={post.coverImage}
-          altFallback={post.title}
-          width={1400}
-          height={800}
-          className="h-auto w-full object-cover"
-        />
-      </section>
+      {hasImage(post.coverImage) ? (
+        <section className="mx-auto max-w-5xl px-5 pb-10">
+          <ImageBox
+            image={post.coverImage}
+            altFallback={post.title}
+            width={post.coverImage?.width ?? 1400}
+            height={post.coverImage?.height ?? 800}
+            hideIfMissing
+            className="h-auto max-h-[520px] w-full object-cover"
+          />
+          {post.coverImage?.caption ? (
+            <p className="mt-3 text-sm leading-6 text-brand-body">{post.coverImage.caption}</p>
+          ) : null}
+        </section>
+      ) : null}
 
-      <section className="mx-auto max-w-3xl px-5 py-14">
+      <section className="mx-auto max-w-3xl px-5 pb-14 pt-4">
         <PortableContent value={post.content} />
       </section>
     </main>

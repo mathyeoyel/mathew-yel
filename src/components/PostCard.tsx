@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { PostCard as PostCardType } from "@/types/content";
 import { formatDate } from "@/lib/formatDate";
+import { hasImage } from "@/lib/image";
 import { ImageBox } from "./ImageBox";
 
 type Props = {
@@ -8,17 +9,35 @@ type Props = {
   compact?: boolean;
 };
 
+function PostCoverImage({
+  post,
+  className
+}: {
+  post: PostCardType;
+  className: string;
+}) {
+  if (!hasImage(post.coverImage)) {
+    return null;
+  }
+
+  return (
+    <Link href={`/blog/${post.slug}`}>
+      <ImageBox
+        image={post.coverImage}
+        altFallback={post.title}
+        width={post.coverImage?.width}
+        height={post.coverImage?.height}
+        className={className}
+      />
+    </Link>
+  );
+}
+
 export function PostCard({ post, compact = false }: Props) {
   if (compact) {
     return (
       <article className="card flex h-full flex-col overflow-hidden">
-        <Link href={`/blog/${post.slug}`}>
-          <ImageBox
-            image={post.coverImage}
-            altFallback={post.title}
-            className="h-40 w-full object-cover"
-          />
-        </Link>
+        <PostCoverImage post={post} className="h-40 w-full object-cover" />
         <div className="flex flex-1 flex-col p-4">
           <div className="flex flex-wrap gap-2 text-[0.6875rem] font-bold uppercase tracking-wide text-brand-muted">
             {post.category ? <span>{post.category}</span> : null}
@@ -38,14 +57,8 @@ export function PostCard({ post, compact = false }: Props) {
   }
 
   return (
-    <article className="card">
-      <Link href={`/blog/${post.slug}`}>
-        <ImageBox
-          image={post.coverImage}
-          altFallback={post.title}
-          className="h-52 w-full object-cover"
-        />
-      </Link>
+    <article className="card overflow-hidden">
+      <PostCoverImage post={post} className="h-52 w-full object-cover" />
       <div className="p-6">
         <div className="flex flex-wrap gap-3 text-xs font-bold uppercase tracking-wide text-brand-muted">
           {post.category ? <span>{post.category}</span> : null}
