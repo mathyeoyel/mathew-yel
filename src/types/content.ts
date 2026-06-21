@@ -72,6 +72,8 @@ export type ActivityCard = {
   shortDescription?: string;
   coverImage?: ImageWithAlt;
   featured?: boolean;
+  showOnHomepage?: boolean;
+  homepageOrder?: number;
 };
 
 export type ActivityDetail = ActivityCard & {
