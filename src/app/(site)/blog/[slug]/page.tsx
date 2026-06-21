@@ -61,18 +61,23 @@ export default async function BlogPostPage({ params }: Props) {
       </section>
 
       {hasImage(post.coverImage) ? (
-        <section className="mx-auto max-w-5xl px-5 pb-10">
-          <ImageBox
-            image={post.coverImage}
-            altFallback={post.title}
-            width={post.coverImage?.width ?? 1400}
-            height={post.coverImage?.height ?? 800}
-            hideIfMissing
-            className="h-auto max-h-[520px] w-full object-cover"
-          />
-          {post.coverImage?.caption ? (
-            <p className="mt-3 text-sm leading-6 text-brand-body">{post.coverImage.caption}</p>
-          ) : null}
+        <section className="mx-auto max-w-4xl px-5 pb-10">
+          <figure className="post-cover-detail">
+            <ImageBox
+              image={post.coverImage}
+              altFallback={post.title}
+              width={post.coverImage?.width ?? 1400}
+              height={post.coverImage?.height ?? 800}
+              fit="max"
+              hideIfMissing
+              className="mx-auto h-auto w-full max-h-[420px] object-contain md:max-h-[520px]"
+            />
+            {post.coverImage?.caption ? (
+              <figcaption className="mt-3 text-sm leading-6 text-brand-body">
+                {post.coverImage.caption}
+              </figcaption>
+            ) : null}
+          </figure>
         </section>
       ) : null}
 

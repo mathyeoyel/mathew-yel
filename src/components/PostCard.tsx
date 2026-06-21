@@ -11,24 +11,27 @@ type Props = {
 
 function PostCoverImage({
   post,
-  className
+  compact = false
 }: {
   post: PostCardType;
-  className: string;
+  compact?: boolean;
 }) {
   if (!hasImage(post.coverImage)) {
     return null;
   }
 
   return (
-    <Link href={`/blog/${post.slug}`}>
-      <ImageBox
-        image={post.coverImage}
-        altFallback={post.title}
-        width={post.coverImage?.width}
-        height={post.coverImage?.height}
-        className={className}
-      />
+    <Link href={`/blog/${post.slug}`} className="block bg-brand-light">
+      <div className={compact ? "post-cover-frame post-cover-frame--compact" : "post-cover-frame post-cover-frame--card"}>
+        <ImageBox
+          image={post.coverImage}
+          altFallback={post.title}
+          width={post.coverImage?.width}
+          height={post.coverImage?.height}
+          fit="max"
+          className="max-h-full w-full object-contain"
+        />
+      </div>
     </Link>
   );
 }
@@ -37,7 +40,7 @@ export function PostCard({ post, compact = false }: Props) {
   if (compact) {
     return (
       <article className="card flex h-full flex-col overflow-hidden">
-        <PostCoverImage post={post} className="h-40 w-full object-cover" />
+        <PostCoverImage post={post} compact />
         <div className="flex flex-1 flex-col p-4">
           <div className="flex flex-wrap gap-2 text-[0.6875rem] font-bold uppercase tracking-wide text-brand-muted">
             {post.category ? <span>{post.category}</span> : null}
@@ -58,7 +61,7 @@ export function PostCard({ post, compact = false }: Props) {
 
   return (
     <article className="card overflow-hidden">
-      <PostCoverImage post={post} className="h-52 w-full object-cover" />
+      <PostCoverImage post={post} />
       <div className="p-6">
         <div className="flex flex-wrap gap-3 text-xs font-bold uppercase tracking-wide text-brand-muted">
           {post.category ? <span>{post.category}</span> : null}
