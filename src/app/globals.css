@@ -193,6 +193,40 @@ a {
   color: #ffffff;
 }
 
+.project-gallery-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-border-light) transparent;
+}
+
+.project-gallery-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.project-gallery-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-brand-border-light);
+}
+
+@media (max-width: 767px) {
+  .project-gallery-scroll {
+    margin-inline: -1.25rem;
+    padding-inline: 1.25rem;
+    scroll-padding-inline: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .project-gallery-scroll {
+    scroll-snap-type: none;
+  }
+}
+
+.project-gallery-item {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
 .mobile-nav-toggle {
   display: inline-flex;
   align-items: center;
