@@ -1,11 +1,29 @@
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "sanity";
-import Image from "next/image";
-import { urlFor } from "@/sanity/image";
+import { ImageBox } from "@/components/ImageBox";
 
 type Props = {
   value?: PortableTextBlock[];
 };
+
+type PortableImageValue = {
+  asset?: unknown;
+  alt?: string;
+  caption?: string;
+};
+
+function getPortableImageDimensions(value: PortableImageValue) {
+  const asset = value.asset as
+    | {
+        metadata?: { dimensions?: { width?: number; height?: number } };
+      }
+    | undefined;
+
+  const width = asset?.metadata?.dimensions?.width ?? 1200;
+  const height = asset?.metadata?.dimensions?.height ?? Math.round(width * 0.75);
+
+  return { width, height };
+}
 
 export function PortableContent({ value }: Props) {
   if (!value?.length) return null;
@@ -18,19 +36,28 @@ export function PortableContent({ value }: Props) {
           types: {
             image: ({ value }) => {
               if (!value?.asset) return null;
+
+              const { width, height } = getPortableImageDimensions(value);
+
               return (
-                <figure className="my-8 overflow-hidden border border-brand-border-light bg-white">
-                  <Image
-                    src={urlFor(value).width(1200).height(700).fit("crop").url()}
-                    alt={value.alt || ""}
-                    width={1200}
-                    height={700}
-                    className="h-auto w-full object-cover"
-                  />
+                <figure className="portable-image">
+                  <div className="portable-image-frame">
+                    <ImageBox
+                      image={{
+                        asset: value.asset,
+                        alt: value.alt,
+                        width,
+                        height
+                      }}
+                      altFallback="Case study image"
+                      width={width}
+                      height={height}
+                      fit="max"
+                      className="portable-image__img"
+                    />
+                  </div>
                   {value.caption ? (
-                    <figcaption className="px-4 py-3 text-sm text-brand-body">
-                      {value.caption}
-                    </figcaption>
+                    <figcaption className="portable-image-caption">{value.caption}</figcaption>
                   ) : null}
                 </figure>
               );

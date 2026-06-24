@@ -31,6 +31,34 @@ a {
   margin-top: 0;
 }
 
+.portable-image {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.portable-image-frame {
+  width: 100%;
+  height: auto;
+  background: #f7f7f5;
+  border: 1px solid #e5e5e5;
+  overflow: visible;
+}
+
+.portable-image__img,
+.portable-image-frame img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.portable-image-caption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-brand-body);
+}
+
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;

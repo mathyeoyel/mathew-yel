@@ -31,6 +31,10 @@ function resolveImageUrl(
   }
 
   if (image.asset && isSanityConfigured) {
+    if (fit === "max") {
+      return urlFor(image).width(width).fit("max").url();
+    }
+
     return urlFor(image).width(width).height(height).fit(fit).url();
   }
 
