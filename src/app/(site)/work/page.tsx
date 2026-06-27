@@ -3,7 +3,7 @@ import { allProjectsQuery } from "@/sanity/queries";
 import { isSanityConfigured } from "@/sanity/env";
 import type { ProjectCard as ProjectCardType } from "@/types/content";
 import { SectionHeader } from "@/components/SectionHeader";
-import { ProjectCard } from "@/components/ProjectCard";
+import { WorkBrowser } from "@/components/WorkBrowser";
 
 export const metadata = {
   title: "Work",
@@ -29,13 +29,7 @@ export default async function WorkPage() {
         description="A collection of digital products, websites, platforms, and creative systems I have designed, built, or contributed to."
       />
 
-      {projects.length ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project._id} project={project} />
-          ))}
-        </div>
-      ) : (
+      {projects.length ? <WorkBrowser projects={projects} /> : (
         <div className="empty-state">
           Add projects in Sanity Studio to fill this page.
         </div>

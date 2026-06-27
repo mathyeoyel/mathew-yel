@@ -45,9 +45,13 @@ export type ProjectCard = {
   role?: string;
   status?: string;
   category?: string;
+  categories?: string[];
   tags?: string[];
   technologies?: string[];
   projectUrl?: string;
+  featured?: boolean;
+  displayOrder?: number;
+  startDate?: string;
 };
 
 export type ProjectDetail = ProjectCard & {

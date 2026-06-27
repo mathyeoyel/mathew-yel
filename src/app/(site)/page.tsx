@@ -92,14 +92,14 @@ export default async function HomePage() {
 
           {projects.length ? (
             <div className="home-scroll-row home-scroll-row--cols-3">
-              {projects.slice(0, 3).map((project) => (
+              {projects.map((project) => (
                 <ProjectCard key={project._id} project={project} compact />
               ))}
               <div className="home-scroll-row-end md:hidden" aria-hidden="true" />
             </div>
           ) : (
             <div className="empty-state">
-              Enable Show on homepage for up to 3 projects in Sanity Studio to feature them here.
+              Enable Show on homepage for projects in Sanity Studio to feature them here.
             </div>
           )}
 

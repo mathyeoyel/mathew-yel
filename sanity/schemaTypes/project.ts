@@ -47,21 +47,46 @@ export const project = defineType({
     defineField({ name: "projectUrl", title: "Project URL", type: "url" }),
     defineField({ name: "client", title: "Client / organization", type: "string" }),
     defineField({
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: [
+          { title: "Digital Products", value: "Digital Products" },
+          { title: "Websites", value: "Websites" },
+          { title: "Brand Identity", value: "Brand Identity" },
+          { title: "Print Materials", value: "Print Materials" },
+          { title: "UI/UX", value: "UI/UX" },
+          { title: "Community Platforms", value: "Community Platforms" }
+        ],
+        layout: "grid"
+      },
+      description:
+        "Select all categories this project belongs to. Use tags for deliverables like Company Profile, Business Cards, Letterhead, Staff ID, Pull-up Banner, etc."
+    }),
+    defineField({
       name: "category",
-      title: "Category",
+      title: "Legacy category",
       type: "string",
       options: {
         list: [
+          "Digital Products",
+          "Websites",
+          "Brand Identity",
+          "Print Materials",
+          "UI/UX",
+          "Community Platforms",
           "Product",
           "Website",
           "Branding",
           "Community Platform",
-          "Client Work",
-          "UI/UX",
           "CMS",
+          "Client Work",
           "Startup"
         ]
-      }
+      },
+      description: "Kept for older projects. Prefer Categories for new work."
     }),
     defineField({ name: "technologies", title: "Technologies / tools", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "tags", title: "Tags", type: "array", of: [{ type: "string" }] }),
@@ -78,15 +103,14 @@ export const project = defineType({
       title: "Show on homepage",
       type: "boolean",
       initialValue: false,
-      description:
-        "Enable this to feature this project on the homepage. Only 3 projects should be selected at a time.",
+      description: "Enable this to feature this project on the homepage.",
       fieldset: "homepageDisplay"
     }),
     defineField({
       name: "homepageOrder",
       title: "Homepage order",
       type: "number",
-      description: "Controls order on the homepage. Use 1, 2, or 3.",
+      description: "Controls order on the homepage. Use lower numbers for earlier placement.",
       hidden: ({ document }) => !document?.showOnHomepage,
       fieldset: "homepageDisplay",
       validation: (Rule) =>
@@ -101,8 +125,8 @@ export const project = defineType({
             return "Homepage order is required when Show on homepage is enabled.";
           }
 
-          if (value < 1 || value > 3) {
-            return "Use 1, 2, or 3 for homepage order.";
+          if (value < 1) {
+            return "Homepage order must be 1 or higher.";
           }
 
           return true;

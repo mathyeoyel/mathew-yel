@@ -91,7 +91,7 @@ export const siteSettingsQuery = groq`
 
 export const homepageProjectsQuery = groq`
   *[_type == "project" && showOnHomepage == true]
-  | order(homepageOrder asc, startDate desc, title asc)[0...3]{
+  | order(coalesce(homepageOrder, 999) asc, startDate desc, title asc){
     _id,
     title,
     "slug": slug.current,
@@ -99,13 +99,17 @@ export const homepageProjectsQuery = groq`
     coverImage{${imageFields}},
     status,
     category,
+    categories,
     tags,
-    projectUrl
+    projectUrl,
+    featured,
+    displayOrder,
+    startDate
   }
 `;
 
 export const allProjectsQuery = groq`
-  *[_type == "project"] | order(featured desc, startDate desc, title asc){
+  *[_type == "project"] | order(featured desc, coalesce(displayOrder, 999) asc, startDate desc, title asc){
     _id,
     title,
     "slug": slug.current,
@@ -114,9 +118,13 @@ export const allProjectsQuery = groq`
     role,
     status,
     category,
+    categories,
     tags,
     technologies,
-    projectUrl
+    projectUrl,
+    featured,
+    displayOrder,
+    startDate
   }
 `;
 
@@ -136,6 +144,7 @@ export const projectBySlugQuery = groq`
     projectUrl,
     client,
     category,
+    categories,
     technologies,
     tags,
     featured,

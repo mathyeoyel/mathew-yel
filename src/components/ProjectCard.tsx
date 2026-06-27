@@ -1,11 +1,56 @@
 import Link from "next/link";
 import type { ProjectCard as ProjectCardType } from "@/types/content";
+import { getProjectDisplayCategories } from "@/lib/workCategories";
 import { ImageBox } from "./ImageBox";
 
 type Props = {
   project: ProjectCardType;
   compact?: boolean;
 };
+
+const MAX_CATEGORY_CHIPS = 2;
+
+function getProjectYear(startDate?: string): string | null {
+  if (!startDate) return null;
+
+  const year = new Date(startDate).getFullYear();
+  return Number.isNaN(year) ? null : String(year);
+}
+
+function CategoryChips({ project }: { project: ProjectCardType }) {
+  const categories = getProjectDisplayCategories(project);
+  const visibleCategories = categories.slice(0, MAX_CATEGORY_CHIPS);
+  const hiddenCount = categories.length - visibleCategories.length;
+
+  if (!visibleCategories.length) {
+    return null;
+  }
+
+  return (
+    <>
+      {visibleCategories.map((category) => (
+        <span key={category} className="tag tag-muted">
+          {category}
+        </span>
+      ))}
+      {hiddenCount > 0 ? (
+        <span className="tag tag-muted">+{hiddenCount} more</span>
+      ) : null}
+    </>
+  );
+}
+
+function ProjectMeta({ project }: { project: ProjectCardType }) {
+  const year = getProjectYear(project.startDate);
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      <CategoryChips project={project} />
+      {project.status ? <span className="tag tag-muted">{project.status}</span> : null}
+      {year ? <span className="tag tag-muted">{year}</span> : null}
+    </div>
+  );
+}
 
 export function ProjectCard({ project, compact = false }: Props) {
   if (compact) {
@@ -19,10 +64,7 @@ export function ProjectCard({ project, compact = false }: Props) {
           />
         </Link>
         <div className="flex flex-1 flex-col p-4">
-          <div className="flex flex-wrap gap-2">
-            {project.category ? <span className="tag tag-muted">{project.category}</span> : null}
-            {project.status ? <span className="tag tag-muted">{project.status}</span> : null}
-          </div>
+          <ProjectMeta project={project} />
           <h3 className="mt-3 text-base font-black leading-snug tracking-tight text-brand-deep">
             <Link href={`/work/${project.slug}`} className="hover:text-brand-accent">
               {project.title}
@@ -44,14 +86,11 @@ export function ProjectCard({ project, compact = false }: Props) {
         <ImageBox
           image={project.coverImage}
           altFallback={project.title}
-          className="h-56 w-full object-cover"
+          className="h-52 w-full object-cover md:h-56"
         />
       </Link>
-      <div className="p-6">
-        <div className="flex flex-wrap gap-2">
-          {project.category ? <span className="tag tag-muted">{project.category}</span> : null}
-          {project.status ? <span className="tag tag-muted">{project.status}</span> : null}
-        </div>
+      <div className="p-5 md:p-6">
+        <ProjectMeta project={project} />
         <h3 className="mt-4 text-xl font-black tracking-tight text-brand-deep">
           <Link href={`/work/${project.slug}`} className="hover:text-brand-accent">
             {project.title}
