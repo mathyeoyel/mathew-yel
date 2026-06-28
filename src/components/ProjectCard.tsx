@@ -6,6 +6,10 @@ import { ImageBox } from "./ImageBox";
 type Props = {
   project: ProjectCardType;
   compact?: boolean;
+  className?: string;
+  clampSummary?: boolean;
+  variant?: "default" | "featured-carousel";
+  showReadMore?: boolean;
 };
 
 const MAX_CATEGORY_CHIPS = 2;
@@ -52,10 +56,56 @@ function ProjectMeta({ project }: { project: ProjectCardType }) {
   );
 }
 
-export function ProjectCard({ project, compact = false }: Props) {
+export function ProjectCard({
+  project,
+  compact = false,
+  className = "",
+  clampSummary = true,
+  variant = "default",
+  showReadMore = false
+}: Props) {
+  if (variant === "featured-carousel") {
+    return (
+      <article
+        className={`card flex flex-col overflow-hidden transition hover:border-brand-accent ${className}`.trim()}
+      >
+        <Link href={`/work/${project.slug}`}>
+          <ImageBox
+            image={project.coverImage}
+            altFallback={project.title}
+            className="h-40 w-full object-cover"
+          />
+        </Link>
+        <div className="flex flex-col p-5">
+          <ProjectMeta project={project} />
+          <h3 className="mt-3 line-clamp-2 min-h-[3.25rem] text-lg font-black leading-snug tracking-tight text-brand-deep">
+            <Link href={`/work/${project.slug}`} className="hover:text-brand-accent">
+              {project.title}
+            </Link>
+          </h3>
+          {project.summary ? (
+            <p className="mt-1 line-clamp-3 min-h-[4.5rem] text-sm leading-6 text-brand-body">
+              {project.summary}
+            </p>
+          ) : null}
+          {showReadMore ? (
+            <Link
+              href={`/work/${project.slug}`}
+              className="link-accent mt-4 text-sm font-semibold"
+            >
+              Read more →
+            </Link>
+          ) : null}
+        </div>
+      </article>
+    );
+  }
+
   if (compact) {
     return (
-      <article className="card flex h-full flex-col overflow-hidden transition hover:border-brand-accent">
+      <article
+        className={`card flex h-full flex-col overflow-hidden transition hover:border-brand-accent ${className}`.trim()}
+      >
         <Link href={`/work/${project.slug}`}>
           <ImageBox
             image={project.coverImage}
@@ -71,7 +121,9 @@ export function ProjectCard({ project, compact = false }: Props) {
             </Link>
           </h3>
           {project.summary ? (
-            <p className="mt-2 line-clamp-2 text-sm leading-6 text-brand-body">
+            <p
+              className={`mt-2 text-sm leading-6 text-brand-body${clampSummary ? " line-clamp-2" : ""}`}
+            >
               {project.summary}
             </p>
           ) : null}
@@ -81,7 +133,9 @@ export function ProjectCard({ project, compact = false }: Props) {
   }
 
   return (
-    <article className="card transition hover:border-brand-accent">
+    <article
+      className={`card flex h-full flex-col transition hover:border-brand-accent ${className}`.trim()}
+    >
       <Link href={`/work/${project.slug}`}>
         <ImageBox
           image={project.coverImage}
@@ -89,7 +143,7 @@ export function ProjectCard({ project, compact = false }: Props) {
           className="h-52 w-full object-cover md:h-56"
         />
       </Link>
-      <div className="p-5 md:p-6">
+      <div className="flex flex-1 flex-col p-5 md:p-6">
         <ProjectMeta project={project} />
         <h3 className="mt-4 text-xl font-black tracking-tight text-brand-deep">
           <Link href={`/work/${project.slug}`} className="hover:text-brand-accent">
@@ -97,7 +151,9 @@ export function ProjectCard({ project, compact = false }: Props) {
           </Link>
         </h3>
         {project.summary ? (
-          <p className="mt-3 line-clamp-3 text-sm leading-7 text-brand-body">
+          <p
+            className={`mt-3 text-sm leading-7 text-brand-body${clampSummary ? " line-clamp-3" : ""}`}
+          >
             {project.summary}
           </p>
         ) : null}

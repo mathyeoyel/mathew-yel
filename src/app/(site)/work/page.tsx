@@ -2,7 +2,6 @@ import { sanityFetch } from "@/sanity/client";
 import { allProjectsQuery } from "@/sanity/queries";
 import { isSanityConfigured } from "@/sanity/env";
 import type { ProjectCard as ProjectCardType } from "@/types/content";
-import { SectionHeader } from "@/components/SectionHeader";
 import { WorkBrowser } from "@/components/WorkBrowser";
 
 export const metadata = {
@@ -22,12 +21,12 @@ export default async function WorkPage() {
   const projects = await getProjects();
 
   return (
-    <main className="mx-auto max-w-6xl px-5 py-20">
-      <SectionHeader
-        eyebrow="Work"
-        title="Projects and case studies."
-        description="A collection of digital products, websites, platforms, and creative systems I have designed, built, or contributed to."
-      />
+    <main className="mx-auto max-w-6xl px-5 py-8 md:py-16">
+      <header className="mb-6 md:mb-10">
+        <h1 className="text-4xl font-black leading-tight tracking-tight text-brand-deep md:text-6xl">
+          Works
+        </h1>
+      </header>
 
       {projects.length ? <WorkBrowser projects={projects} /> : (
         <div className="empty-state">

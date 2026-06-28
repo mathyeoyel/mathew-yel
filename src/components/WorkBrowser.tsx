@@ -36,13 +36,17 @@ export function WorkBrowser({ projects }: Props) {
             <h2 id="featured-work-heading" className="work-browser-heading">
               Featured Work
             </h2>
-            <p className="work-browser-subheading">
-              Selected projects that represent the breadth of my design and product work.
-            </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="-mx-5 flex items-start gap-5 overflow-x-auto overflow-y-visible px-5 pb-3 no-scrollbar snap-x snap-mandatory md:mx-0 md:grid md:grid-cols-2 md:items-stretch md:gap-6 md:px-0 md:pb-0 md:overflow-visible lg:grid-cols-3">
             {featuredProjects.map((project) => (
-              <ProjectCardComponent key={project._id} project={project} />
+              <div key={project._id} className="flex min-w-[82%] snap-start md:min-w-0">
+                <ProjectCardComponent
+                  project={project}
+                  variant="featured-carousel"
+                  showReadMore
+                  className="h-full w-full"
+                />
+              </div>
             ))}
           </div>
         </section>
@@ -53,9 +57,6 @@ export function WorkBrowser({ projects }: Props) {
           <h2 id="browse-work-heading" className="work-browser-heading">
             Browse work
           </h2>
-          <p className="work-browser-subheading">
-            Filter by category to explore digital products, websites, brand identity, and more.
-          </p>
         </div>
 
         <div className="work-filter-scroll no-scrollbar">
